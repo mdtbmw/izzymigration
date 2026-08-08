@@ -146,12 +146,19 @@ export default async function handler(req, res) {
     try {
       return await new Promise((resolve) => {
         let body = "";
+        let finished = false;
+        const done = () => {
+          if (!finished) {
+            finished = true;
+            resolve(body);
+          }
+        };
         req.on("data", (c) => {
-          body += c;
-          if (body.length > 10_000) req.destroy();
+          if (body.length < 10_000) body += c;
         });
-        req.on("end", () => resolve(body));
-        req.on("error", () => resolve(""));
+        req.on("end", done);
+        req.on("error", done);
+        req.on("close", done);
       });
     } catch {
       return "";
