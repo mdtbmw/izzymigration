@@ -303,7 +303,7 @@ h6 {
   --rr-fs-body: 16px;
   --rr-fs-body2: 18px;
   --rr-fs-p: 16px;
-  --rr-fs-h1: 80px;
+  --rr-fs-h1: 58px;
   --rr-fs-h2: 50px;
   --rr-fs-h3: 30px;
   --rr-fs-h4: 24px;
@@ -6665,38 +6665,38 @@ body .ui-tooltip {
 }
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .banner-home__content h1 {
-    font-size: 65px;
-    line-height: 70px;
+    font-size: 52px;
+    line-height: 62px;
   }
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .banner-home__content h1 {
-    font-size: 58px;
-    line-height: 78px;
+    font-size: 46px;
+    line-height: 58px;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 992px) {
-  .banner-home__content h1 {
-    font-size: 48px;
-    line-height: 60px;
-  }
-}
-@media only screen and (min-width: 576px) and (max-width: 768px) {
   .banner-home__content h1 {
     font-size: 40px;
     line-height: 52px;
   }
 }
+@media only screen and (min-width: 576px) and (max-width: 768px) {
+  .banner-home__content h1 {
+    font-size: 36px;
+    line-height: 46px;
+  }
+}
 @media (max-width: 575px) {
   .banner-home__content h1 {
-    font-size: 30px;
-    line-height: 42px;
+    font-size: 28px;
+    line-height: 38px;
   }
 }
 @media (max-width:450px) {
   .banner-home__content h1 {
-    font-size: 27px;
-    line-height: 37px;
+    font-size: 24px;
+    line-height: 34px;
   }
 }
 .banner-home__content .description p {
@@ -6840,13 +6840,13 @@ body .ui-tooltip {
 }
 
 .banner-wrap {
-  max-width: 1830px;
+  max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 0 15px;
   border-radius: 50px;
 }
-@media (max-width: 1820px) {
+@media (max-width: 1400px) {
   .banner-wrap {
     border-radius: 0;
   }
