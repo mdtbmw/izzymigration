@@ -12849,8 +12849,6 @@ body .ui-tooltip {
 .adventure__item-icon img {
   width: 70px;
   height: 70px;
-  border: 1px solid var(--rr-theme-primary);
-  border-radius: 50%;
 }
 .adventure__item-content h3 {
   font-family: var(--rr-ff-heading);
@@ -15854,8 +15852,8 @@ body .ui-tooltip {
   display: block;
   min-height: 550px;
 }
-.project-three__single-inner:hover .project-small-img img {
-  transform: rotate(360deg);
+.project-three__single-inner:hover .project-three__single-img {
+  transform: scale(1.05);
 }
 .project-three__single-content {
   background: #050548;
@@ -15994,20 +15992,6 @@ body .ui-tooltip {
   z-index: 1;
   max-height: 422px;
   border-radius: 20px;
-}
-
-.project-small-img {
-  position: absolute;
-  margin-right: 20px;
-  margin-top: 20px;
-  right: 0;
-  z-index: 2;
-}
-.project-small-img img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  border: 1px solid var(--rr-theme-primary);
 }
 
 .slide-height {
