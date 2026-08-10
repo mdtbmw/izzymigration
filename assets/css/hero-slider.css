@@ -257,27 +257,25 @@
     margin-right: auto;
   }
 
-  /* Full-width button wrapper, buttons side by side filling width */
+  /* Full-width stacked buttons */
   .banner-home-slider .banner-home__btn__wrapper {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     gap: 12px;
     width: 100%;
-    padding: 0 16px;
+    padding: 0 20px;
     box-sizing: border-box;
   }
 
-  /* Full-width buttons */
+  /* Each button full width */
   .banner-home-slider .banner-home__btn__wrapper .rr-btn {
-    flex: 1 1 calc(50% - 6px);
-    min-width: 0;
-    width: calc(50% - 6px);
+    width: 100%;
     text-align: center;
     justify-content: center;
     padding-left: 10px;
     padding-right: 10px;
-    font-size: 14px;
+    font-size: 15px;
   }
 
   /* Shape centered below text */
