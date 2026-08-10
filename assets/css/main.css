@@ -3246,8 +3246,8 @@ textarea {
 /*----------------------------------------*/
 .backtotop-wrap {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 88px;
+  right: 29px;
   height: 46px;
   overflow: hidden;
   width: 46px;
@@ -3267,10 +3267,17 @@ textarea {
   transition: all 400ms linear;
   background: var(--rr-theme-primary);
 }
-@media (max-width:450px) {
+@media (max-width:575px) {
   .backtotop-wrap {
-    bottom: 20px;
-    right: 20px;
+    bottom: 76px;
+    right: 26px;
+    height: 42px;
+    width: 42px;
+  }
+  .backtotop-wrap::after {
+    line-height: 42px;
+    height: 42px;
+    width: 42px;
   }
 }
 .backtotop-wrap.active-progress {

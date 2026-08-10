@@ -214,6 +214,9 @@
 }
 
 /* Compact paddings + hide towers when stacked */
+/*----------------------------------------*/
+/*  Mobile — center everything
+/*----------------------------------------*/
 @media (max-width: 767px) {
   .banner-home-slider .padding-space {
     padding-bottom: 100px;
@@ -221,6 +224,66 @@
   .banner-home-slider .banner-home__shape .right-tower,
   .banner-home-slider .banner-home__all-shape .left-tower {
     display: none;
+  }
+
+  /* Center all slide content */
+  .banner-home-slider .banner-home__content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Center heading */
+  .banner-home-slider .banner-home__content .title,
+  .banner-home-slider .banner-home__content h1,
+  .banner-home-slider .banner-home__content h2 {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Center subtitle / description */
+  .banner-home-slider .banner-home__content .description,
+  .banner-home-slider .banner-home__content .description p {
+    text-align: center;
+  }
+
+  /* Center badge / tag lines above heading */
+  .banner-home-slider .banner-home__content .subtitle,
+  .banner-home-slider .banner-home__content .banner-tag {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Full-width button wrapper, buttons side by side filling width */
+  .banner-home-slider .banner-home__btn__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
+  /* Full-width buttons */
+  .banner-home-slider .banner-home__btn__wrapper .rr-btn {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 0;
+    width: calc(50% - 6px);
+    text-align: center;
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 14px;
+  }
+
+  /* Shape centered below text */
+  .banner-home-slider .banner-home__shape {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
