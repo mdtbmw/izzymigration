@@ -3245,16 +3245,16 @@ textarea {
 /*  2.10 backtotop
 /*----------------------------------------*/
 .backtotop-wrap {
-  position: fixed;
-  bottom: 100px;
-  right: 22px;
+  position: fixed !important;
+  bottom: 160px !important;
+  right: 22px !important;
   height: 46px;
   overflow: hidden;
   width: 46px;
   cursor: pointer;
   display: block;
   border-radius: 50px;
-  z-index: 9999;
+  z-index: 99999 !important;
   opacity: 0;
   visibility: hidden;
   -webkit-transform: translateY(20px);
@@ -3269,8 +3269,8 @@ textarea {
 }
 @media (max-width:575px) {
   .backtotop-wrap {
-    bottom: 86px;
-    right: 16px;
+    bottom: 140px !important;
+    right: 16px !important;
     height: 42px;
     width: 42px;
   }
