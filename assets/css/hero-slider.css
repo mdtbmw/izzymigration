@@ -1,0 +1,296 @@
+/*============================================
+  Hero Slider (Home page)
+  Converts the static banner into a Swiper slider
+  with one full-width slide per message.
+============================================*/
+
+.banner-home-slider {
+  width: 100%;
+}
+
+.banner-home-slider .swiper-slide {
+  width: 100%;
+  height: auto;
+}
+
+/* Slide content fills the rounded banner container */
+.banner-home-slider .swiper-slide > .banner-wrap {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Readable description text on the dark-green background */
+.banner-home-slider .banner-home__content .description p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* Remove WOW animation leftovers inside the slider (Swiper handles motion) */
+.banner-home-slider .wow {
+  visibility: visible;
+  animation: none;
+}
+
+/*----------------------------------------*/
+/*  CTA button pair
+/*----------------------------------------*/
+.banner-home__btn__wrapper {
+  column-gap: 15px;
+  row-gap: 15px;
+}
+
+.banner-home-slider .rr-btn {
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+/* Primary CTA — gold */
+.banner-home-slider .rr-btn.btn-hero-primary {
+  background-color: var(--rr-theme-primary, #b8860b);
+  border-color: var(--rr-theme-primary, #b8860b);
+}
+
+.banner-home-slider .rr-btn.btn-hero-primary:hover {
+  background-color: var(--rr-heading-primary, #050548);
+  border-color: var(--rr-heading-primary, #050548);
+}
+
+/* Secondary CTA — outlined white */
+.banner-home-slider .rr-btn.btn-hero-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.65);
+  color: var(--rr-common-white, #ffffff);
+}
+
+.banner-home-slider .rr-btn.btn-hero-outline:hover {
+  background: var(--rr-common-white, #ffffff);
+  border-color: var(--rr-common-white, #ffffff);
+  color: var(--rr-heading-primary, #050548);
+}
+
+/*----------------------------------------*/
+/*  Slide visuals — contained inside the card
+/*  The theme's original hero let the man,
+/*  ball and towers bleed outside the rounded
+/*  banner card (negative offsets clipped by
+/*  overflow:hidden). Here every element is
+/*  given an explicit box and positioned so
+/*  it sits fully inside the card.
+/*----------------------------------------*/
+.banner-home-slider .banner-home__shape {
+  height: 585px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+/* Man: centered, standing on the card floor */
+.banner-home-slider .banner-home__shape .man-img {
+  position: static;
+  bottom: auto;
+  left: auto;
+  z-index: 1;
+}
+
+.banner-home-slider .banner-home__shape .man-img img {
+  height: 585px;
+  width: auto;
+  max-width: none;
+  display: block;
+  border-radius: 30px;
+}
+
+/* Gold ball: fills the shape height behind the man */
+.banner-home-slider .banner-home__shape .ball-shape {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-home-slider .banner-home__shape .ball-shape img {
+  height: 100%;
+  width: auto;
+}
+
+/* Towers: scaled down and tucked inside the card */
+.banner-home-slider .banner-home__shape .right-tower {
+  top: 0;
+  right: 0;
+}
+
+.banner-home-slider .banner-home__shape .right-tower img {
+  height: 320px;
+  width: auto;
+}
+
+/* Left tower sat outside the card edge; it cannot be
+   contained without overlapping the text column, so hide it */
+.banner-home-slider .banner-home__all-shape {
+  display: none;
+}
+
+/* Height adjustments per breakpoint */
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+  .banner-home-slider .banner-home__shape {
+    height: 500px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 500px;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .banner-home-slider .banner-home__shape {
+    height: 440px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 440px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .banner-home-slider .banner-home__shape {
+    height: 400px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 400px;
+  }
+}
+
+/*----------------------------------------*/
+/*  Mobile — shape flows below the text
+/*----------------------------------------*/
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .banner-home-slider .banner-home__shape {
+    position: relative;
+    top: auto;
+    height: 420px;
+    margin-top: 60px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 420px;
+  }
+}
+
+@media (max-width: 575px) {
+  .banner-home-slider .banner-home__shape {
+    position: relative;
+    top: auto;
+    height: 380px;
+    margin-top: 50px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 380px;
+  }
+}
+
+@media (max-width: 450px) {
+  .banner-home-slider .banner-home__shape {
+    height: 340px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 340px;
+  }
+}
+
+@media (max-width: 376px) {
+  .banner-home-slider .banner-home__shape {
+    height: 300px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 320px) {
+  .banner-home-slider .banner-home__shape {
+    height: 260px;
+  }
+  .banner-home-slider .banner-home__shape .man-img img {
+    height: 260px;
+  }
+}
+
+/* Compact paddings + hide towers when stacked */
+@media (max-width: 767px) {
+  .banner-home-slider .padding-space {
+    padding-bottom: 100px;
+  }
+  .banner-home-slider .banner-home__shape .right-tower,
+  .banner-home-slider .banner-home__all-shape .left-tower {
+    display: none;
+  }
+}
+
+/*----------------------------------------*/
+/*  Navigation arrows
+/*----------------------------------------*/
+.banner-home-slider__nav {
+  width: 56px;
+  height: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.banner-home-slider__nav::after {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--rr-common-white, #ffffff);
+  transition: color 0.3s ease;
+}
+
+.banner-home-slider__nav:hover {
+  background: var(--rr-theme-primary, #b8860b);
+  border-color: var(--rr-theme-primary, #b8860b);
+}
+
+.banner-home-slider__nav.swiper-button-prev {
+  left: 35px;
+}
+
+.banner-home-slider__nav.swiper-button-next {
+  right: 35px;
+}
+
+@media (max-width: 991px) {
+  .banner-home-slider__nav {
+    display: none;
+  }
+}
+
+/*----------------------------------------*/
+/*  Pagination bullets
+/*----------------------------------------*/
+.banner-home-slider .swiper-pagination {
+  bottom: 32px;
+  z-index: 10;
+}
+
+.banner-home-slider .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.45);
+  opacity: 1;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.banner-home-slider .swiper-pagination-bullet-active {
+  width: 32px;
+  background: var(--rr-theme-primary, #b8860b);
+}
+
+@media (max-width: 575px) {
+  .banner-home-slider .swiper-pagination {
+    bottom: 20px;
+  }
+}
