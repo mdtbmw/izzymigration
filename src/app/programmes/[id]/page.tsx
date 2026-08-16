@@ -174,7 +174,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
         </div>
 
         {/* 2-Column Main Content & Sticky Sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start relative">
           {/* Left Column (8 cols): Structured Sections with Imagery */}
           <div className="lg:col-span-8 space-y-12">
             
@@ -362,35 +362,33 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
           </div>
 
           {/* Right Column (4 cols): Sticky Private Client Inquiry Desk */}
-          <div className="lg:col-span-4 space-y-8">
-            <div className="sticky top-28 space-y-6">
-              {/* Form Card */}
-              <div className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-7 shadow-xl">
-                <div className="border-b border-surface-200 pb-4 mb-6">
-                  <span className="chip chip--gold text-[10px] py-0.5 px-2.5 mb-2 inline-block">
-                    Confidential Assessment
-                  </span>
-                  <h3 className="text-lg font-extrabold text-navy-900 font-heading">
-                    Request Programme Dossier
-                  </h3>
-                  <p className="mt-1 text-xs text-ink-light leading-relaxed">
-                    Submit your details for a tailored eligibility evaluation and official statutory fee breakdown for {program.title}.
-                  </p>
-                </div>
-
-                <QuickInquiryForm programTitle={program.title} />
-              </div>
-
-              {/* Verified License Guarantee */}
-              <div className="rounded-2xl border border-gold-400/40 bg-gold-500/10 p-5 text-navy-900">
-                <div className="flex items-center gap-2.5 font-extrabold text-xs text-navy-950 uppercase tracking-wider">
-                  <ShieldCheck size={18} className="text-gold-600" />
-                  Government Direct License
-                </div>
-                <p className="mt-2 text-xs text-ink-dark leading-relaxed">
-                  All due diligence is processed directly through official government Citizenship by Investment Units (CIU) with strict legal privilege.
+          <div className="lg:col-span-4 lg:sticky lg:top-28 self-start space-y-6">
+            {/* Form Card */}
+            <div className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-7 shadow-xl">
+              <div className="border-b border-surface-200 pb-4 mb-6">
+                <span className="chip chip--gold text-[10px] py-0.5 px-2.5 mb-2 inline-block">
+                  Confidential Assessment
+                </span>
+                <h3 className="text-lg font-extrabold text-navy-900 font-heading">
+                  Request Programme Dossier
+                </h3>
+                <p className="mt-1 text-xs text-ink-light leading-relaxed">
+                  Submit your details for a tailored eligibility evaluation and official statutory fee breakdown for {program.title}.
                 </p>
               </div>
+
+              <QuickInquiryForm programTitle={program.title} />
+            </div>
+
+            {/* Verified License Guarantee */}
+            <div className="rounded-2xl border border-gold-400/40 bg-gold-500/10 p-5 text-navy-900">
+              <div className="flex items-center gap-2.5 font-extrabold text-xs text-navy-950 uppercase tracking-wider">
+                <ShieldCheck size={18} className="text-gold-600" />
+                Government Direct License
+              </div>
+              <p className="mt-2 text-xs text-ink-dark leading-relaxed">
+                All due diligence is processed directly through official government Citizenship by Investment Units (CIU) with strict legal privilege.
+              </p>
             </div>
           </div>
         </div>
