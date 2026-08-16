@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download, MessageSquare, ShieldCheck } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Download, MessageSquare } from "lucide-react";
 import { BrochureModal } from "./BrochureModal";
 import { siteConfig } from "@/data/siteConfig";
 
@@ -26,27 +25,25 @@ export function ProgramActionButtons({
   return (
     <>
       <div className={className}>
-        <div className="flex flex-wrap items-center gap-3">
-          <Button
-            variant="gold"
-            size="md"
+        <div className="flex flex-wrap items-center gap-3.5">
+          <button
+            type="button"
             onClick={() => setIsBrochureOpen(true)}
-            className="shadow-md"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold-500 hover:bg-white text-navy-950 px-6 py-3.5 text-xs sm:text-sm font-extrabold shadow-lg transition-all duration-300"
           >
-            <Download className="w-4 h-4 mr-2" />
-            Download Official 2026 Dossier
-          </Button>
+            <Download size={15} />
+            <span>Download Official Dossier</span>
+          </button>
 
-          <Button
+          <a
             href={directWhatsAppUrl}
-            external
-            variant="outline"
-            size="md"
-            className="border-white/30 text-white hover:bg-white/10"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-white/60 bg-white/10 hover:bg-white hover:text-navy-950 text-white px-6 py-3.5 text-xs sm:text-sm font-extrabold backdrop-blur-md shadow-md transition-all duration-300"
           >
-            <MessageSquare className="w-4 h-4 mr-2 text-emerald-400" />
-            WhatsApp Direct Inquiry
-          </Button>
+            <MessageSquare size={15} className="text-gold-400" />
+            <span>WhatsApp Senior Counsel</span>
+          </a>
         </div>
       </div>
 

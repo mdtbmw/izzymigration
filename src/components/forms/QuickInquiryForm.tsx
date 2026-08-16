@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Send, ShieldCheck, AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface QuickInquiryFormProps {
@@ -60,22 +59,22 @@ export function QuickInquiryForm({
 
   if (status === "success") {
     return (
-      <div className={cn("p-6 rounded-2xl bg-emerald-50 border border-emerald-200 text-center", className)}>
-        <div className="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto mb-3">
-          <CheckCircle2 className="w-6 h-6" />
+      <div className={cn("p-6 rounded-2xl bg-gold-500/10 border border-gold-400/40 text-center", className)}>
+        <div className="w-12 h-12 rounded-full bg-navy-950 text-gold-400 flex items-center justify-center mx-auto mb-3 shadow-md border border-gold-400/50">
+          <ShieldCheck className="w-6 h-6" />
         </div>
-        <h4 className="text-base font-bold font-heading text-navy-900 mb-1">
-          Inquiry Submitted
+        <h4 className="text-base font-extrabold font-heading text-navy-900 mb-1">
+          Dossier Request Submitted
         </h4>
-        <p className="text-xs text-body">
-          We will contact you shortly regarding <strong>{programTitle}</strong>.
+        <p className="text-xs text-ink-light">
+          A senior solicitor will contact you shortly with the official statutory fee breakdown for <strong>{programTitle}</strong>.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className={cn("space-y-3", className)}>
+    <form onSubmit={handleSubmit} className={cn("space-y-3.5", className)}>
       <div className="hidden" aria-hidden="true">
         <input
           type="text"
@@ -88,67 +87,65 @@ export function QuickInquiryForm({
       </div>
 
       {status === "error" && (
-        <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+        <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
           <span>{errorMessage}</span>
         </div>
       )}
 
       <div>
-        <label className="block text-xs font-semibold text-navy-900 mb-1">Your Name *</label>
+        <label className="block text-[11.5px] font-bold text-navy-900 mb-1">Full Legal Name *</label>
         <input
           type="text"
           required
           placeholder="e.g. Michael Vance"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-gray-200 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 text-xs outline-none bg-white"
+          className="w-full px-4 py-2.5 rounded-xl border border-surface-200 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 text-xs outline-none bg-surface-50 focus:bg-white transition-colors"
         />
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-navy-900 mb-1">Email *</label>
+        <label className="block text-[11.5px] font-bold text-navy-900 mb-1">Email Address *</label>
         <input
           type="email"
           required
           placeholder="e.g. michael@example.com"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-gray-200 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 text-xs outline-none bg-white"
+          className="w-full px-4 py-2.5 rounded-xl border border-surface-200 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 text-xs outline-none bg-surface-50 focus:bg-white transition-colors"
         />
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-navy-900 mb-1">Phone / WhatsApp *</label>
+        <label className="block text-[11.5px] font-bold text-navy-900 mb-1">Phone / WhatsApp Number *</label>
         <input
           type="tel"
           required
           placeholder="e.g. +1 555 019 2345"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-          className="w-full px-3.5 py-2.5 rounded-lg border border-gray-200 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 text-xs outline-none bg-white"
+          className="w-full px-4 py-2.5 rounded-xl border border-surface-200 focus:border-gold-500 focus:ring-1 focus:ring-gold-500 text-xs outline-none bg-surface-50 focus:bg-white transition-colors"
         />
       </div>
 
-      <Button
+      <button
         type="submit"
-        variant="gold"
-        size="sm"
         disabled={status === "loading"}
-        className="w-full justify-center mt-2"
+        className="w-full flex items-center justify-center gap-2 rounded-xl bg-gold-500 hover:bg-navy-950 hover:text-white text-navy-950 font-extrabold px-5 py-3 text-xs shadow-md transition-all duration-300 mt-2"
       >
         {status === "loading" ? (
           <>
             <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
-            Sending...
+            <span>Processing Request...</span>
           </>
         ) : (
           <>
-            <Send className="w-3.5 h-3.5 mr-1.5" />
-            Request Free Assessment
+            <Send className="w-3.5 h-3.5" />
+            <span>Request Official Fee Dossier</span>
           </>
         )}
-      </Button>
+      </button>
     </form>
   );
 }

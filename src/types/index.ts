@@ -37,6 +37,8 @@ export interface Program {
   country: string;
   flag: string;
   hero: string;
+  lifestyleImage?: string;
+  propertyImage?: string;
   minInvestment: string;
   processing: string;
   intro: string;
@@ -55,56 +57,52 @@ export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
-  category: "Citizenship" | "Residency" | "Real Estate" | "Legal & Tax" | "Global Mobility";
+  category: "Citizenship" | "Residency" | "Real Estate" | "Legal & Tax" | "Global Mobility" | string;
   author: {
     name: string;
     role: string;
     avatar?: string;
   };
-  date: string;
+  date?: string;
+  publishedAt?: string;
   readTime: string;
-  image: string;
+  image?: string;
+  hero?: string;
   featured?: boolean;
-  content: string[];
   tags: string[];
+  content: string[] | string;
+}
+
+export interface Testimonial {
+  id: string;
+  clientName?: string;
+  author?: string;
+  originCountry?: string;
+  origin?: string;
+  programAcquired?: string;
+  targetProgram?: string;
+  year?: string;
+  approvedYear?: number;
+  rating?: number;
+  quote: string;
+  avatar?: string;
+  flag?: string;
 }
 
 export interface CountryInfo {
   code: string;
   name: string;
-  region: Region;
+  region: Region | string;
   flag: string;
   capital: string;
   currency: string;
   passportPower: number;
   visaFreeCountries: number;
-  programTypes: ("Citizenship" | "Residency")[];
+  programTypes: string[];
   startingPrice: string;
   processingTime: string;
   programId: string;
   highlights: string[];
-}
-
-export interface Testimonial {
-  id: string;
-  clientName: string;
-  originCountry: string;
-  programAcquired: string;
-  year: string;
-  quote: string;
-  avatar?: string;
-  rating: number;
-}
-
-export interface LeadSubmission {
-  name: string;
-  email: string;
-  phone?: string;
-  program?: string;
-  subject?: string;
-  message?: string;
-  type?: "contact" | "consultation" | "brochure" | "newsletter" | "assessment";
-  website?: string; // honeypot
 }
 
 export interface FilterState {
@@ -112,5 +110,18 @@ export interface FilterState {
   region: "all" | Region;
   search: string;
   priceSort: "default" | "low-to-high" | "high-to-low";
-  maxBudget?: number;
+}
+
+export interface LeadPayload {
+  name: string;
+  email: string;
+  phone?: string;
+  citizenship?: string;
+  residence?: string;
+  budget?: string;
+  timeframe?: string;
+  familyMembers?: string;
+  programInterest?: string;
+  notes?: string;
+  source?: string;
 }

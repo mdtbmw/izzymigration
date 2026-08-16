@@ -31,7 +31,7 @@ export function ProgrammeGlance() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((p, i) => (
             <Reveal key={p.id} delay={i * 70} className="h-full">
-              <ProgrammeCard program={p} compact />
+              <ProgrammeCard program={p} index={i} compact />
             </Reveal>
           ))}
         </div>

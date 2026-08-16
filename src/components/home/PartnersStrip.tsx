@@ -1,44 +1,35 @@
-"use client";
-
-import React from "react";
+import { assetPath } from "@/lib/brand";
+import { Handshake } from "lucide-react";
 
 export function PartnersStrip() {
-  const partners = [
-    { name: "Investment Migration Council", logo: "/assets/imgs/partners/partner-1.png" },
-    { name: "ICC Commercial Advisory", logo: "/assets/imgs/partners/partner-2.png" },
-    { name: "Caribbean Citizenship Units", logo: "/assets/imgs/partners/partner-3.png" },
-    { name: "CMVM Regulated Funds", logo: "/assets/imgs/partners/partner-4.png" },
-    { name: "Global Private Banking Escrow", logo: "/assets/imgs/partners/partner-5.png" },
-  ];
-
   return (
-    <section className="py-16 bg-[#f4f5f8] border-b border-gray-200/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10 space-y-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-gold-600">
-            Our Strategic Partners
-          </span>
-          <h3 className="text-2xl font-bold font-heading text-navy-900">
-            Trusted Alliances Worldwide
-          </h3>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-80 hover:opacity-100 transition-opacity">
-          {partners.map((p, idx) => (
-            <div
-              key={idx}
-              className="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105"
-            >
-              <img
-                src={p.logo}
-                alt={p.name}
-                className="h-10 md:h-12 w-auto object-contain"
-                onError={(e) => {
-                  (e.target as HTMLElement).style.display = "none";
-                }}
-              />
+    <section className="border-y border-surface-200 bg-white py-14 sm:py-16" aria-label="Strategic Partnership">
+      <div className="container-izzy">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14 text-center md:text-left">
+          <div className="flex items-center gap-4">
+            <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-navy-950 text-gold-400 shadow-md border border-gold-400/30">
+              <Handshake size={28} />
+            </span>
+            <div>
+              <p className="text-[12px] font-extrabold uppercase tracking-[0.25em] text-gold-600">
+                Official Strategic Partner
+              </p>
+              <p className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading tracking-tight mt-0.5">
+                Economiq Advisory Group
+              </p>
             </div>
-          ))}
+          </div>
+
+          <div className="h-12 w-px bg-surface-200 hidden md:block" />
+
+          <div className="flex items-center justify-center p-3 rounded-2xl bg-surface-50 border border-surface-200 shadow-sm px-8 sm:px-10 py-4 sm:py-5 transition-transform duration-300 hover:scale-105">
+            <img
+              src={assetPath("/assets/imgs/brands/economiq_logo.svg")}
+              alt="Economiq Advisory Group"
+              className="h-11 sm:h-14 w-auto object-contain"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -1,148 +1,54 @@
+import type { Metadata } from "next";
+import { PageHero } from "@/components/ui/PageHero";
+import { ProgrammeCatalogue } from "@/components/programmes/ProgrammeCatalogue";
+import { CtaBand } from "@/components/home/CtaBand";
+import { ShieldCheck, Award, Globe, Plane } from "lucide-react";
 
-"use client";
+export const metadata: Metadata = {
+  title: "Citizenship by Investment Programmes | Izzy Immigration",
+  description:
+    "Direct sovereign citizenship and second passports through government-approved investment. St. Kitts & Nevis, Antigua & Barbuda, Dominica, Grenada, Saint Lucia, Malta, Turkey, and Vanuatu.",
+};
 
-import React from "react";
-import Link from "next/link";
+const STATS = [
+  { icon: Award, value: "12", label: "Direct Sovereign Passports" },
+  { icon: Globe, value: "150+", label: "Visa-Free Destinations" },
+  { icon: ShieldCheck, value: "100%", label: "Pre-Vetted Statutory Files" },
+  { icon: Plane, value: "0 Days", label: "Physical Stay Required" },
+];
 
-export default function CitizenshipbyInvestmentPage() {
+export default function CitizenshipPage() {
   return (
-    <main>
+    <>
+      <PageHero
+        title="Citizenship by Investment Programmes"
+        subtitle="Secure a permanent sovereign second passport and lifelong constitutional citizenship for your family through government-approved contributions or luxury real estate."
+        bgImage="/assets/imgs/programs/st-kitts-citizenship.webp"
+        crumb={[{ label: "Citizenship by Investment" }]}
+      />
 
+      <section className="section-space bg-surface-50">
+        <div className="container-izzy">
+          {/* Quick Metrics Bar */}
+          <div className="mb-10 grid grid-cols-2 gap-4 rounded-3xl border border-surface-200 bg-white p-6 shadow-sm md:grid-cols-4">
+            {STATS.map((s) => (
+              <div key={s.label} className="flex items-center gap-3">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-600">
+                  <s.icon size={20} />
+                </span>
+                <div>
+                  <p className="text-xl font-extrabold text-navy-900 leading-tight">{s.value}</p>
+                  <p className="text-[12px] font-semibold text-ink-light leading-tight mt-0.5">{s.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-    <section className="page-hero">
-        <div className="container">
-            <div className="page-hero-breadcrumb"><a href="/">Home</a><span className="sep"><i className="fa-solid fa-angle-right"></i></span><span className="current">Citizenship Programmes</span></div>
-            <h1>Citizenship by Investment</h1>
-            <p>A second passport is the ultimate plan B — visa-free travel, a stronger business profile and a stable jurisdiction for your family. Compare every active citizenship-by-investment route in one place.</p>
+          <ProgrammeCatalogue fixedType="citizenship" />
         </div>
-    </section>
+      </section>
 
-    {/*  Master Catalogue Section  */}
-    <section className="program-section program-section--alt program-section--last">
-        <div className="container">
-            
-            {/*  Filter Suite Card  */}
-            <div className="cat-filter-wrapper">
-                <div className="row align-items-center g-3">
-                    <div className="col-lg-6 col-md-7 col-12">
-                        <div className="cat-search-box">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                            <input type="search" id="catalogue-search" className="cat-search-input" placeholder="Search by country, route, or keyword..." aria-label="Search programmes" />
-                        </div>
-                    </div>
-                    <div className="col-lg-6 col-md-5 col-12">
-                        <div className="cat-sort-wrap justify-content-md-end">
-                            <label htmlFor="catalogue-sort" className="cat-sort-label"><i className="fa-solid fa-arrow-down-short-wide"></i> Sort:</label>
-                            <select id="catalogue-sort" className="cat-sort-select" aria-label="Sort programmes">
-                                <option value="featured">Featured / Recommended</option>
-                                <option value="investment-asc">Investment: Low to High</option>
-                                <option value="investment-desc">Investment: High to Low</option>
-                                <option value="name-asc">Country (A-Z)</option>
-                                <option value="name-desc">Country (Z-A)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                {/*  Region Filter Chips  */}
-                <div id="catalogue-regions" className="cat-regions"></div>
-            </div>
-            
-            {/*  Status & Live Counter Bar  */}
-            <div className="cat-status-bar">
-                <p className="cat-count" id="catalogue-count">Loading programmes...</p>
-                <button type="button" className="cat-clear-btn" id="catalogue-clear-filters">
-                    <i className="fa-solid fa-rotate-left"></i> Clear All Filters
-                </button>
-            </div>
-            
-            {/*  Master Grid  */}
-            <div className="row g-4" id="catalogue-grid"></div>
-            
-            {/*  Curated Sovereign Regional Showcase Gallery  */}
-            <div className="cat-gallery-section mt-80 mb-40">
-                <div className="program-section__head text-center mx-auto" style={{"maxWidth":"760px"}}>
-                    <span className="eyebrow"><i className="fa-solid fa-passport"></i> Global Second Passports</span>
-                    <h2>Featured Sovereign Citizenship Jurisdictions</h2>
-                    <p className="mx-auto">Compare tier-one sovereign citizenship destinations by passport power, visa-free access, and tax incentives.</p>
-                </div>
-                <div className="row g-4">
-                    <div className="col-lg-3 col-md-6 col-12">
-                        <div className="region-showcase-card">
-                            <div className="region-showcase-card__img">
-                                <img src="/assets/imgs/programs/st-kitts-citizenship.webp" alt="St. Kitts & Nevis Citizenship" loading="lazy" />
-                                <span className="region-showcase-card__tag"><i className="fa-solid fa-umbrella-beach"></i> St. Kitts &amp; Nevis</span>
-                            </div>
-                            <div className="region-showcase-card__body">
-                                <h4>St. Kitts &amp; Nevis</h4>
-                                <p>World’s most established CBI programme (est. 1984). 150+ visa-free countries and full family inclusion.</p>
-                                <span className="region-showcase-card__meta">From $250,000 · 6-10 Months</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6 col-12">
-                        <div className="region-showcase-card">
-                            <div className="region-showcase-card__img">
-                                <img src="/assets/imgs/programs/antigua-citizenship.webp" alt="Antigua & Barbuda Citizenship" loading="lazy" />
-                                <span className="region-showcase-card__tag"><i className="fa-solid fa-umbrella-beach"></i> Antigua &amp; Barbuda</span>
-                            </div>
-                            <div className="region-showcase-card__body">
-                                <h4>Antigua &amp; Barbuda</h4>
-                                <p>Premier Caribbean option for large families. 150+ visa-free destinations including UK, Schengen, and Singapore.</p>
-                                <span className="region-showcase-card__meta">From $230,000 · 6-9 Months</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6 col-12">
-                        <div className="region-showcase-card">
-                            <div className="region-showcase-card__img">
-                                <img src="/assets/imgs/programs/grenada-citizenship.webp" alt="Grenada Direct Passport" loading="lazy" />
-                                <span className="region-showcase-card__tag"><i className="fa-solid fa-umbrella-beach"></i> Grenada</span>
-                            </div>
-                            <div className="region-showcase-card__body">
-                                <h4>Grenada Direct Passport</h4>
-                                <p>Only Caribbean programme holding a USA E-2 Investor Visa treaty and visa-free travel access to China.</p>
-                                <span className="region-showcase-card__meta">From $235,000 · 6-9 Months</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-3 col-md-6 col-12">
-                        <div className="region-showcase-card">
-                            <div className="region-showcase-card__img">
-                                <img src="/assets/imgs/programs/turkiye-citizenship.webp" alt="Türkiye Citizenship" loading="lazy" />
-                                <span className="region-showcase-card__tag"><i className="fa-solid fa-earth-europe"></i> Türkiye</span>
-                            </div>
-                            <div className="region-showcase-card__body">
-                                <h4>Türkiye Citizenship</h4>
-                                <p>Real estate investment pathway granting direct Turkish passport, USA E-2 eligibility, and transcontinental hub access.</p>
-                                <span className="region-showcase-card__meta">From $400,000 · 6-8 Months</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/*  Bottom Guidance CTA Band  */}
-            <div className="cta-band mt-40">
-                <div className="row align-items-center">
-                    <div className="col-lg-8">
-                        <div className="cta-band__content">
-                            <span className="eyebrow" style={{"color":"#e8c47a","fontSize":"13px","fontWeight":"700","textTransform":"uppercase","letterSpacing":"0.1em","display":"block","marginBottom":"8px"}}>Tailored Advisory</span>
-                            <h2 style={{"color":"#fff","fontSize":"clamp(24px, 3vw, 36px)","fontWeight":"800","marginBottom":"12px","lineHeight":"1.2"}}>Need Guidance on Direct Second Citizenship?</h2>
-                            <p style={{"color":"rgba(255, 255, 255, 0.85)","fontSize":"16px","margin":"0","maxWidth":"680px"}}>Schedule a confidential strategy call with an Izzy Senior Mentor to compare Caribbean and European citizenship routes, vetting standards, and family inclusion.</p>
-                        </div>
-                    </div>
-                    <div className="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                        <a href="/contact" className="rr-btn" style={{"background":"#b8860b","color":"#fff","borderColor":"#b8860b","fontWeight":"700","padding":"16px 32px","borderRadius":"12px","display":"inline-flex","alignItems":"center","gap":"8px"}}>
-                            Book A Consultation <i className="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    </main>
+      <CtaBand />
+    </>
   );
 }

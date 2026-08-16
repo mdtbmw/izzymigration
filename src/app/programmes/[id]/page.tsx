@@ -9,6 +9,10 @@ import {
   Globe,
   CheckCircle2,
   ShieldCheck,
+  Building,
+  Umbrella,
+  Compass,
+  ArrowRight,
 } from "lucide-react";
 import { programs, getProgramById, getProgramsByRegion } from "@/data/programs";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -19,6 +23,7 @@ import { Accordion } from "@/components/ui/Accordion";
 import { QuickInquiryForm } from "@/components/forms/QuickInquiryForm";
 import { ProgrammeCard } from "@/components/programmes/ProgrammeCard";
 import { ProgramActionButtons } from "@/components/programmes/ProgramActionButtons";
+import { assetPath } from "@/lib/brand";
 
 interface ProgramPageProps {
   params: Promise<{ id: string }>;
@@ -50,9 +55,9 @@ export async function generateMetadata({
       description: program.intro.slice(0, 160),
       images: [
         {
-          url: program.flag.startsWith("/") ? program.flag : `/${program.flag}`,
-          width: 800,
-          height: 600,
+          url: assetPath(program.hero || program.flag),
+          width: 1200,
+          height: 630,
           alt: program.title,
         },
       ],
@@ -69,9 +74,10 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
   }
 
   const isCitizenship = program.type === "citizenship";
-  let flagSrc = program.flag.startsWith("/") || program.flag.startsWith("http")
-    ? program.flag
-    : `/${program.flag}`;
+  const flagSrc = assetPath(program.flag);
+  const heroSrc = assetPath(program.hero);
+  const lifestyleSrc = assetPath(program.lifestyleImage || program.hero);
+  const propertySrc = assetPath(program.propertyImage || program.hero);
 
   // Related programs in the same region
   const relatedPrograms = getProgramsByRegion(program.region)
@@ -84,46 +90,56 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
   }));
 
   return (
-    <div className="bg-surface-100 min-h-screen py-10 md:py-16">
+    <div className="bg-surface-100 min-h-screen pt-28 pb-16 md:pt-32 md:pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <div className="mb-6">
           <Breadcrumb
             items={[
               { label: "Programmes", href: "/programmes" },
-              { label: program.region, href: `/programmes?region=${program.region}` },
+              { label: program.region, href: `/programmes?region=${encodeURIComponent(program.region)}` },
               { label: program.title },
             ]}
           />
         </div>
 
-        {/* Hero Banner Card */}
-        <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-10 md:p-12 border border-navy-850 shadow-2xl relative overflow-hidden mb-12">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* Hero Banner Card with Real Country Background */}
+        <div className="relative overflow-hidden rounded-[32px] border border-navy-850 bg-navy-950 p-8 sm:p-12 shadow-2xl text-white mb-12">
+          {/* Background Country Photo Overlay */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src={heroSrc}
+              alt={program.country}
+              className="h-full w-full object-cover object-center"
+            />
+            {/* Directional Sovereign Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/85 to-navy-950/40" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent" />
+          </div>
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-5">
               <div className="flex items-center gap-3">
-                <div className="relative w-12 h-8 rounded-md overflow-hidden shadow-sm border border-white/20 shrink-0">
-                  <Image src={flagSrc} alt={program.country} fill className="object-cover" sizes="48px" />
+                <div className="relative h-7 w-10 overflow-hidden rounded-md border border-white/30 shadow bg-white">
+                  <img src={flagSrc} alt={program.country} className="h-full w-full object-cover" />
                 </div>
-                <Badge variant={isCitizenship ? "gold" : "soft"}>
+                <Badge variant={isCitizenship ? "gold" : "navy"}>
                   {isCitizenship ? "Sovereign Citizenship" : "Permanent Residency"}
                 </Badge>
-                <span className="text-xs text-gray-400 font-semibold">
+                <span className="text-xs text-white/70 font-semibold">
                   {program.region}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-heading text-white">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-heading text-white leading-tight">
                 {program.title}
               </h1>
 
-              <p className="text-sm md:text-base text-gray-300 leading-relaxed max-w-3xl">
+              <p className="text-sm md:text-base text-white/85 leading-relaxed max-w-3xl font-normal">
                 {program.intro}
               </p>
 
-              {/* Action Buttons for Brochure Modal & WhatsApp */}
+              {/* Action Buttons */}
               <ProgramActionButtons
                 programTitle={program.title}
                 country={program.country}
@@ -132,25 +148,25 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
             </div>
 
             {/* Quick Metrics Column */}
-            <div className="lg:col-span-4 bg-navy-900/90 rounded-2xl p-6 border border-white/10 space-y-4">
+            <div className="lg:col-span-4 rounded-2xl border border-white/15 bg-navy-900/90 p-6 backdrop-blur-md space-y-4">
               <div>
-                <span className="text-xs text-gray-400 font-medium block">Starting Investment:</span>
+                <span className="text-xs text-white/70 font-medium block">Starting Investment:</span>
                 <span className="text-2xl font-extrabold text-gold-400 font-heading">
                   {program.minInvestment}
                 </span>
               </div>
 
               <div className="pt-3 border-t border-white/10">
-                <span className="text-xs text-gray-400 font-medium block">Processing Timeline:</span>
+                <span className="text-xs text-white/70 font-medium block">Processing Timeline:</span>
                 <span className="text-sm font-bold text-white">
                   {program.processing}
                 </span>
               </div>
 
               <div className="pt-3 border-t border-white/10">
-                <span className="text-xs text-gray-400 font-medium block">Due Diligence Authority:</span>
-                <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mt-0.5">
-                  <ShieldCheck className="w-4 h-4" /> Government Direct Filing
+                <span className="text-xs text-white/70 font-medium block">Due Diligence Authority:</span>
+                <span className="text-xs font-semibold text-gold-400 flex items-center gap-1.5 mt-0.5">
+                  <ShieldCheck className="w-4 h-4" /> Government Direct Statutory Channel
                 </span>
               </div>
             </div>
@@ -159,58 +175,120 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
 
         {/* 2-Column Main Content & Sticky Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          {/* Left Column (8 cols): Program Details */}
+          {/* Left Column (8 cols): Structured Sections with Imagery */}
           <div className="lg:col-span-8 space-y-12">
-            {/* Key Benefits Grid */}
-            <section className="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-sm space-y-6">
-              <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
-                Key Strategic Benefits &amp; Advantages
-              </h2>
-
-              {program.benefitGroups && program.benefitGroups.length > 0 ? (
-                <div className="space-y-6">
-                  {program.benefitGroups.map((group, idx) => (
-                    <div key={idx} className="p-6 rounded-2xl bg-surface-100 border border-gray-200/60">
-                      <h3 className="text-base font-bold font-heading text-navy-900 mb-3 text-gold-600">
-                        {group.t}
-                      </h3>
-                      <ul className="space-y-2 text-xs md:text-sm text-body">
-                        {group.items.map((item, iIdx) => (
-                          <li key={iIdx} className="flex items-start gap-2.5">
-                            <span className="w-4 h-4 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
-                              <CheckCircle2 className="w-3 h-3" />
-                            </span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+            
+            {/* Section 1: Alternating Layout (Image Left + Key Strategic Benefits Right) */}
+            <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm">
+              <div className="grid gap-8 md:grid-cols-12 items-center">
+                {/* Left Photo */}
+                <div className="md:col-span-5 relative h-64 sm:h-72 w-full overflow-hidden rounded-2xl bg-navy-950 shadow-md">
+                  <img
+                    src={heroSrc}
+                    alt={`${program.country} Landscape`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-extrabold flex items-center gap-1.5">
+                    <Compass size={14} className="text-gold-400" />
+                    <span>{program.country} Sovereign Corridor</span>
+                  </div>
                 </div>
-              ) : (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs md:text-sm text-body">
-                  {program.benefits.map((b, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 p-4 rounded-2xl bg-surface-100 border border-gray-200/60">
-                      <span className="w-5 h-5 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                      </span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+
+                {/* Right Content */}
+                <div className="md:col-span-7 space-y-4">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Strategic Advantages
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading leading-snug">
+                    Key Programme Benefits
+                  </h2>
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-ink-dark">
+                    {program.benefits.map((b, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-700 mt-0.5">
+                          <CheckCircle2 size={13} />
+                        </span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </section>
 
-            {/* Qualifying Investment Routes */}
+            {/* Section 2: Visual Showcase Gallery (3 Real Photos) */}
+            <section className="space-y-4">
+              <div className="space-y-1">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                  Visual Showcase
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
+                  Destination &amp; Lifestyle Gallery
+                </h2>
+                <p className="text-xs sm:text-sm text-ink-light">
+                  A glimpse into the sovereign environment, capital lifestyle, and luxury real estate opportunities in {program.country}.
+                </p>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                {/* Photo 1: Country Landmark */}
+                <div className="group relative h-48 overflow-hidden rounded-2xl border border-surface-200 bg-navy-950 shadow-sm">
+                  <img
+                    src={heroSrc}
+                    alt={`${program.country} Capital`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent" />
+                  <span className="absolute bottom-2.5 left-3 text-[11px] font-extrabold text-white">
+                    Sovereign Territory
+                  </span>
+                </div>
+
+                {/* Photo 2: Prime Real Estate */}
+                <div className="group relative h-48 overflow-hidden rounded-2xl border border-surface-200 bg-navy-950 shadow-sm">
+                  <img
+                    src={propertySrc}
+                    alt={`${program.country} Real Estate`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent" />
+                  <span className="absolute bottom-2.5 left-3 text-[11px] font-extrabold text-white">
+                    Luxury Developments
+                  </span>
+                </div>
+
+                {/* Photo 3: Coastal / Lifestyle */}
+                <div className="group relative h-48 overflow-hidden rounded-2xl border border-surface-200 bg-navy-950 shadow-sm">
+                  <img
+                    src={lifestyleSrc}
+                    alt={`${program.country} Lifestyle`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent" />
+                  <span className="absolute bottom-2.5 left-3 text-[11px] font-extrabold text-white">
+                    Lifestyle &amp; Climate
+                  </span>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 3: Qualifying Investment Routes */}
             {program.options && program.options.length > 0 && (
               <section className="space-y-6">
                 <div className="space-y-2">
-                  <Badge variant="gold">Statutory Pathways</Badge>
-                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Statutory Pathways
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
                     Qualifying Investment Options
                   </h2>
-                  <p className="text-xs md:text-sm text-body">
-                    Choose between non-refundable statutory contributions, government-approved luxury real estate, or sovereign bond instruments.
+                  <p className="text-xs sm:text-sm text-ink-light">
+                    Choose between non-refundable statutory contributions, government-approved luxury real estate, or sovereign regulated funds.
                   </p>
                 </div>
 
@@ -218,12 +296,14 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               </section>
             )}
 
-            {/* Statutory Eligibility & Requirements */}
+            {/* Section 4: Due Diligence & Statutory Criteria */}
             {program.requirements && program.requirements.length > 0 && (
-              <section className="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-sm space-y-6">
+              <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
                 <div className="space-y-2">
-                  <Badge variant="navy">Due Diligence Checklist</Badge>
-                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Due Diligence Checklist
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
                     Applicant Eligibility &amp; Statutory Criteria
                   </h2>
                 </div>
@@ -232,9 +312,9 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
                   {program.requirements.map((req, idx) => (
                     <div
                       key={idx}
-                      className="flex items-start gap-3 p-4 rounded-2xl bg-surface-100 border border-gray-200/60 text-xs md:text-sm text-body"
+                      className="flex items-start gap-3.5 rounded-2xl border border-surface-200 bg-surface-50 p-4 text-xs sm:text-sm text-ink-dark"
                     >
-                      <span className="w-6 h-6 rounded-full bg-navy-900 text-gold-400 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy-950 text-[11px] font-extrabold text-gold-400 mt-0.5">
                         0{idx + 1}
                       </span>
                       <span className="leading-relaxed">{req}</span>
@@ -244,15 +324,17 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               </section>
             )}
 
-            {/* Step-by-Step Roadmap */}
+            {/* Section 5: Step-by-Step Roadmap */}
             {program.process && program.process.length > 0 && (
               <section className="space-y-6">
                 <div className="space-y-2">
-                  <Badge variant="gold">End-to-End Execution</Badge>
-                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    End-to-End Execution
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
                     Step-by-Step Application Roadmap
                   </h2>
-                  <p className="text-xs md:text-sm text-body">
+                  <p className="text-xs sm:text-sm text-ink-light">
                     How Izzy Immigration executes your sovereign application from preliminary pre-vetting to statutory naturalization certificate and passport delivery.
                   </p>
                 </div>
@@ -261,43 +343,52 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               </section>
             )}
 
-            {/* Program FAQ */}
+            {/* Section 6: Programme FAQs */}
             {faqItems.length > 0 && (
-              <section className="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-sm space-y-6">
+              <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
                 <div className="space-y-2">
-                  <Badge variant="soft">Programme FAQ</Badge>
-                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
-                    Frequently Asked Questions about {program.country}
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Frequently Asked Questions
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
+                    {program.country} Programme FAQs
                   </h2>
                 </div>
 
                 <Accordion items={faqItems} />
               </section>
             )}
+
           </div>
 
-          {/* Right Column (4 cols): Sticky Consultation & Brochure Sidebar */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gold-300 shadow-sovereign sticky top-24 space-y-4">
-              <div className="border-b border-gray-100 pb-3">
-                <Badge variant="gold">Private Client Desk</Badge>
-                <h3 className="text-lg font-bold font-heading text-navy-900 mt-2">
-                  Confidential Inquiry for {program.country}
-                </h3>
-                <p className="text-xs text-body mt-1">
-                  Request detailed fee quote, family inclusion breakdown, and verified due diligence timeline.
-                </p>
+          {/* Right Column (4 cols): Sticky Private Client Inquiry Desk */}
+          <div className="lg:col-span-4 space-y-8">
+            <div className="sticky top-28 space-y-6">
+              {/* Form Card */}
+              <div className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-7 shadow-xl">
+                <div className="border-b border-surface-200 pb-4 mb-6">
+                  <span className="chip chip--gold text-[10px] py-0.5 px-2.5 mb-2 inline-block">
+                    Confidential Assessment
+                  </span>
+                  <h3 className="text-lg font-extrabold text-navy-900 font-heading">
+                    Request Programme Dossier
+                  </h3>
+                  <p className="mt-1 text-xs text-ink-light leading-relaxed">
+                    Submit your details for a tailored eligibility evaluation and official statutory fee breakdown for {program.title}.
+                  </p>
+                </div>
+
+                <QuickInquiryForm programTitle={program.title} />
               </div>
 
-              <QuickInquiryForm programTitle={program.title} />
-
-              <div className="pt-4 border-t border-gray-100 space-y-2 text-[11px] text-gray-500">
-                <div className="flex items-center gap-2 text-emerald-700 font-semibold">
-                  <ShieldCheck className="w-4 h-4 shrink-0" />
-                  <span>Licensed Government Migration Agent</span>
+              {/* Verified License Guarantee */}
+              <div className="rounded-2xl border border-gold-400/40 bg-gold-500/10 p-5 text-navy-900">
+                <div className="flex items-center gap-2.5 font-extrabold text-xs text-navy-950 uppercase tracking-wider">
+                  <ShieldCheck size={18} className="text-gold-600" />
+                  Government Direct License
                 </div>
-                <p>
-                  Zero retail broker markups. Direct government escrow account payments.
+                <p className="mt-2 text-xs text-ink-dark leading-relaxed">
+                  All due diligence is processed directly through official government Citizenship by Investment Units (CIU) with strict legal privilege.
                 </p>
               </div>
             </div>
@@ -306,30 +397,30 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
 
         {/* Related Programmes in Region */}
         {relatedPrograms.length > 0 && (
-          <section className="mt-20 pt-12 border-t border-gray-200">
-            <div className="flex items-center justify-between mb-8">
+          <div className="mt-20 border-t border-surface-200 pt-14">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
               <div>
-                <h3 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
-                  Alternative Programmes in {program.region}
+                <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                  Regional Comparison
+                </span>
+                <h3 className="text-2xl font-extrabold text-navy-900 font-heading mt-1">
+                  Other Programmes in {program.region}
                 </h3>
-                <p className="text-xs md:text-sm text-body">
-                  Compare other sovereign jurisdictions in the same region.
-                </p>
               </div>
               <Link
-                href={`/programmes?region=${program.region}`}
-                className="text-xs font-bold text-gold-600 hover:underline"
+                href={`/programmes?region=${encodeURIComponent(program.region)}`}
+                className="text-xs font-bold text-gold-600 hover:text-gold-700 inline-flex items-center gap-1"
               >
-                View all in {program.region} →
+                View all {program.region} routes <ArrowRight size={13} />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {relatedPrograms.map((p) => (
-                <ProgrammeCard key={p.id} program={p} />
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedPrograms.map((rel) => (
+                <ProgrammeCard key={rel.id} program={rel} />
               ))}
             </div>
-          </section>
+          </div>
         )}
       </div>
     </div>

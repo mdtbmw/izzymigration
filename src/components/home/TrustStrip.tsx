@@ -1,22 +1,47 @@
-import React from "react";
-import { siteConfig } from "@/data/siteConfig";
+import { Scale, Users, Globe2, ShieldCheck } from "lucide-react";
+import { SectionHead } from "@/components/ui/SectionHead";
+
+const TRUSTS = [
+  {
+    icon: Scale,
+    title: "Licensed Immigration Lawyers",
+    text: "Fully registered legal practitioners with direct access to embassy and government filing channels.",
+  },
+  {
+    icon: Users,
+    title: "ICC Member Firm",
+    text: "Proud member of the International Chamber of Commerce, upholding global standards of business practice.",
+  },
+  {
+    icon: Globe2,
+    title: "Investment Migration Council",
+    text: "Affiliated with the leading global body for residence and citizenship by investment professionals.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "GDPR Compliant & ISO Certified",
+    text: "Your personal data is protected by enterprise-grade security, encryption, and strict data-handling protocols.",
+  },
+];
 
 export function TrustStrip() {
   return (
-    <section className="bg-white border-b border-gray-100 py-10 relative z-20 -mt-8 mx-4 sm:mx-8 md:mx-auto max-w-6xl rounded-3xl shadow-sovereign">
-      <div className="px-6 sm:px-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-gray-100">
-          {siteConfig.stats.map((stat, idx) => (
-            <div key={idx} className="text-center pt-4 md:pt-0 first:pt-0">
-              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold font-heading text-navy-900 mb-1">
-                {stat.value}
-              </div>
-              <div className="text-xs sm:text-sm font-semibold text-gray-700">
-                {stat.label}
-              </div>
-              <div className="text-[11px] font-bold text-gold-600 uppercase tracking-wider mt-0.5">
-                {stat.change}
-              </div>
+    <section className="section-space bg-surface-50">
+      <div className="container-izzy">
+        <SectionHead
+          eyebrow="Global Trust & Recognition"
+          title="Accredited, Licensed &"
+          titleAccent="Recognized Worldwide"
+          align="center"
+        />
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {TRUSTS.map((t, i) => (
+            <div key={t.title} className="card card--white card--hover flex h-full flex-col gap-5 p-7 text-center">
+              <span className="icon-badge icon-badge--gold mx-auto shrink-0">
+                <t.icon size={24} />
+              </span>
+              <h3 className="text-[15.5px] font-extrabold">{t.title}</h3>
+              <p className="mt-auto text-[13px] leading-relaxed text-ink-light">{t.text}</p>
             </div>
           ))}
         </div>

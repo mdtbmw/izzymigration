@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { siteConfig } from "@/data/siteConfig";
-import { HeaderExact } from "@/components/layout/HeaderExact";
-import { FooterExact } from "@/components/layout/FooterExact";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 
 export const viewport: Viewport = {
@@ -84,22 +84,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Sofia&family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
-
-        {/* Routex Pro Stylesheets */}
-        <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css" />
-        <link rel="stylesheet" href="/assets/css/vendor/animate.min.css" />
-        <link rel="stylesheet" href="/assets/css/vendor/fontawesome-pro.css" />
-        <link rel="stylesheet" href="/assets/css/vendor/spacing.css" />
-        <link rel="stylesheet" href="/assets/css/vendor/custom-font.css" />
-        <link rel="stylesheet" href="/assets/css/main.css" />
-        <link rel="stylesheet" href="/assets/css/programs.css" />
-        <link rel="stylesheet" href="/assets/css/hero-slider.css" />
-        <link rel="stylesheet" href="/assets/css/landing-sections.css" />
       </head>
-      <body>
-        <HeaderExact />
-        {children}
-        <FooterExact />
+      <body className="min-h-screen flex flex-col bg-surface-0 font-sans antialiased text-ink">
+        <Header />
+        <main className="flex-grow">{children}</main>
+        <Footer />
         <WhatsAppFloat />
       </body>
     </html>

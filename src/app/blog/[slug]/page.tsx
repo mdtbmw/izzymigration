@@ -8,6 +8,7 @@ import { blogPosts, getBlogPostBySlug } from "@/data/blogPosts";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { assetPath } from "@/lib/brand";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -31,6 +32,8 @@ export async function generateMetadata({
     };
   }
 
+  const postImage = post.image || post.hero || "/assets/imgs/blog/letest-blog/blog-card1.jpg";
+
   return {
     title: `${post.title} | Sovereign Intelligence`,
     description: post.excerpt,
@@ -39,7 +42,7 @@ export async function generateMetadata({
       description: post.excerpt,
       images: [
         {
-          url: post.image,
+          url: assetPath(postImage),
           width: 1200,
           height: 630,
           alt: post.title,
@@ -57,10 +60,13 @@ export default async function BlogPostDetailPage({ params }: BlogPostPageProps) 
     notFound();
   }
 
+  const postImage = post.image || post.hero || "/assets/imgs/blog/letest-blog/blog-card1.jpg";
+  const postDate = post.date || post.publishedAt || "Recent";
+  const contentParagraphs = Array.isArray(post.content) ? post.content : [post.content];
   const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   return (
-    <div className="bg-surface-100 min-h-screen py-12 md:py-16">
+    <div className="bg-surface-100 min-h-screen pt-28 pb-16 md:pt-32 md:pb-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
         <Breadcrumb
           items={[
@@ -93,24 +99,21 @@ export default async function BlogPostDetailPage({ params }: BlogPostPageProps) 
                 <span>{post.author.role}</span>
               </div>
             </div>
-            <span className="font-medium">{post.date}</span>
+            <span className="font-medium">{postDate}</span>
           </div>
 
           {/* Banner Image */}
           <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden bg-navy-950 shadow-md">
-            <Image
-              src={post.image}
+            <img
+              src={assetPath(postImage)}
               alt={post.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 896px) 100vw, 896px"
-              priority
+              className="h-full w-full object-cover"
             />
           </div>
 
           {/* Article Paragraphs */}
           <div className="space-y-6 text-sm sm:text-base text-body leading-relaxed pt-4 border-t border-gray-100">
-            {post.content.map((paragraph, idx) => (
+            {contentParagraphs.map((paragraph: string, idx: number) => (
               <p key={idx} className="leading-relaxed">
                 {paragraph}
               </p>
@@ -120,7 +123,7 @@ export default async function BlogPostDetailPage({ params }: BlogPostPageProps) 
           {/* Tags */}
           <div className="pt-6 border-t border-gray-100 flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-navy-900 mr-2">Topics:</span>
-            {post.tags.map((tag, idx) => (
+            {post.tags.map((tag: string, idx: number) => (
               <span
                 key={idx}
                 className="px-3 py-1 rounded-full bg-surface-200 text-xs text-gray-600 font-medium"
@@ -131,41 +134,53 @@ export default async function BlogPostDetailPage({ params }: BlogPostPageProps) 
           </div>
         </div>
 
-        {/* Author Callout / Consultation Card */}
-        <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-10 border border-white/10 shadow-sovereign flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-2">
-            <h3 className="text-xl font-bold font-heading text-white">
-              Have Questions Regarding This Sovereign Route?
-            </h3>
-            <p className="text-xs sm:text-sm text-gray-300">
-              Schedule a confidential dossier review with our Senior Sovereign Immigration Partners.
-            </p>
-          </div>
-          <Button href="/contact" variant="gold" size="md" className="shrink-0">
-            Book Consultation
-          </Button>
-        </div>
-
         {/* Related Articles */}
         {relatedPosts.length > 0 && (
-          <div className="space-y-6 pt-6">
-            <h3 className="text-xl font-bold font-heading text-navy-900">
-              Related Sovereign Intelligence
-            </h3>
+          <div className="pt-8 border-t border-gray-200 space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-bold font-heading text-navy-900">
+                Related Advisory Insights
+              </h3>
+              <Link
+                href="/blog"
+                className="text-xs font-bold text-gold-600 hover:text-gold-700 flex items-center gap-1"
+              >
+                View all articles <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {relatedPosts.map((rPost) => (
-                <Link
-                  key={rPost.slug}
-                  href={`/blog/${rPost.slug}`}
-                  className="p-6 rounded-3xl bg-white border border-gray-200 hover:border-gold-400 hover:shadow-card transition-all duration-300 group block"
-                >
-                  <span className="text-xs font-bold text-gold-600 block mb-1">{rPost.category}</span>
-                  <h4 className="text-base font-bold font-heading text-navy-900 group-hover:text-gold-600 transition-colors line-clamp-2 mb-2">
-                    {rPost.title}
-                  </h4>
-                  <span className="text-xs text-gray-400 font-medium">{rPost.readTime}</span>
-                </Link>
-              ))}
+              {relatedPosts.map((rel) => {
+                const relImg = rel.image || rel.hero || "/assets/imgs/blog/letest-blog/blog-card1.jpg";
+                return (
+                  <Link
+                    key={rel.slug}
+                    href={`/blog/${rel.slug}`}
+                    className="group bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md hover:border-gold-400 transition-all flex flex-col"
+                  >
+                    <div className="relative h-44 w-full bg-navy-950">
+                      <img
+                        src={assetPath(relImg)}
+                        alt={rel.title}
+                        className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
+                      <div className="space-y-1.5">
+                        <span className="text-[11px] font-bold text-gold-600 uppercase tracking-wider">
+                          {rel.category}
+                        </span>
+                        <h4 className="text-sm font-bold text-navy-900 group-hover:text-gold-600 transition-colors line-clamp-2 leading-snug">
+                          {rel.title}
+                        </h4>
+                      </div>
+                      <span className="text-xs font-bold text-navy-900 flex items-center gap-1 pt-2 border-t border-gray-100">
+                        Read Analysis <ArrowRight className="w-3 h-3 text-gold-600" />
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}

@@ -1,109 +1,102 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Check, ArrowRight, Clock, DollarSign } from "lucide-react";
+import { Check, ArrowRight, Clock, Coins, ShieldCheck, ArrowUpRight } from "lucide-react";
 import { Program } from "@/types";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
+import { assetPath } from "@/lib/brand";
 
-interface ProgrammeCardProps {
+export interface ProgrammeCardProps {
   program: Program;
   className?: string;
-  compact?: boolean;
   index?: number;
+  compact?: boolean;
 }
 
-export function ProgrammeCard({ program, className, compact, index }: ProgrammeCardProps) {
-  // Normalize flag path
-  let flagSrc = program.flag;
-  if (!flagSrc.startsWith("/") && !flagSrc.startsWith("http")) {
-    flagSrc = `/${flagSrc}`;
-  }
-
+export function ProgrammeCard({ program, className, index = 0, compact = false }: ProgrammeCardProps) {
+  const flagSrc = assetPath(program.flag);
+  const heroSrc = assetPath(program.hero);
   const isCitizenship = program.type === "citizenship";
 
   return (
-    <div
+    <article
       className={cn(
-        "group relative flex flex-col h-full bg-surface-200 hover:bg-white border border-gray-200/80 hover:border-gold-300 rounded-[22px] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-sovereign",
-        compact && "p-5 md:p-6",
+        "group relative flex flex-col h-full overflow-hidden rounded-[24px] border border-surface-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-gold-400/60",
         className
       )}
     >
-      {/* Top Header: Flag & Program Badge */}
-      <div className="flex items-center justify-between gap-3 mb-5">
-        <div className="relative w-[52px] h-[36px] rounded-md overflow-hidden shadow-sm border border-gray-200/60 bg-white flex-shrink-0">
-          <Image
-            src={flagSrc}
-            alt={`${program.country} Flag`}
-            fill
-            className="object-cover"
-            sizes="52px"
-          />
+      {/* Real Photography Header Banner */}
+      <div className="relative h-44 w-full overflow-hidden bg-navy-950">
+        <img
+          src={heroSrc}
+          alt={program.title}
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-navy-950/20 to-transparent" />
+
+        {/* Top Badges: Flag & Type */}
+        <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 rounded-full border border-white/20 bg-navy-950/85 px-3 py-1 text-[11px] font-extrabold text-white backdrop-blur-md shadow-sm">
+            <span className="flex h-4 w-6 shrink-0 items-center justify-center overflow-hidden rounded-sm bg-white">
+              <img src={flagSrc} alt="" className="h-full w-full object-cover" />
+            </span>
+            <span>{program.country}</span>
+          </div>
+
+          <Badge variant={isCitizenship ? "gold" : "navy"}>
+            {isCitizenship ? "Citizenship" : "Residency"}
+          </Badge>
         </div>
-        <Badge variant={isCitizenship ? "gold" : "navy"}>
-          {isCitizenship ? "Citizenship" : "Residency"}
-        </Badge>
+
+        {/* Bottom Banner Investment Stat */}
+        <div className="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between text-white text-xs">
+          <span className="font-semibold text-white/80">From {program.minInvestment}</span>
+          <span className="font-bold text-gold-300 flex items-center gap-1">
+            <Clock size={12} /> {program.processing}
+          </span>
+        </div>
       </div>
 
-      {/* Program Content */}
-      <div className="flex flex-col flex-grow">
-        {/* Title */}
-        <h4 className="text-lg md:text-xl font-bold font-heading text-navy-900 mb-3 group-hover:text-gold-600 transition-colors line-clamp-2">
-          <Link href={`/programmes/${program.id}`}>
-            {program.title}
-          </Link>
-        </h4>
+      {/* Program Details Body */}
+      <div className="flex flex-1 flex-col justify-between p-6">
+        <div>
+          <h4 className="text-[16.5px] font-extrabold text-navy-900 leading-snug transition-colors group-hover:text-gold-600">
+            <Link href={`/programmes/${program.id}`} className="hover:underline">
+              {program.title}
+            </Link>
+          </h4>
 
-        {/* Investment & Processing Badges */}
-        <div className="space-y-1.5 mb-4 text-sm">
-          <div className="flex items-center text-navy-900 font-semibold gap-1.5">
-            <DollarSign className="w-4 h-4 text-gold-500 shrink-0" />
-            <span>Investment:</span>
-            <span className="text-gold-600 font-bold ml-auto text-right">
-              {program.minInvestment}
-            </span>
-          </div>
-          <div className="flex items-center text-body text-xs gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-gray-400 shrink-0" />
-            <span>Processing:</span>
-            <span className="text-gray-600 font-medium ml-auto">
-              {program.processing}
-            </span>
-          </div>
-        </div>
-
-        {/* Key Features List */}
-        {!compact && (
-          <ul className="space-y-2 mb-6 flex-grow text-xs md:text-sm text-body">
+          {/* Key Features List */}
+          <ul className="mt-3.5 space-y-2 text-[12.5px] text-ink-light">
             {program.benefits.slice(0, 2).map((benefit, idx) => (
-              <li key={idx} className="flex items-start gap-2.5">
-                <span className="w-4 h-4 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
-                  <Check className="w-2.5 h-2.5" />
+              <li key={idx} className="flex items-start gap-2 leading-relaxed">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-700 mt-0.5">
+                  <Check size={11} />
                 </span>
                 <span className="line-clamp-2">{benefit}</span>
               </li>
             ))}
           </ul>
-        )}
+        </div>
 
-        {/* Bottom CTA Row: Learn More + Signature Circle Arrow */}
-        <div className="pt-4 border-t border-gray-200/60 mt-auto flex items-center justify-between">
+        {/* Bottom Action Row */}
+        <div className="mt-5 border-t border-surface-200 pt-4 flex items-center justify-between">
           <Link
             href={`/programmes/${program.id}`}
-            className="text-sm font-bold text-navy-900 group-hover:text-gold-600 transition-colors"
+            className="text-[13px] font-extrabold text-navy-900 transition-colors group-hover:text-gold-600 inline-flex items-center gap-1"
           >
-            Explore Program
+            Explore Programme <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
           <Link
             href={`/programmes/${program.id}`}
-            className="w-10 h-10 rounded-full bg-white text-navy-900 group-hover:bg-gold-500 group-hover:text-white flex items-center justify-center shadow-sm border border-gray-200/60 group-hover:border-gold-500 transition-all duration-300"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-surface-200 bg-surface-50 text-navy-900 transition-all duration-200 group-hover:border-gold-500 group-hover:bg-gold-500 group-hover:text-navy-950 shadow-sm"
             aria-label={`View details for ${program.title}`}
           >
-            <ArrowRight className="w-4 h-4 transition-transform duration-300 -rotate-45 group-hover:rotate-0" />
+            <ArrowRight size={14} />
           </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
