@@ -73,7 +73,7 @@ export const blogPosts: BlogPost[] = [
     },
     date: "December 20, 2025",
     readTime: "5 min read",
-    image: "/assets/imgs/blog/blog-1img.png",
+    image: "/assets/imgs/blog/blog-details/blog-details1.jpg",
     featured: false,
     tags: ["Greece", "Golden Visa", "Real Estate", "Schengen", "Europe"],
     content: [
@@ -93,7 +93,7 @@ export const blogPosts: BlogPost[] = [
     },
     date: "November 14, 2025",
     readTime: "5 min read",
-    image: "/assets/imgs/blog/blog-2img.png",
+    image: "/assets/imgs/blog/letest-blog/blog-card1.jpg",
     featured: false,
     tags: ["UAE", "Dubai", "Golden Visa", "Tax Planning", "Zero Income Tax"],
     content: [

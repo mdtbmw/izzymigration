@@ -1,130 +1,130 @@
-import { UserCheck, Scale, FileCheck, Globe2, Lock, Handshake, Headset, ClipboardList, FolderCheck, Stamp } from "lucide-react";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionHead } from "@/components/ui/SectionHead";
-import { Reveal } from "@/components/ui/Reveal";
-import { Button } from "@/components/ui/Button";
-import { whatsappHref } from "@/lib/brand";
-import { CtaBand } from "@/components/home/CtaBand";
 
-export const metadata = {
-  title: "Why Choose Izzy Immigration",
-  description:
-    "We are not a form-filling agency. Izzy Immigration is a mentor-led advisory — one expert who owns your entire file, an honest recommendation and a programme that fits your life.",
-};
+"use client";
 
-const REASONS = [
-  {
-    icon: UserCheck,
-    title: "One Mentor, One File",
-    text: "Your dedicated mentor knows your family, your finances and your goals. No call centres, no hand-offs — one accountable expert from first call to passport in hand.",
-  },
-  {
-    icon: Scale,
-    title: "Honest Recommendations",
-    text: "If a programme is weak for you, we say so. Our advice is structured around your jurisdiction, your timeline and your budget — never around our commission.",
-  },
-  {
-    icon: FileCheck,
-    title: "Compliance First",
-    text: "Source-of-funds, due diligence and documentary integrity are handled by specialists before submission — the single biggest factor between approval and refusal.",
-  },
-  {
-    icon: Globe2,
-    title: "55 Programmes, One Roof",
-    text: "Ten citizenship routes and forty-five residency routes across the Caribbean, Europe, the Americas, Africa, the Middle East and Asia Pacific — compared side by side for you.",
-  },
-  {
-    icon: Lock,
-    title: "Discretion, Always",
-    text: "Global mobility is a private matter. Your information is held in confidence and never shared beyond what your application requires.",
-  },
-  {
-    icon: Handshake,
-    title: "Beyond Approval",
-    text: "Passport in hand is not the finish line. We stay with you through settlement, renewal, family additions and the next stage of your journey.",
-  },
-];
+import React from "react";
+import Link from "next/link";
 
-const STEPS = [
-  { icon: ClipboardList, no: "01", title: "Free Assessment", text: "We map your goals, budget and timeline against every qualifying programme." },
-  { icon: Headset, no: "02", title: "Strategy & Plan", text: "You receive a written recommendation with costs, timeline and risks — no pressure." },
-  { icon: FolderCheck, no: "03", title: "Documentation", text: "Our team gathers, translates, notarises and apostilles every document." },
-  { icon: Stamp, no: "04", title: "Submission & Approval", text: "We manage the submission, respond to the government and track your file to approval." },
-];
-
-export default function WhyIzzyPage() {
+export default function WhyChooseUsPage() {
   return (
-    <>
-      <PageHero
-        title="Why Izzy Immigration"
-        subtitle="We are not a form-filling agency. Izzy Immigration is a mentor-led advisory — we give you a single expert who owns your entire file, an honest recommendation and a programme that fits your life."
-        crumb={[{ label: "Why Choose Izzy" }]}
-      />
+    <main>
 
-      <section className="section-space">
-        <div className="container-izzy">
-          <SectionHead
-            eyebrow="The Izzy Difference"
-            title="Advice You Can Actually Trust"
-            text="Anyone can sell you a golden visa. We exist to make sure the one you buy is right — and that it is approved."
-            align="center"
-          />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {REASONS.map((r, i) => (
-              <Reveal key={r.title} delay={(i % 3) * 80} className="h-full">
-                <article className="card card--hover card--gray flex h-full flex-col gap-5 p-7">
-                  <span className="icon-badge icon-badge--gold shrink-0">
-                    <r.icon size={22} />
-                  </span>
-                  <h3 className="text-lg font-extrabold">{r.title}</h3>
-                  <p className="text-[13.5px] leading-relaxed text-ink-light">{r.text}</p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
+
+    <section className="page-hero">
+        <div className="container">
+            <div className="page-hero-breadcrumb"><a href="/">Home</a><span className="sep"><i className="fa-solid fa-angle-right"></i></span><a href="/about">About Us</a><span className="sep"><i className="fa-solid fa-angle-right"></i></span><span className="current">Why Choose Izzy</span></div>
+            <h1>Why Izzy Immigration</h1>
+            <p>We are not a form-filling agency. Izzy Immigration is a mentor-led advisory — we give you a single expert who owns your entire file, an honest recommendation and a programme that fits your life.</p>
         </div>
-      </section>
+    </section>
 
-      <section className="section-space bg-surface-50">
-        <div className="container-izzy grid items-center gap-12 lg:grid-cols-2">
-          <div>
-            <SectionHead eyebrow="How We Work" title="From First Call to Approval" />
-            <div className="mt-8 grid gap-6 sm:grid-cols-2">
-              {STEPS.map((s) => (
-                <div key={s.no} className="card card--hover card--gray h-full p-6">
-                  <span className="text-[44px] font-extrabold leading-none text-surface-300">{s.no}</span>
-                  <h3 className="mt-4 text-[15.5px] font-extrabold">{s.title}</h3>
-                  <p className="mt-2 text-[13px] leading-relaxed text-ink-light">{s.text}</p>
+    <section className="program-section">
+        <div className="container">
+            <div className="program-section__head">
+                <span className="eyebrow">The Izzy Difference</span>
+                <h2>Advice You Can Actually Trust</h2>
+                <p>Anyone can sell you a golden visa. We exist to make sure the one you buy is right — and that it is approved.</p>
+            </div>
+            <div className="row g-4">
+                <div className="col-md-6 col-lg-4">
+                    <div className="benefit-card">
+                        <div className="benefit-card__icon"><i className="fa-solid fa-user-tie"></i></div>
+                        <h3>One Mentor, One File</h3>
+                        <p>Your dedicated mentor knows your family, your finances and your goals. No call centres, no hand-offs — one accountable expert from first call to passport in hand.</p>
+                    </div>
                 </div>
-              ))}
+                <div className="col-md-6 col-lg-4">
+                    <div className="benefit-card">
+                        <div className="benefit-card__icon"><i className="fa-solid fa-scale-balanced"></i></div>
+                        <h3>Honest Recommendations</h3>
+                        <p>If a programme is weak for you, we say so. Our advice is structured around your jurisdiction, your timeline and your budget — never around our commission.</p>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                    <div className="benefit-card">
+                        <div className="benefit-card__icon"><i className="fa-solid fa-file-shield"></i></div>
+                        <h3>Compliance First</h3>
+                        <p>Source-of-funds, due diligence and documentary integrity are handled by specialists before submission — the single biggest factor between approval and refusal.</p>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                    <div className="benefit-card">
+                        <div className="benefit-card__icon"><i className="fa-solid fa-earth-africa"></i></div>
+                        <h3>56 Programmes, One Roof</h3>
+                        <p>Ten citizenship routes and forty-six residency routes across the Caribbean, Europe, the Americas, Africa, the Middle East and Asia Pacific — compared side by side for you.</p>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                    <div className="benefit-card">
+                        <div className="benefit-card__icon"><i className="fa-solid fa-lock"></i></div>
+                        <h3>Discretion, Always</h3>
+                        <p>Global mobility is a private matter. Your information is held in confidence and never shared beyond what your application requires.</p>
+                    </div>
+                </div>
+                <div className="col-md-6 col-lg-4">
+                    <div className="benefit-card">
+                        <div className="benefit-card__icon"><i className="fa-solid fa-handshake"></i></div>
+                        <h3>Beyond Approval</h3>
+                        <p>Passport in hand is not the finish line. We stay with you through settlement, renewal, family additions and the next stage of your journey.</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <Reveal direction="right">
-            <div className="relative overflow-hidden rounded-[28px] bg-navy-950 p-10">
-              <div className="glow-orb glow-orb--gold" />
-              <span className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-gold-500 text-navy-950">
-                <Handshake size={26} />
-              </span>
-              <h2 className="relative z-10 mt-6 text-3xl font-extrabold leading-tight text-white">
-                Experience the <span className="section-head__title--gold">difference</span>
-              </h2>
-              <p className="relative z-10 mt-4 text-[14.5px] leading-relaxed text-white/70">
-                Start with a free, no-obligation assessment. You will know your options within one working day.
-              </p>
-              <div className="relative z-10 mt-8 flex flex-wrap gap-4">
-                <Button href="/contact" variant="gold">
-                  Book a Free Assessment
-                </Button>
-                <Button href={whatsappHref()} variant="ghost-light">
-                  Chat on WhatsApp
-                </Button>
-              </div>
-            </div>
-          </Reveal>
         </div>
-      </section>
+    </section>
 
-      <CtaBand />
-    </>
+    <section className="program-section program-section--alt">
+        <div className="container">
+            <div className="row g-4 align-items-center">
+                <div className="col-lg-6">
+                    <div className="program-section__head" style={{"marginBottom":"20px"}}>
+                        <span className="eyebrow">How We Work</span>
+                        <h2>From First Call to Approval</h2>
+                    </div>
+                    <div className="row g-4">
+                        <div className="col-sm-6">
+                            <div className="step-card">
+                                <div className="step-card__num">01</div>
+                                <h3>Free Assessment</h3>
+                                <p>We map your goals, budget and timeline against every qualifying programme.</p>
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="step-card">
+                                <div className="step-card__num">02</div>
+                                <h3>Strategy &amp; Plan</h3>
+                                <p>You receive a written recommendation with costs, timeline and risks — no pressure.</p>
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="step-card">
+                                <div className="step-card__num">03</div>
+                                <h3>Documentation</h3>
+                                <p>Our team gathers, translates, notarises and apostilles every document.</p>
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="step-card">
+                                <div className="step-card__num">04</div>
+                                <h3>Submission &amp; Approval</h3>
+                                <p>We manage the submission, respond to the government and track your file to approval.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-lg-6">
+                    <div className="cta-band">
+                        <h2>Experience the difference</h2>
+                        <p>Start with a free, no-obligation assessment. You will know your options within one working day.</p>
+                        <div className="cta-band__actions">
+                            <a href="/contact" className="rr-btn btn-light-gold">Book a Free Assessment <i className="fa-solid fa-arrow-right"></i></a>
+                            <a href="#" id="cta-whatsapp" className="rr-btn btn-ghost-light"><i className="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    </main>
   );
 }

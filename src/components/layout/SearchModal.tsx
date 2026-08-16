@@ -1,220 +1,246 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Search, Sparkles, ArrowRight, X } from "lucide-react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Search, X, Shield, Landmark, Sparkles, BookOpen, ArrowRight, CornerDownLeft } from "lucide-react";
 import { programs } from "@/data/programs";
+import { blogPosts } from "@/data/blogPosts";
 import { countries } from "@/data/countries";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
 
-interface Props {
+interface SearchModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-interface SearchResult {
-  title: string;
-  href: string;
-  meta: string;
-  flag?: string;
-}
-
-const POPULAR_TAGS = [
-  "St. Kitts",
-  "Portugal",
-  "Greece",
-  "Italy",
-  "Ancestry",
-  "EB-5",
-  "Malta",
-  "Canada",
-  "Caribbean",
-  "Golden Visa",
-];
-
-const PAGE_HITS: SearchResult[] = [
-  { title: "Citizenship Programmes", href: "/citizenship", meta: "10 sovereign passport routes" },
-  { title: "Residency Programmes", href: "/residency", meta: "45 golden visas & permits" },
-  { title: "Compare Programmes", href: "/compare", meta: "Side-by-side comparison matrix" },
-  { title: "Why Izzy Immigration", href: "/why-izzy", meta: "Mentor-led advisory & track record" },
-  { title: "Our Expertise", href: "/expertise", meta: "Six core sovereign practice areas" },
-  { title: "Global Real Estate", href: "/real-estate", meta: "Qualifying property investment routes" },
-  { title: "Luxury Cruise & Travel", href: "/cruise-travel", meta: "Explore before you move" },
-  { title: "Citizenship by Descent", href: "/ancestry", meta: "Ancestry eligibility assessment" },
-  { title: "About Us", href: "/about", meta: "Our mission, leadership & history" },
-  { title: "Contact", href: "/contact", meta: "Book a free assessment" },
-];
-
-export function SearchModal({ isOpen, onClose }: Props) {
-  const [q, setQ] = useState("");
+export function SearchModal({ isOpen, onClose }: SearchModalProps) {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (!isOpen) setQ("");
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+      setQuery("");
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
   }, [isOpen]);
 
+  // Global hotkey Ctrl+K / Cmd+K
   useEffect(() => {
-    if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        if (isOpen) {
+          onClose();
+        } else {
+          // Open
+        }
+      }
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
     };
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
-
-  const results = useMemo<SearchResult[]>(() => {
-    const term = q.trim().toLowerCase();
-    if (term.length < 2) return [];
-    const programHits: SearchResult[] = programs
-      .filter((p) => `${p.title} ${p.country} ${p.region}`.toLowerCase().includes(term))
-      .slice(0, 6)
-      .map((p) => ({
-        title: p.title,
-        href: `/programmes/${p.id}`,
-        meta: `${p.type === "citizenship" ? "Citizenship" : "Residency"} · ${p.region} · from ${p.minInvestment}`,
-        flag: p.flag,
-      }));
-    const countryHits: SearchResult[] = countries
-      .filter((c) => `${c.name} ${c.region}`.toLowerCase().includes(term))
-      .slice(0, 3)
-      .map((c) => ({
-        title: c.name,
-        href: `/countries`,
-        meta: `${c.capital} · Passport Power ${c.passportPower}`,
-        flag: c.flag,
-      }));
-    const pageHits: SearchResult[] = PAGE_HITS.filter((p) => p.title.toLowerCase().includes(term));
-    return [...pageHits, ...programHits, ...countryHits];
-  }, [q]);
 
   if (!isOpen) return null;
 
+  const q = query.toLowerCase().trim();
+
+  const matchingPrograms = q
+    ? programs.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.country.toLowerCase().includes(q) ||
+          p.region.toLowerCase().includes(q) ||
+          p.minInvestment.toLowerCase().includes(q)
+      ).slice(0, 6)
+    : programs.slice(0, 4);
+
+  const matchingBlogs = q
+    ? blogPosts.filter(
+        (b) =>
+          b.title.toLowerCase().includes(q) ||
+          b.category.toLowerCase().includes(q) ||
+          b.excerpt.toLowerCase().includes(q)
+      ).slice(0, 3)
+    : [];
+
+  const matchingCountries = q
+    ? countries.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          c.region.toLowerCase().includes(q)
+      ).slice(0, 3)
+    : [];
+
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-20 sm:pt-24"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Search site"
-    >
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4">
+      {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-navy-950/70 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-navy-950/75 backdrop-blur-sm transition-opacity"
         onClick={onClose}
+        aria-hidden="true"
       />
+
+      {/* Modal Card */}
       <div
-        className="relative z-10 w-full max-w-2xl overflow-hidden rounded-3xl border border-surface-200 bg-white p-6 shadow-2xl shadow-navy-950/30 md:p-8"
-        onClick={(e) => e.stopPropagation()}
+        className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden z-10 border border-gray-200 animate-in fade-in zoom-in-95 duration-200 flex flex-col max-h-[80vh]"
+        role="dialog"
+        aria-modal="true"
       >
-        <div className="relative flex items-center">
-          <Search size={20} className="absolute left-4 text-ink-light" />
+        {/* Search Header Input */}
+        <div className="relative p-4 sm:p-5 border-b border-gray-100 flex items-center gap-3">
+          <Search className="w-5 h-5 text-gold-500 shrink-0" />
           <input
-            autoFocus
-            type="search"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            placeholder="Search programmes, countries, ancestry, pages…"
-            className="field pl-12 pr-10 text-base"
-            aria-label="Search query"
+            ref={inputRef}
+            type="text"
+            placeholder="Search 55+ programmes, golden visas, countries, articles..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="w-full text-sm md:text-base font-medium outline-none placeholder-gray-400 bg-transparent text-navy-900"
           />
-          {q && (
+          {query && (
             <button
-              type="button"
-              onClick={() => setQ("")}
-              aria-label="Clear search"
-              className="absolute right-3 text-ink-light hover:text-navy-900"
+              onClick={() => setQuery("")}
+              className="text-gray-400 hover:text-navy-900 p-1"
             >
-              <X size={18} />
+              <X className="w-4 h-4" />
             </button>
           )}
+          <button
+            onClick={onClose}
+            className="text-xs font-bold text-gray-500 bg-surface-200 hover:bg-gray-200 px-2 py-1 rounded-md"
+          >
+            ESC
+          </button>
         </div>
 
-        {/* Quick suggestions when input is short */}
-        {q.trim().length < 2 && (
-          <div className="mt-6">
-            <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink-light">
-              <Sparkles size={14} className="text-gold-500" /> Popular Searches
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {POPULAR_TAGS.map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() => setQ(tag)}
-                  className="rounded-full border border-surface-200 bg-surface-50 px-3.5 py-1.5 text-[13px] font-semibold text-navy-900 transition-colors hover:border-gold-500 hover:bg-gold-500/10 hover:text-gold-700"
-                >
-                  {tag}
-                </button>
-              ))}
+        {/* Results List */}
+        <div className="p-4 sm:p-6 overflow-y-auto space-y-6 flex-grow">
+          {/* Programs Group */}
+          <div>
+            <div className="flex items-center justify-between mb-3 text-xs font-bold text-gray-400 uppercase tracking-wider">
+              <span>{q ? "Matching Sovereign Programmes" : "Popular Programmes"}</span>
+              <span className="text-[11px] font-semibold text-gold-600">
+                {matchingPrograms.length} Results
+              </span>
             </div>
 
-            <div className="mt-6 border-t border-surface-200 pt-5">
-              <p className="text-xs font-bold uppercase tracking-wider text-ink-light">Featured Portals</p>
-              <div className="mt-3 grid gap-2 sm:grid-cols-2">
-                {[
-                  { title: "Citizenship by Investment", href: "/citizenship", desc: "10 second passport routes" },
-                  { title: "European Golden Visas", href: "/residency", desc: "Portugal, Greece, Spain & Malta" },
-                  { title: "Citizenship by Descent", href: "/ancestry", desc: "Ancestry & family lineage claims" },
-                  { title: "Programme Comparison", href: "/compare", desc: "Side-by-side dossier comparison" },
-                ].map((item) => (
+            <div className="space-y-2">
+              {matchingPrograms.map((p) => {
+                let flagSrc = p.flag.startsWith("/") || p.flag.startsWith("http") ? p.flag : `/${p.flag}`;
+                return (
                   <Link
-                    key={item.href}
-                    href={item.href}
+                    key={p.id}
+                    href={`/programmes/${p.id}`}
                     onClick={onClose}
-                    className="flex items-start justify-between rounded-xl p-3 transition-colors hover:bg-surface-100"
+                    className="flex items-center justify-between p-3 rounded-2xl border border-gray-100 bg-surface-100 hover:bg-white hover:border-gold-300 hover:shadow-card transition-all duration-200 group"
                   >
-                    <div>
-                      <p className="text-sm font-bold text-navy-900">{item.title}</p>
-                      <p className="text-xs text-ink-light">{item.desc}</p>
+                    <div className="flex items-center gap-3">
+                      <div className="relative w-8 h-6 rounded overflow-hidden shadow-2xs border border-gray-200 shrink-0">
+                        <Image src={flagSrc} alt={p.country} fill className="object-cover" sizes="32px" />
+                      </div>
+                      <div>
+                        <h4 className="text-xs sm:text-sm font-bold text-navy-900 group-hover:text-gold-600">
+                          {p.title}
+                        </h4>
+                        <span className="text-[11px] text-gray-400">
+                          {p.country} • {p.region} • {p.processing}
+                        </span>
+                      </div>
                     </div>
-                    <ArrowRight size={14} className="mt-1 text-gold-500" />
+                    <div className="flex items-center gap-3 shrink-0">
+                      <span className="text-xs font-bold text-gold-600 font-heading">
+                        {p.minInvestment}
+                      </span>
+                      <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-gold-600 group-hover:translate-x-0.5 transition-transform" />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Countries Group (if matching) */}
+          {matchingCountries.length > 0 && (
+            <div>
+              <div className="mb-3 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                Jurisdictions &amp; Countries
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                {matchingCountries.map((c) => (
+                  <Link
+                    key={c.code}
+                    href={`/programmes/${c.programId}`}
+                    onClick={onClose}
+                    className="p-3 rounded-xl border border-gray-100 bg-surface-100 hover:bg-white hover:border-gold-300 transition-colors flex items-center gap-2 text-xs font-bold text-navy-900"
+                  >
+                    <div className="relative w-6 h-4 rounded overflow-hidden border border-gray-200 shrink-0">
+                      <Image src={c.flag} alt={c.name} fill className="object-cover" sizes="24px" />
+                    </div>
+                    <span className="truncate">{c.name}</span>
                   </Link>
                 ))}
               </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Search Results */}
-        {q.trim().length >= 2 && (
-          <div className="mt-6 max-h-[60vh] overflow-y-auto">
-            {results.length === 0 ? (
-              <div className="py-10 text-center text-sm text-ink-light">
-                <p className="font-bold text-navy-900">No results found for &ldquo;{q}&rdquo;</p>
-                <p className="mt-1">Try searching by country (e.g. &ldquo;Portugal&rdquo;) or program type.</p>
+          {/* Blog Articles Group (if matching) */}
+          {matchingBlogs.length > 0 && (
+            <div>
+              <div className="mb-3 text-xs font-bold text-gray-400 uppercase tracking-wider">
+                Sovereign Intelligence &amp; Articles
               </div>
-            ) : (
-              <ul className="space-y-1.5">
-                {results.map((r, i) => (
-                  <li key={i}>
-                    <Link
-                      href={r.href}
-                      onClick={onClose}
-                      className="flex items-center justify-between gap-3 rounded-2xl p-3.5 transition-colors hover:bg-surface-100"
-                    >
-                      <div className="flex items-center gap-3">
-                        {r.flag ? (
-                          <span className="flex h-8 w-11 shrink-0 items-center justify-center overflow-hidden rounded border border-surface-200 bg-white">
-                            <img src={r.flag.startsWith("/") ? r.flag : `/${r.flag}`} alt="" className="h-full w-full object-cover" />
-                          </span>
-                        ) : (
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-navy-100 text-navy-900">
-                            <Search size={14} />
-                          </span>
-                        )}
-                        <div>
-                          <p className="text-[14.5px] font-bold text-navy-900">{r.title}</p>
-                          <p className="text-xs text-ink-light">{r.meta}</p>
-                        </div>
-                      </div>
-                      <ArrowRight size={15} className="shrink-0 text-gold-600" />
-                    </Link>
-                  </li>
+              <div className="space-y-2">
+                {matchingBlogs.map((b) => (
+                  <Link
+                    key={b.slug}
+                    href={`/blog/${b.slug}`}
+                    onClick={onClose}
+                    className="flex items-center justify-between p-3 rounded-xl border border-gray-100 bg-surface-100 hover:bg-white hover:border-gold-300 transition-colors group"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <BookOpen className="w-4 h-4 text-gold-500 shrink-0" />
+                      <span className="text-xs font-bold text-navy-900 group-hover:text-gold-600 line-clamp-1">
+                        {b.title}
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-gray-400 shrink-0">{b.readTime}</span>
+                  </Link>
                 ))}
-              </ul>
-            )}
+              </div>
+            </div>
+          )}
+
+          {/* Quick Shortcuts */}
+          <div className="pt-3 border-t border-gray-100 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-500">
+            <span>Quick shortcuts:</span>
+            <div className="flex items-center gap-2">
+              <Link href="/citizenship" onClick={onClose} className="hover:text-gold-600 font-semibold underline">
+                Citizenship (CBI)
+              </Link>
+              <span>•</span>
+              <Link href="/residency" onClick={onClose} className="hover:text-gold-600 font-semibold underline">
+                Golden Visas
+              </Link>
+              <span>•</span>
+              <Link href="/ancestry" onClick={onClose} className="hover:text-gold-600 font-semibold underline">
+                Ancestry Quiz
+              </Link>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

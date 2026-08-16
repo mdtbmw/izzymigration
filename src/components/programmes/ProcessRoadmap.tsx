@@ -1,32 +1,44 @@
+import React from "react";
 import { Check } from "lucide-react";
-import type { ProcessStep } from "@/types";
+import { ProcessStep } from "@/types";
+import { cn } from "@/lib/utils";
 
-/** Vertical connected timeline for a programme's application process. */
-export function ProcessRoadmap({ steps }: { steps: ProcessStep[] }) {
+interface ProcessRoadmapProps {
+  steps: ProcessStep[];
+  className?: string;
+}
+
+export function ProcessRoadmap({ steps, className }: ProcessRoadmapProps) {
   if (!steps || steps.length === 0) return null;
 
   return (
-    <div className="relative space-y-6 md:space-y-8">
-      <div className="absolute bottom-6 left-8 top-6 hidden w-0.5 bg-gradient-to-b from-gold-500 via-navy-800 to-gold-400 md:block" />
+    <div className={cn("relative space-y-6 md:space-y-8", className)}>
+      {/* Connected Timeline Line for Desktop */}
+      <div className="hidden md:block absolute left-8 top-6 bottom-6 w-0.5 bg-gradient-to-b from-gold-500 via-navy-800 to-gold-400" />
+
       {steps.map((step, idx) => (
-        <div key={idx} className="group relative flex flex-col items-start gap-5 md:flex-row md:gap-8">
-          <div className="relative z-10 flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-2xl border-2 border-gold-400 bg-navy-900 font-extrabold text-gold-400 shadow-lg transition-colors duration-300 group-hover:bg-gold-500 group-hover:text-navy-950">
-            <span className="text-[10px] uppercase tracking-widest text-white/60 transition-colors group-hover:text-navy-900">
-              Step
-            </span>
-            <span className="text-xl leading-none">{String(idx + 1).padStart(2, "0")}</span>
+        <div
+          key={idx}
+          className="relative flex flex-col md:flex-row gap-5 md:gap-8 items-start group"
+        >
+          {/* Step Number Circle */}
+          <div className="relative z-10 w-16 h-16 rounded-2xl bg-navy-900 text-gold-400 border-2 border-gold-400 flex flex-col items-center justify-center font-heading font-extrabold shadow-lg shrink-0 group-hover:bg-gold-500 group-hover:text-navy-950 transition-colors duration-300">
+            <span className="text-xs uppercase tracking-widest text-gray-300 group-hover:text-navy-900">Step</span>
+            <span className="text-xl leading-none">0{idx + 1}</span>
           </div>
-          <div className="card flex-1 rounded-3xl p-6 md:p-8">
-            <h4 className="text-lg font-extrabold text-navy-900 transition-colors group-hover:text-gold-600 md:text-xl">
+
+          {/* Step Content Box */}
+          <div className="flex-grow bg-surface-100 hover:bg-white border border-gray-200 rounded-3xl p-6 md:p-8 transition-all duration-300 hover:shadow-card-hover hover:border-gold-300">
+            <h4 className="text-lg md:text-xl font-bold font-heading text-navy-900 mb-3 group-hover:text-gold-600 transition-colors">
               {step.t}
             </h4>
-            <ul className="mt-3 space-y-2.5 text-[14px] leading-relaxed text-ink">
-              {step.items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-600">
-                    <Check size={10} strokeWidth={3} />
+            <ul className="space-y-2 text-sm text-body">
+              {step.items.map((item, itemIdx) => (
+                <li key={itemIdx} className="flex items-start gap-2.5">
+                  <span className="w-4 h-4 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-2.5 h-2.5" />
                   </span>
-                  {item}
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>

@@ -9,9 +9,11 @@ import { cn } from "@/lib/utils";
 interface ProgrammeCardProps {
   program: Program;
   className?: string;
+  compact?: boolean;
+  index?: number;
 }
 
-export function ProgrammeCard({ program, className }: ProgrammeCardProps) {
+export function ProgrammeCard({ program, className, compact, index }: ProgrammeCardProps) {
   // Normalize flag path
   let flagSrc = program.flag;
   if (!flagSrc.startsWith("/") && !flagSrc.startsWith("http")) {
@@ -24,6 +26,7 @@ export function ProgrammeCard({ program, className }: ProgrammeCardProps) {
     <div
       className={cn(
         "group relative flex flex-col h-full bg-surface-200 hover:bg-white border border-gray-200/80 hover:border-gold-300 rounded-[22px] p-6 md:p-7 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-sovereign",
+        compact && "p-5 md:p-6",
         className
       )}
     >
@@ -71,16 +74,18 @@ export function ProgrammeCard({ program, className }: ProgrammeCardProps) {
         </div>
 
         {/* Key Features List */}
-        <ul className="space-y-2 mb-6 flex-grow text-xs md:text-sm text-body">
-          {program.benefits.slice(0, 2).map((benefit, idx) => (
-            <li key={idx} className="flex items-start gap-2.5">
-              <span className="w-4 h-4 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
-                <Check className="w-2.5 h-2.5" />
-              </span>
-              <span className="line-clamp-2">{benefit}</span>
-            </li>
-          ))}
-        </ul>
+        {!compact && (
+          <ul className="space-y-2 mb-6 flex-grow text-xs md:text-sm text-body">
+            {program.benefits.slice(0, 2).map((benefit, idx) => (
+              <li key={idx} className="flex items-start gap-2.5">
+                <span className="w-4 h-4 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
+                  <Check className="w-2.5 h-2.5" />
+                </span>
+                <span className="line-clamp-2">{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* Bottom CTA Row: Learn More + Signature Circle Arrow */}
         <div className="pt-4 border-t border-gray-200/60 mt-auto flex items-center justify-between">

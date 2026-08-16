@@ -1,23 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/data/siteConfig";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { HeaderExact } from "@/components/layout/HeaderExact";
+import { FooterExact } from "@/components/layout/FooterExact";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
-import { BackToTop } from "@/components/layout/BackToTop";
-
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   themeColor: "#050548",
@@ -50,6 +36,11 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: siteConfig.domain }],
   creator: siteConfig.name,
   publisher: siteConfig.legalName,
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -58,7 +49,12 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
-      { url: "/assets/imgs/banner-1/banner-man-img.png", width: 1200, height: 630, alt: `${siteConfig.name} Sovereign Advisory` },
+      {
+        url: "/assets/imgs/banner-1/banner-man-img.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} Sovereign Advisory`,
+      },
     ],
   },
   twitter: {
@@ -67,23 +63,44 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: ["/assets/imgs/banner-1/banner-man-img.png"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${inter.variable}`}>
+    <html lang="en">
       <head>
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Sofia&family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+
+        {/* Routex Pro Stylesheets */}
+        <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css" />
+        <link rel="stylesheet" href="/assets/css/vendor/animate.min.css" />
+        <link rel="stylesheet" href="/assets/css/vendor/fontawesome-pro.css" />
+        <link rel="stylesheet" href="/assets/css/vendor/spacing.css" />
+        <link rel="stylesheet" href="/assets/css/vendor/custom-font.css" />
+        <link rel="stylesheet" href="/assets/css/main.css" />
+        <link rel="stylesheet" href="/assets/css/programs.css" />
+        <link rel="stylesheet" href="/assets/css/hero-slider.css" />
+        <link rel="stylesheet" href="/assets/css/landing-sections.css" />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <HeaderExact />
+        {children}
+        <FooterExact />
         <WhatsAppFloat />
-        <BackToTop />
       </body>
     </html>
   );

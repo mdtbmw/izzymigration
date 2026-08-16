@@ -1,80 +1,83 @@
+import React from "react";
 import Link from "next/link";
+import { ArrowRight, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Variant = "navy" | "gold" | "outline" | "outline-gold" | "white" | "ghost-light" | "whatsapp";
-type Size = "sm" | "md" | "lg";
-
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: "primary" | "gold" | "outline" | "outline-gold" | "circle-arrow" | "ghost";
+  size?: "sm" | "md" | "lg";
   href?: string;
-  variant?: Variant;
-  size?: Size;
-  className?: string;
-  icon?: React.ReactNode;
-  children: React.ReactNode;
-  onClick?: () => void;
-  type?: "button" | "submit";
-  ariaLabel?: string;
-  disabled?: boolean;
+  icon?: LucideIcon;
+  showArrow?: boolean;
+  external?: boolean;
+  children?: React.ReactNode;
 }
 
 export function Button({
-  href,
-  variant = "navy",
+  variant = "primary",
   size = "md",
+  href,
+  icon: Icon,
+  showArrow = false,
+  external = false,
   className,
-  icon,
   children,
-  onClick,
-  type = "button",
-  ariaLabel,
-  disabled = false,
+  ...props
 }: ButtonProps) {
-  const classes = cn(
-    "btn",
-    {
-      "btn-navy": variant === "navy",
-      "btn-gold": variant === "gold",
-      "btn-outline": variant === "outline",
-      "btn-outline-gold": variant === "outline-gold",
-      "btn-white": variant === "white",
-      "btn-ghost-light": variant === "ghost-light",
-      "btn-whatsapp": variant === "whatsapp",
-    },
-    {
-      "btn-sm": size === "sm",
-      "btn-lg": size === "lg",
-    },
-    className
-  );
+  const sizeClasses = {
+    sm: "px-5 py-2.5 text-xs",
+    md: "px-7 py-3.5 text-sm",
+    lg: "px-9 py-4 text-base",
+  };
 
-  const inner = (
+  const variantClasses = {
+    primary: "btn-primary",
+    gold: "btn-gold",
+    outline: "btn-outline",
+    "outline-gold": "btn-outline-gold",
+    "circle-arrow": "btn-circle-arrow",
+    ghost: "text-navy-900 hover:text-gold-500 font-semibold inline-flex items-center gap-2",
+  };
+
+  const baseContent = (
     <>
+      {Icon && <Icon className="w-4 h-4" />}
       {children}
-      {icon}
+      {showArrow && (
+        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+      )}
     </>
   );
 
-  const cls = cn(classes, disabled && "pointer-events-none opacity-60");
-
   if (href) {
-    const external = href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("wa.me");
     if (external) {
       return (
-        <a href={href} className={cls} onClick={onClick} aria-label={ariaLabel} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noopener noreferrer" : undefined}>
-          {inner}
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn("group inline-flex items-center justify-center cursor-pointer", variantClasses[variant], variant !== "circle-arrow" && variant !== "ghost" && sizeClasses[size], className)}
+        >
+          {baseContent}
         </a>
       );
     }
     return (
-      <Link href={href} className={cls} onClick={onClick} aria-label={ariaLabel}>
-        {inner}
+      <Link
+        href={href}
+        className={cn("group inline-flex items-center justify-center cursor-pointer", variantClasses[variant], variant !== "circle-arrow" && variant !== "ghost" && sizeClasses[size], className)}
+      >
+        {baseContent}
       </Link>
     );
   }
 
   return (
-    <button type={type} className={cls} onClick={onClick} aria-label={ariaLabel} disabled={disabled}>
-      {inner}
+    <button
+      className={cn("group inline-flex items-center justify-center cursor-pointer", variantClasses[variant], variant !== "circle-arrow" && variant !== "ghost" && sizeClasses[size], className)}
+      {...props}
+    >
+      {baseContent}
     </button>
   );
 }

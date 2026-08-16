@@ -32,4 +32,5 @@ Thumbs.db
 
 # Scratch & temporary
 scratch/
+izzy-app/
 __pycache__/

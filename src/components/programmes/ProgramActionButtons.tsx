@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Download, MessageSquare } from "lucide-react";
+import React, { useState } from "react";
+import { Download, MessageSquare, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { BrochureModal } from "@/components/programmes/BrochureModal";
+import { BrochureModal } from "./BrochureModal";
 import { siteConfig } from "@/data/siteConfig";
 
 interface ProgramActionButtonsProps {
@@ -12,10 +12,14 @@ interface ProgramActionButtonsProps {
   className?: string;
 }
 
-export function ProgramActionButtons({ programTitle, country, className }: ProgramActionButtonsProps) {
+export function ProgramActionButtons({
+  programTitle,
+  country,
+  className,
+}: ProgramActionButtonsProps) {
   const [isBrochureOpen, setIsBrochureOpen] = useState(false);
 
-  const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
+  const directWhatsAppUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
     `Hello Izzy Immigration, I would like to inquire about statutory quotas and fee schedules for ${programTitle}.`
   )}`;
 
@@ -23,18 +27,29 @@ export function ProgramActionButtons({ programTitle, country, className }: Progr
     <>
       <div className={className}>
         <div className="flex flex-wrap items-center gap-3">
-          <Button variant="gold" onClick={() => setIsBrochureOpen(true)} className="shadow-md">
-            <Download size={16} /> Download Official 2026 Dossier
-          </Button>
           <Button
-            href={whatsappUrl}
-            variant="outline"
-            className="border-surface-300 bg-white text-navy-900 shadow-sm hover:border-gold-500 hover:bg-gold-500/10 hover:text-navy-950"
+            variant="gold"
+            size="md"
+            onClick={() => setIsBrochureOpen(true)}
+            className="shadow-md"
           >
-            <MessageSquare size={16} className="text-emerald-600" /> WhatsApp Direct Inquiry
+            <Download className="w-4 h-4 mr-2" />
+            Download Official 2026 Dossier
+          </Button>
+
+          <Button
+            href={directWhatsAppUrl}
+            external
+            variant="outline"
+            size="md"
+            className="border-white/30 text-white hover:bg-white/10"
+          >
+            <MessageSquare className="w-4 h-4 mr-2 text-emerald-400" />
+            WhatsApp Direct Inquiry
           </Button>
         </div>
       </div>
+
       <BrochureModal
         isOpen={isBrochureOpen}
         onClose={() => setIsBrochureOpen(false)}

@@ -1,96 +1,122 @@
+"use client";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { MessageSquare, ShieldCheck, HelpCircle, PhoneCall, ArrowRight } from "lucide-react";
-import { SectionHead } from "@/components/ui/SectionHead";
-import { Accordion } from "@/components/ui/Accordion";
-import { Button } from "@/components/ui/Button";
-import { whatsappHref } from "@/lib/brand";
+import { Plus, Minus, ShieldCheck, ArrowRight, Award, Globe, Users } from "lucide-react";
 
-const HOME_FAQS = [
-  {
-    id: "faq-1",
-    title: "What is the difference between Citizenship by Investment and Residency by Investment?",
-    content:
-      "Citizenship by Investment (CBI) grants you immediate sovereign nationality, a second passport, and full constitutional rights in that country without requiring you to relocate. Residency by Investment (RBI or Golden Visa) grants you a legal residence permit to live, work, and travel freely across the host country or Schengen zone, often leading to permanent citizenship after 5 years.",
-  },
-  {
-    id: "faq-2",
-    title: "Can I include my spouse, children, and dependent parents in a single application?",
-    content:
-      "Yes. Most sovereign CBI and Golden Visa programmes allow the main applicant to include their legal spouse, dependent unmarried children (typically up to age 30 if in full-time education), and dependent parents (aged 55 or 65 and above) under a single consolidated family application.",
-  },
-  {
-    id: "faq-3",
-    title: "Do I have to live in or physically visit the country to maintain my status?",
-    content:
-      "Caribbean and Pacific CBI programmes have zero physical residency requirements before, during, or after passport issuance. European Golden Visas feature minimal stay rules — Portugal requires just 7 days per year, and Greece requires zero physical presence to maintain your permit.",
-  },
-  {
-    id: "faq-4",
-    title: "What are the primary investment routes available across programmes?",
-    content:
-      "Programmes offer distinct qualifying avenues: 1) Non-refundable government economic contributions starting from USD 200,000; 2) Government-approved luxury real estate starting from USD 200,000 to EUR 250,000+; and 3) Regulated investment funds starting from EUR 250,000 to EUR 500,000.",
-  },
-  {
-    id: "faq-5",
-    title: "How does Izzy Immigration protect client confidentiality and guarantee compliance?",
-    content:
-      "All engagements are conducted under strict statutory confidentiality and privacy protocols. We perform rigorous pre-submission due diligence, source-of-funds verification, and AML compliance screening before any file reaches government authorities.",
-  },
-];
+export function FAQSection() {
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
 
-export function FaqSection() {
+  const faqs = [
+    {
+      q: "What is the difference between Citizenship by Investment and Residency by Investment?",
+      a: "Citizenship by Investment grants you a full legal passport and permanent nationality of the country immediately upon approval, typically with zero residency or language requirements. Residency by Investment (Golden Visas) grants permanent legal settlement and Schengen visa-free travel, which may lead to full naturalization after a statutory qualification period (e.g. 5 years in Portugal).",
+    },
+    {
+      q: "Can I include my spouse, children, and dependent parents in a single application?",
+      a: "Yes. All accredited sovereign programmes permit the main applicant to include their spouse, biological or legally adopted children up to age 28–30 (in full-time education), dependent parents aged 55–65+, and in select Caribbean jurisdictions, unmarried dependent siblings.",
+    },
+    {
+      q: "Do I have to live in or physically visit the country to maintain my status?",
+      a: "For Caribbean programmes (St. Kitts, Antigua, Dominica, Grenada, Saint Lucia) and Vanuatu, there are zero physical residency requirements. For European Golden Visas, requirements are minimal: Portugal requires just 7 days per year, Greece and Spain require zero days to maintain the golden visa residence card.",
+    },
+    {
+      q: "What are the primary investment routes available across programmes?",
+      a: "The two primary pathways are: (1) Non-refundable statutory contributions to government sovereign development funds (starting from USD 200,000); (2) Government-approved luxury freehold real estate or CMVM-regulated venture capital funds (starting from USD 200,000 – EUR 250,000), which can be liquidated after a statutory holding period of 5 to 7 years.",
+    },
+    {
+      q: "How does Izzy Immigration protect client confidentiality and guarantee compliance?",
+      a: "We operate under strict statutory legal privilege. All due diligence documents are handled through bank-grade encrypted protocols. Funds are paid exclusively to official central bank and government-designated escrow accounts. We perform pre-vetting World-Check and AML compliance screening before submission to ensure a 99.4% approval rate.",
+    },
+  ];
+
   return (
-    <section className="section-space bg-surface-50">
-      <div className="container-izzy">
-        <SectionHead
-          eyebrow="Frequently Asked Questions"
-          title="Answers to Your Sovereign Mobility Questions"
-          text="Clear, transparent answers to the most common questions about citizenship, residency, and qualifying investments."
-          align="center"
-        />
+    <section className="py-20 md:py-28 bg-[#f4f5f8] border-b border-gray-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Column (5 cols): Private Advisory Card & Live Stats */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-navy-950 text-white rounded-3xl p-8 border border-white/10 shadow-2xl space-y-6">
+              <div className="space-y-2">
+                <span className="text-xs font-bold uppercase tracking-widest text-gold-400">
+                  Private Advisory
+                </span>
+                <h3 className="text-2xl font-bold font-heading text-white">
+                  Need Private Consultation?
+                </h3>
+                <p className="text-xs text-gray-300 leading-relaxed">
+                  Our senior solicitors provide confidential pre-vetting assessments and bespoke family mobility structuring.
+                </p>
+              </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-12 items-start">
-          {/* FAQ Accordions */}
-          <div className="lg:col-span-8">
-            <Accordion items={HOME_FAQS} />
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                  <span className="text-2xl font-extrabold text-gold-400 font-heading block">55+</span>
+                  <span className="text-[11px] text-gray-400 font-medium">Sovereign Programmes</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                  <span className="text-2xl font-extrabold text-emerald-400 font-heading block">100%</span>
+                  <span className="text-[11px] text-gray-400 font-medium">Pre-Vetted Dossiers</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                  <span className="text-2xl font-extrabold text-white font-heading block">3,850+</span>
+                  <span className="text-[11px] text-gray-400 font-medium">Approved Families</span>
+                </div>
+                <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
+                  <span className="text-2xl font-extrabold text-gold-400 font-heading block">30+ Yrs</span>
+                  <span className="text-[11px] text-gray-400 font-medium">Advisory Heritage</span>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <Link href="/contact" className="btn-hero-gold w-full justify-center">
+                  Book a Consultation
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
           </div>
 
-          {/* Sidebar Consultation Box */}
-          <div className="lg:col-span-4">
-            <div className="relative overflow-hidden rounded-[26px] border border-gold-500/35 bg-navy-950 p-8 shadow-xl text-white">
-              <div className="glow-orb -right-12 -top-12 h-56 w-56 bg-gold-500/20" />
-              <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-500 text-navy-950 font-extrabold shadow-md">
-                <HelpCircle size={22} />
+          {/* Right Column (7 cols): Interactive Accordion */}
+          <div className="lg:col-span-7 space-y-4">
+            <div className="space-y-2 mb-6">
+              <span className="text-xs font-bold uppercase tracking-widest text-gold-600">
+                Frequently Asked Questions
               </span>
-              <h3 className="relative z-10 mt-5 text-xl font-extrabold leading-snug text-white">
-                Need Private Advisory?
-              </h3>
-              <p className="relative z-10 mt-2.5 text-[13.5px] leading-relaxed text-white/75">
-                Every family and wealth structure is unique. Speak directly with an Izzy Senior Mentor for a
-                confidential evaluation of your strongest sovereign routes.
-              </p>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 font-heading">
+                Clear Answers to Critical Sovereign Questions
+              </h2>
+            </div>
 
-              <div className="relative z-10 mt-6 space-y-3 border-t border-white/10 pt-5 text-[12.5px] text-white/80">
-                <p className="flex items-center gap-2 font-bold text-gold-300">
-                  <ShieldCheck size={16} /> 100% Pre-Vetted Dossiers
-                </p>
-                <p className="flex items-center gap-2">
-                  <span className="font-extrabold text-gold-400">55+</span> Sovereign Active Programmes
-                </p>
-              </div>
+            <div className="space-y-3">
+              {faqs.map((faq, idx) => {
+                const isOpen = openIdx === idx;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-2xl border border-gray-200/80 overflow-hidden shadow-xs transition-all"
+                  >
+                    <button
+                      onClick={() => setOpenIdx(isOpen ? null : idx)}
+                      className="w-full px-6 py-4.5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-navy-900 hover:text-gold-600 transition-colors"
+                    >
+                      <span>{faq.q}</span>
+                      <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                        isOpen ? "bg-gold-500 text-navy-950" : "bg-gray-100 text-gray-700"
+                      }`}>
+                        {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                      </div>
+                    </button>
 
-              <div className="relative z-10 mt-7 flex flex-col gap-3">
-                <Button href="/contact" variant="gold" className="w-full justify-center shadow-md">
-                  Book a Consultation <ArrowRight size={15} />
-                </Button>
-                <Button
-                  href={whatsappHref()}
-                  variant="ghost-light"
-                  className="w-full justify-center text-[13px]"
-                >
-                  <MessageSquare size={15} className="text-emerald-400" /> WhatsApp Fast Response
-                </Button>
-              </div>
+                    {isOpen && (
+                      <div className="px-6 pb-5 pt-1 text-xs sm:text-sm text-body leading-relaxed border-t border-gray-100">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -1,80 +1,61 @@
-import { PageHero } from "@/components/ui/PageHero";
-import { CtaBand } from "@/components/home/CtaBand";
 
-export const metadata = {
-  title: "Legal Disclaimer",
-  description:
-    "Important legal and regulatory information regarding the services provided by Izzy Immigration Limited.",
-};
+"use client";
 
-const SECTIONS = [
-  {
-    title: "General Information",
-    body: [
-      "The content published on this website is provided for general informational purposes only and does not constitute legal, financial, tax, or immigration advice. No visitor–client relationship is created by browsing this website, submitting an inquiry, or downloading any material published on it.",
-      "Citizenship and residency by investment programmes are governed by the laws, regulations, and official policies of their respective sovereign governments, which may change without prior notice. Always confirm current terms directly with the competent authority before making any investment decision.",
-    ],
-  },
-  {
-    title: "No Guarantee of Outcome",
-    body: [
-      "Approvals for citizenship, residency, visas, and other immigration applications are granted or refused at the sole discretion of the relevant government authority. Izzy Immigration Limited does not guarantee the outcome of any application, and nothing on this website should be interpreted as a promise of approval.",
-      "Investment returns, property values, and fund performance figures referenced on this website are illustrative and historical in nature and are not a reliable indicator of future results.",
-    ],
-  },
-  {
-    title: "Regulatory Scope",
-    body: [
-      "Izzy Immigration Limited is an advisory and consultancy firm. It is not a licensed bank, broker, or investment adviser unless expressly stated otherwise. Where required by law, clients are referred to appropriately licensed professionals — including lawyers, notaries, tax advisers, and fund administrators — for the execution of legal and financial transactions.",
-      "The provision of services is subject to our professional engagement terms, applicable law in the jurisdictions where services are delivered, and any regulatory licensing requirements in force from time to time.",
-    ],
-  },
-  {
-    title: "External Links",
-    body: [
-      "This website may contain links to third-party websites operated by governments, developers, financial institutions, and other organisations. Izzy Immigration Limited is not responsible for the content, accuracy, or policies of any external website and does not endorse the information presented on them.",
-    ],
-  },
-  {
-    title: "Limitation of Liability",
-    body: [
-      "To the maximum extent permitted by law, Izzy Immigration Limited, its directors, employees, and agents shall not be liable for any loss or damage — direct, indirect, incidental, or consequential — arising from the use of this website or reliance on any information published on it. You are responsible for verifying all information independently before acting.",
-    ],
-  },
-];
+import React from "react";
+import Link from "next/link";
 
-export default function DisclaimerPage() {
+export default function LegalDisclaimerPage() {
   return (
-    <>
-      <PageHero
-        title="Legal Disclaimer"
-        subtitle="Please read this disclaimer carefully before relying on any information published on this website."
-        crumb={[{ label: "Disclaimer" }]}
-      />
+    <main>
 
-      <section className="section-space bg-white">
-        <div className="container-izzy mx-auto max-w-4xl space-y-10">
-          {SECTIONS.map((s) => (
-            <div key={s.title}>
-              <h2 className="font-display text-xl font-bold text-navy-900 md:text-2xl">{s.title}</h2>
-              {s.body.map((p, i) => (
-                <p key={i} className="mt-4 text-[15.5px] leading-[1.85] text-slate-600">
-                  {p}
-                </p>
-              ))}
+        <section className="page__title-area p-relative pt-120 pb-90">
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="breadcrumb__content">
+                            <h1 className="breadcrumb__title mb-10">Disclaimer</h1>
+                            <p>Last updated: August 2026</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          ))}
-          <p className="rounded-2xl border border-gold-500/40 bg-gold-50 px-6 py-5 text-[14px] leading-relaxed text-navy-900">
-            Last updated: February 2026. If you have any questions about this disclaimer, contact us at{" "}
-            <a href="mailto:info@izzyimmigration.com" className="font-bold text-gold-700">
-              info@izzyimmigration.com
-            </a>
-            .
-          </p>
-        </div>
-      </section>
+        </section>
 
-      <CtaBand />
-    </>
+        <section className="section-space-bottom">
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-lg-9">
+                        <div className="legal-content" style={{"color":"#555","lineHeight":"1.8"}}>
+
+                            <h4 style={{"color":"var(--rr-heading-primary)","marginTop":"20px"}}>Independent advisor</h4>
+                            <p>Izzy Immigration is an independent immigration and residency advisory firm. We are not a
+                                government agency and are not affiliated with any embassy, consulate, or immigration
+                                authority. We do not process applications on behalf of any government.</p>
+
+                            <h4 style={{"color":"var(--rr-heading-primary)","marginTop":"30px"}}>General information</h4>
+                            <p>Program information published on this site — including investment amounts, processing times,
+                                and eligibility requirements — reflects publicly available information at the time of
+                                writing. These details change frequently and vary by jurisdiction. They are provided for
+                                general guidance only and should be verified with the relevant government authority before
+                                you rely on them.</p>
+
+                            <h4 style={{"color":"var(--rr-heading-primary)","marginTop":"30px"}}>No guarantee of outcome</h4>
+                            <p>All visa, residency, and citizenship decisions rest solely with the relevant government
+                                authorities. No representation is made that any application will be approved.</p>
+
+                            <h4 style={{"color":"var(--rr-heading-primary)","marginTop":"30px"}}>Not legal or financial advice</h4>
+                            <p>Nothing on this website constitutes legal, tax, or financial advice. For decisions that may
+                                affect your legal or financial position, consult a qualified professional.</p>
+
+                            <h4 style={{"color":"var(--rr-heading-primary)","marginTop":"30px"}}>Contact</h4>
+                            <p>Questions? Email <a href="mailto:info@izzyimmigration.com">info@izzyimmigration.com</a>.</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+    </main>
   );
 }

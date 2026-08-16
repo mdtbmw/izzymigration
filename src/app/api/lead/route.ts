@@ -20,7 +20,7 @@ function rateLimited(key: string): boolean {
   return rec.count > RATE_MAX;
 }
 
-function cleanString(value: unknown, max: number = 500): string {
+function cleanString(value: any, max: number = 500): string {
   if (typeof value !== "string") return "";
   return value.replace(/<[^>]*>?/g, "").trim().slice(0, max);
 }
@@ -29,7 +29,7 @@ function isValidEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 }
 
-async function deliverWhatsApp(lead: Record<string, string>, env: NodeJS.ProcessEnv): Promise<boolean> {
+async function deliverWhatsApp(lead: any, env: any): Promise<boolean> {
   if (!env.WHATSAPP_CLOUD_TOKEN || !env.WHATSAPP_PHONE_ID || !env.WHATSAPP_TO) return false;
   const text = [
     `New ${lead.type || "contact"} lead from izzyimmigration.com`,
@@ -66,7 +66,7 @@ async function deliverWhatsApp(lead: Record<string, string>, env: NodeJS.Process
   }
 }
 
-async function deliverSheet(lead: Record<string, string>, env: NodeJS.ProcessEnv): Promise<boolean> {
+async function deliverSheet(lead: any, env: any): Promise<boolean> {
   if (!env.SHEET_WEBHOOK) return false;
   try {
     const res = await fetch(env.SHEET_WEBHOOK, {
@@ -90,7 +90,7 @@ async function deliverSheet(lead: Record<string, string>, env: NodeJS.ProcessEnv
   }
 }
 
-async function deliverEmail(lead: Record<string, string>, env: NodeJS.ProcessEnv): Promise<boolean> {
+async function deliverEmail(lead: any, env: any): Promise<boolean> {
   if (!env.RESEND_API_KEY || !env.RESEND_TO) return false;
   try {
     const res = await fetch("https://api.resend.com/emails", {
@@ -123,17 +123,17 @@ async function deliverEmail(lead: Record<string, string>, env: NodeJS.ProcessEnv
 
 export async function POST(req: NextRequest) {
   try {
-    let body: Record<string, unknown> = {};
+    let body: any = {};
     const contentType = req.headers.get("content-type") || "";
 
     if (contentType.includes("application/json")) {
-      body = (await req.json()) as Record<string, unknown>;
+      body = await req.json();
     } else {
       const formData = await req.formData();
       body = Object.fromEntries(formData.entries());
     }
 
-    // Honeypot check: bots fill the hidden "website" field
+    // Honeypot check: bots fill "website" field
     if (body.website) {
       return NextResponse.json({ ok: true });
     }
@@ -154,7 +154,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const lead: Record<string, string> = {
+    const lead = {
       name: cleanString(body.name, 200),
       email,
       phone: cleanString(body.phone, 50),
@@ -174,13 +174,13 @@ export async function POST(req: NextRequest) {
     const results = await Promise.allSettled(channels);
     const delivered = results.filter((r) => r.status === "fulfilled" && r.value === true).length;
 
+    // Log receipt in dev / preview
     console.log(`[Lead Capture] Received ${lead.type} lead from ${lead.email} (channels: ${delivered})`);
 
     return NextResponse.json({ ok: true, delivered });
-  } catch (err) {
-    const message = err instanceof Error ? err.message : "Internal server error";
+  } catch (err: any) {
     return NextResponse.json(
-      { ok: false, error: message },
+      { ok: false, error: err.message || "Internal server error" },
       { status: 500 }
     );
   }

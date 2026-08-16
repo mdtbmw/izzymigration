@@ -1,141 +1,175 @@
-import Link from "next/link";
+import React from "react";
 import { notFound } from "next/navigation";
-import { CalendarDays, Clock3, ArrowRight, UserRound, Tags } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Metadata } from "next";
+import { Calendar, Clock, User, ArrowLeft, ArrowRight, Share2, ShieldCheck } from "lucide-react";
 import { blogPosts, getBlogPostBySlug } from "@/data/blogPosts";
-import { PageHero } from "@/components/ui/PageHero";
-import { SectionHead } from "@/components/ui/SectionHead";
-import { CtaBand } from "@/components/home/CtaBand";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
-export function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
-  if (!post) return {};
-  return { title: post.title, description: post.excerpt };
+export async function generateStaticParams() {
+  return blogPosts.map((p) => ({
+    slug: p.slug,
+  }));
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
-  if (!post) return notFound();
 
-  const related = blogPosts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
-  const fallbackRelated = related.length > 0 ? related : blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  if (!post) {
+    return {
+      title: "Article Not Found",
+    };
+  }
+
+  return {
+    title: `${post.title} | Sovereign Intelligence`,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      images: [
+        {
+          url: post.image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+  };
+}
+
+export default async function BlogPostDetailPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   return (
-    <>
-      <PageHero
-        title={post.title}
-        crumb={[
-          { label: "Blog", href: "/blog" },
-          { label: post.category },
-        ]}
-      />
+    <div className="bg-surface-100 min-h-screen py-12 md:py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <Breadcrumb
+          items={[
+            { label: "Insights & News", href: "/blog" },
+            { label: post.title },
+          ]}
+        />
 
-      <section className="section-space bg-white">
-        <div className="container-izzy mx-auto max-w-4xl">
-          <div className="mb-8 flex flex-wrap items-center gap-4 text-[13px] font-semibold text-slate-500">
-            <span className="rounded-full bg-gold-500 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-navy-950">
-              {post.category}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays size={15} className="text-gold-600" /> {post.date}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock3 size={15} className="text-gold-600" /> {post.readTime}
+        {/* Article Header Card */}
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-sm space-y-6">
+          <div className="flex items-center gap-3">
+            <Badge variant="gold">{post.category}</Badge>
+            <span className="text-xs text-gray-500 font-semibold flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-gold-500" />
+              {post.readTime}
             </span>
           </div>
 
-          <div className="overflow-hidden rounded-[24px]">
-            <img
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-navy-900 font-heading leading-tight">
+            {post.title}
+          </h1>
+
+          <div className="flex items-center justify-between pt-4 border-t border-gray-100 text-xs text-gray-500">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-navy-900 text-gold-400 font-bold flex items-center justify-center">
+                {post.author.name.charAt(0)}
+              </div>
+              <div>
+                <span className="font-bold text-navy-900 block">{post.author.name}</span>
+                <span>{post.author.role}</span>
+              </div>
+            </div>
+            <span className="font-medium">{post.date}</span>
+          </div>
+
+          {/* Banner Image */}
+          <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden bg-navy-950 shadow-md">
+            <Image
               src={post.image}
               alt={post.title}
-              className="aspect-[16/9] w-full object-cover"
-              width={1280}
-              height={720}
+              fill
+              className="object-cover"
+              sizes="(max-width: 896px) 100vw, 896px"
+              priority
             />
           </div>
 
-          <div className="mt-10 space-y-6">
-            {post.content.map((para, i) => (
-              <p key={i} className="text-[16.5px] leading-[1.85] text-slate-700">
-                {para}
+          {/* Article Paragraphs */}
+          <div className="space-y-6 text-sm sm:text-base text-body leading-relaxed pt-4 border-t border-gray-100">
+            {post.content.map((paragraph, idx) => (
+              <p key={idx} className="leading-relaxed">
+                {paragraph}
               </p>
             ))}
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-navy-100 bg-slate-50 p-6">
-            <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-navy-900 text-gold-400">
-                <UserRound size={24} />
-              </div>
-              <div>
-                <p className="text-[14.5px] font-bold text-navy-900">{post.author.name}</p>
-                <p className="text-[13px] text-slate-500">{post.author.role}</p>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="mr-1 inline-flex items-center gap-1.5 text-[12.5px] font-bold text-slate-500">
-                <Tags size={14} className="text-gold-600" /> Tags:
+          {/* Tags */}
+          <div className="pt-6 border-t border-gray-100 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-bold text-navy-900 mr-2">Topics:</span>
+            {post.tags.map((tag, idx) => (
+              <span
+                key={idx}
+                className="px-3 py-1 rounded-full bg-surface-200 text-xs text-gray-600 font-medium"
+              >
+                #{tag}
               </span>
-              {post.tags.map((tag) => (
-                <span key={tag} className="rounded-full border border-navy-200 bg-white px-3 py-1 text-[12px] font-bold text-navy-700">
-                  {tag}
-                </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Author Callout / Consultation Card */}
+        <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-10 border border-white/10 shadow-sovereign flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-2">
+            <h3 className="text-xl font-bold font-heading text-white">
+              Have Questions Regarding This Sovereign Route?
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-300">
+              Schedule a confidential dossier review with our Senior Sovereign Immigration Partners.
+            </p>
+          </div>
+          <Button href="/contact" variant="gold" size="md" className="shrink-0">
+            Book Consultation
+          </Button>
+        </div>
+
+        {/* Related Articles */}
+        {relatedPosts.length > 0 && (
+          <div className="space-y-6 pt-6">
+            <h3 className="text-xl font-bold font-heading text-navy-900">
+              Related Sovereign Intelligence
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {relatedPosts.map((rPost) => (
+                <Link
+                  key={rPost.slug}
+                  href={`/blog/${rPost.slug}`}
+                  className="p-6 rounded-3xl bg-white border border-gray-200 hover:border-gold-400 hover:shadow-card transition-all duration-300 group block"
+                >
+                  <span className="text-xs font-bold text-gold-600 block mb-1">{rPost.category}</span>
+                  <h4 className="text-base font-bold font-heading text-navy-900 group-hover:text-gold-600 transition-colors line-clamp-2 mb-2">
+                    {rPost.title}
+                  </h4>
+                  <span className="text-xs text-gray-400 font-medium">{rPost.readTime}</span>
+                </Link>
               ))}
             </div>
           </div>
-
-          {fallbackRelated.length > 0 && (
-            <div className="mt-16">
-              <SectionHead align="left" eyebrow="Keep Reading" title="Related Articles" tone="dark" />
-              <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {fallbackRelated.map((p) => (
-                  <article
-                    key={p.slug}
-                    className="group overflow-hidden rounded-[20px] border border-navy-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
-                  >
-                    <Link href={`/blog/${p.slug}`} className="block">
-                      <div className="relative aspect-[16/10] overflow-hidden">
-                        <img
-                          src={p.image}
-                          alt={p.title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                        <span className="absolute left-3 top-3 rounded-full bg-gold-500 px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wider text-navy-950">
-                          {p.category}
-                        </span>
-                      </div>
-                      <div className="p-5">
-                        <p className="mb-2 flex items-center gap-3 text-[12px] font-semibold text-slate-500">
-                          <span className="inline-flex items-center gap-1">
-                            <CalendarDays size={13} className="text-gold-600" /> {p.date}
-                          </span>
-                          <span className="inline-flex items-center gap-1">
-                            <Clock3 size={13} className="text-gold-600" /> {p.readTime}
-                          </span>
-                        </p>
-                        <h3 className="line-clamp-2 font-display text-[15.5px] leading-snug font-bold text-navy-900 transition-colors group-hover:text-gold-700">
-                          {p.title}
-                        </h3>
-                        <span className="mt-4 inline-flex items-center gap-1.5 text-[12.5px] font-bold text-gold-700">
-                          Read More <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
-                        </span>
-                      </div>
-                    </Link>
-                  </article>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <CtaBand />
-    </>
+        )}
+      </div>
+    </div>
   );
 }

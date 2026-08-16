@@ -1,132 +1,158 @@
 "use client";
 
-import { useState } from "react";
-import { Check, ArrowRight } from "lucide-react";
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Check, X, ArrowRight } from "lucide-react";
 import { programs } from "@/data/programs";
-import type { Program } from "@/types";
+import { Program } from "@/types";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 
 interface ComparisonTableProps {
   initialProgramIds?: string[];
 }
-
-const SLOTS = 3;
 
 export function ComparisonTable({
   initialProgramIds = ["st-kitts-citizenship", "portugal-golden-visa", "greece-golden-visa"],
 }: ComparisonTableProps) {
   const [selectedIds, setSelectedIds] = useState<string[]>(initialProgramIds);
 
-  const selected: (Program | undefined)[] = selectedIds
+  const selectedPrograms = selectedIds
     .map((id) => programs.find((p) => p.id === id))
-    .concat(Array(Math.max(0, SLOTS - selectedIds.length)).fill(undefined));
+    .filter(Boolean) as Program[];
 
-  const changeSlot = (index: number, newId: string) => {
+  const handleSelectChange = (index: number, newId: string) => {
     const updated = [...selectedIds];
     updated[index] = newId;
     setSelectedIds(updated);
   };
 
-  const flagOf = (p: Program) => (p.flag.startsWith("/") ? p.flag : `/${p.flag}`);
-
   return (
-    <div className="card overflow-visible rounded-3xl">
+    <div className="bg-white rounded-3xl border border-gray-200 shadow-sovereign overflow-hidden">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+        <table className="w-full text-left border-collapse min-w-[700px]">
+          {/* Header Row: Selector & Card */}
           <thead>
             <tr className="bg-navy-900 text-white">
-              <th className="w-1/4 p-6 text-lg font-extrabold">Sovereign Attribute</th>
-              {Array.from({ length: SLOTS }, (_, slotIdx) => {
-                const prog = selected[slotIdx];
+              <th className="p-6 w-1/4 font-heading text-lg font-bold border-r border-navy-850">
+                Sovereign Attribute
+              </th>
+              {[0, 1, 2].map((slotIdx) => {
+                const prog = selectedPrograms[slotIdx];
                 return (
-                  <th key={slotIdx} className="w-1/4 p-6">
-                    <select
-                      value={prog?.id ?? ""}
-                      onChange={(e) => changeSlot(slotIdx, e.target.value)}
-                      className="w-full rounded-xl border border-gold-400 bg-white px-3 py-2 text-[12.5px] font-bold text-navy-900 outline-none"
-                      aria-label={`Compare slot ${slotIdx + 1}`}
-                    >
-                      {prog ? null : <option value="">Select programme…</option>}
-                      {programs.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          {p.country} — {p.type === "citizenship" ? "Citizenship" : "Residency"}
-                        </option>
-                      ))}
-                    </select>
-                    {prog && (
-                      <div className="mt-3 flex items-center gap-2.5">
-                        <span className="flex h-6 w-9 shrink-0 items-center justify-center overflow-hidden rounded border border-white/20 bg-white">
-                          <img src={flagOf(prog)} alt="" className="h-full w-full object-cover" />
-                        </span>
-                        <span className="chip chip--gold uppercase">{prog.type}</span>
-                      </div>
-                    )}
+                  <th key={slotIdx} className="p-6 w-1/4 border-r border-navy-850 last:border-r-0">
+                    <div className="space-y-3">
+                      <select
+                        value={prog?.id || ""}
+                        onChange={(e) => handleSelectChange(slotIdx, e.target.value)}
+                        className="w-full px-3 py-2 rounded-xl text-xs font-semibold text-navy-900 bg-white border border-gold-400 outline-none"
+                      >
+                        {programs.map((p) => (
+                          <option key={p.id} value={p.id}>
+                            {p.country} — {p.title}
+                          </option>
+                        ))}
+                      </select>
+
+                      {prog && (
+                        <div className="flex items-center gap-2 pt-1">
+                          <div className="relative w-8 h-6 rounded overflow-hidden shadow-2xs border border-white/20 shrink-0">
+                            <Image
+                              src={prog.flag.startsWith("/") || prog.flag.startsWith("http") ? prog.flag : `/${prog.flag}`}
+                              alt={prog.country}
+                              fill
+                              className="object-cover"
+                              sizes="32px"
+                            />
+                          </div>
+                          <Badge variant={prog.type === "citizenship" ? "gold" : "soft"}>
+                            {prog.type}
+                          </Badge>
+                        </div>
+                      )}
+                    </div>
                   </th>
                 );
               })}
             </tr>
           </thead>
-          <tbody className="divide-y divide-surface-200">
-            <Row label="Minimum Statutory Investment">
-              {selected.map((prog, i) => (
-                <td key={i} className="p-5 text-base font-extrabold text-gold-600">
-                  {prog?.minInvestment ?? "—"}
+
+          <tbody className="divide-y divide-gray-100 text-xs md:text-sm">
+            {/* Minimum Investment */}
+            <tr className="hover:bg-surface-100/60">
+              <td className="p-5 font-bold text-navy-900 bg-surface-200/50">
+                Minimum Statutory Investment
+              </td>
+              {selectedPrograms.map((prog, idx) => (
+                <td key={idx} className="p-5 font-extrabold text-gold-600 font-heading text-base">
+                  {prog.minInvestment}
                 </td>
               ))}
-            </Row>
-            <Row label="Statutory Processing Timeline">
-              {selected.map((prog, i) => (
-                <td key={i} className="p-5 font-semibold text-ink">
-                  {prog?.processing ?? "—"}
+            </tr>
+
+            {/* Processing Time */}
+            <tr className="hover:bg-surface-100/60">
+              <td className="p-5 font-bold text-navy-900 bg-surface-200/50">
+                Statutory Processing Timeline
+              </td>
+              {selectedPrograms.map((prog, idx) => (
+                <td key={idx} className="p-5 text-gray-700 font-medium">
+                  {prog.processing}
                 </td>
               ))}
-            </Row>
-            <Row label="Region & Jurisdiction">
-              {selected.map((prog, i) => (
-                <td key={i} className="p-5 font-semibold text-ink">
-                  {prog ? `${prog.country} (${prog.region})` : "—"}
+            </tr>
+
+            {/* Region & Sovereign Status */}
+            <tr className="hover:bg-surface-100/60">
+              <td className="p-5 font-bold text-navy-900 bg-surface-200/50">
+                Region &amp; Jurisdiction
+              </td>
+              {selectedPrograms.map((prog, idx) => (
+                <td key={idx} className="p-5 text-gray-700 font-medium">
+                  {prog.country} ({prog.region})
                 </td>
               ))}
-            </Row>
-            <Row label="Core Advantages">
-              {selected.map((prog, i) => (
-                <td key={i} className="space-y-2 p-5 text-[13.5px] text-ink">
-                  {prog
-                    ? prog.benefits.slice(0, 3).map((b, j) => (
-                        <span key={j} className="flex items-start gap-2">
-                          <Check size={14} className="mt-0.5 shrink-0 text-gold-500" />
-                          {b}
-                        </span>
-                      ))
-                    : "—"}
+            </tr>
+
+            {/* Key Advantages */}
+            <tr className="hover:bg-surface-100/60">
+              <td className="p-5 font-bold text-navy-900 bg-surface-200/50">
+                Core Advantages
+              </td>
+              {selectedPrograms.map((prog, idx) => (
+                <td key={idx} className="p-5 text-gray-600 space-y-1.5">
+                  {prog.benefits.slice(0, 3).map((b, bIdx) => (
+                    <div key={bIdx} className="flex items-start gap-2">
+                      <Check className="w-3.5 h-3.5 text-gold-500 shrink-0 mt-0.5" />
+                      <span>{b}</span>
+                    </div>
+                  ))}
                 </td>
               ))}
-            </Row>
-            <Row label="Full Details" muted>
-              {selected.map((prog, i) => (
-                <td key={i} className="p-5">
-                  {prog ? (
-                    <Button href={`/programmes/${prog.id}`} variant="gold" size="sm" className="w-full justify-center">
-                      View Dossier <ArrowRight size={14} />
-                    </Button>
-                  ) : (
-                    <span className="text-ink-light">—</span>
-                  )}
+            </tr>
+
+            {/* Action CTA */}
+            <tr className="bg-surface-100">
+              <td className="p-5 font-bold text-navy-900">
+                Full Details
+              </td>
+              {selectedPrograms.map((prog, idx) => (
+                <td key={idx} className="p-5">
+                  <Button
+                    href={`/programmes/${prog.id}`}
+                    variant="gold"
+                    size="sm"
+                    className="w-full justify-center"
+                  >
+                    View Dossier
+                  </Button>
                 </td>
               ))}
-            </Row>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
-  );
-}
-
-function Row({ label, muted = false, children }: { label: string; muted?: boolean; children: React.ReactNode }) {
-  return (
-    <tr>
-      <td className={`p-5 font-extrabold ${muted ? "bg-surface-50" : "bg-surface-200/60"} text-navy-900`}>{label}</td>
-      {children}
-    </tr>
   );
 }

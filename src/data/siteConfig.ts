@@ -5,12 +5,10 @@ export const siteConfig = {
   description:
     "Izzy Immigration is a premier global mobility and sovereign advisory firm helping high-net-worth individuals, entrepreneurs, and families secure visas, permanent residency, citizenship by investment, and citizenship by ancestry worldwide.",
   domain: "https://izzyimmigration.com",
-  since: 1992,
-  phoneDisplay: "0706 720 3694",
-  phoneTel: "+2347067203694",
-  phoneIntl: "+44 20 7946 0192",
-  whatsappNumber: "2347067203694",
-  whatsappMessage: "Hello Izzy Immigration, I would like a free assessment for:",
+  phoneDisplay: "+1 (555) 019-2345",
+  phoneTel: "+15550192345",
+  whatsappNumber: "15550192345", // E.164 without plus or spaces
+  whatsappMessage: "Hello Izzy Immigration, I would like a confidential consultation regarding:",
   email: "info@izzyimmigration.com",
   analyticsId: "G-XXXXXXXXXX",
   address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom",

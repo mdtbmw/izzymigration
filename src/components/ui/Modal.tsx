@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import React, { useEffect } from "react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -8,43 +8,80 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
-  children: ReactNode;
-  wide?: boolean;
+  subtitle?: string;
+  children: React.ReactNode;
+  maxWidth?: "sm" | "md" | "lg" | "xl";
 }
 
-/** Unified modal (magnific-popup replacement). */
-export function Modal({ isOpen, onClose, title, children, wide = false }: ModalProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
-
+export function Modal({
+  isOpen,
+  onClose,
+  title,
+  subtitle,
+  children,
+  maxWidth = "md",
+}: ModalProps) {
   useEffect(() => {
-    if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
     return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = "unset";
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const widthClasses = {
+    sm: "max-w-md",
+    md: "max-w-lg",
+    lg: "max-w-2xl",
+    xl: "max-w-4xl",
+  };
 
   return (
-    <div className={cn("modal-box", isOpen && "is-open")} role="dialog" aria-modal="true" aria-label={title}>
-      <div className={cn("modal-overlay", isOpen && "is-open")} onClick={onClose} />
-      <div ref={ref} className={cn("modal-card", wide && "max-w-3xl")} onClick={(e) => e.stopPropagation()}>
-        <div className="mb-5 flex items-center justify-between">
-          {title && <h3 className="text-xl font-extrabold text-navy-900">{title}</h3>}
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-100 text-navy-900 transition-colors hover:bg-gold-500 hover:text-navy-950"
-          >
-            <X size={17} />
-          </button>
-        </div>
-        {children}
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-navy-950/70 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+
+      {/* Dialog container */}
+      <div
+        className={cn(
+          "relative bg-white rounded-3xl shadow-2xl w-full max-h-[90vh] overflow-y-auto z-10 border border-gray-100 p-6 md:p-8 animate-in fade-in zoom-in-95 duration-200",
+          widthClasses[maxWidth]
+        )}
+        role="dialog"
+        aria-modal="true"
+      >
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-surface-200 hover:bg-gold-500 hover:text-white flex items-center justify-center text-navy-900 transition-colors"
+          aria-label="Close dialog"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        {title && (
+          <div className="mb-6 pr-8">
+            <h3 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+              {title}
+            </h3>
+            {subtitle && (
+              <p className="text-sm text-body mt-1">
+                {subtitle}
+              </p>
+            )}
+          </div>
+        )}
+
+        <div>{children}</div>
       </div>
     </div>
   );

@@ -1,342 +1,337 @@
-import Link from "next/link";
+import React from "react";
 import { notFound } from "next/navigation";
-import { ShieldCheck, Clock, Globe2, Sparkles, Building2, CheckCircle2, MapPin, Camera, Award } from "lucide-react";
-import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Metadata } from "next";
+import {
+  DollarSign,
+  Clock,
+  Globe,
+  CheckCircle2,
+  ShieldCheck,
+} from "lucide-react";
 import { programs, getProgramById, getProgramsByRegion } from "@/data/programs";
-import { PageHero } from "@/components/ui/PageHero";
-import { Accordion } from "@/components/ui/Accordion";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { Badge } from "@/components/ui/Badge";
 import { InvestmentOptions } from "@/components/programmes/InvestmentOptions";
 import { ProcessRoadmap } from "@/components/programmes/ProcessRoadmap";
+import { Accordion } from "@/components/ui/Accordion";
+import { QuickInquiryForm } from "@/components/forms/QuickInquiryForm";
 import { ProgrammeCard } from "@/components/programmes/ProgrammeCard";
 import { ProgramActionButtons } from "@/components/programmes/ProgramActionButtons";
-import { InvestmentCalculator, CALCULATOR_MODELS } from "@/components/programmes/InvestmentCalculator";
-import { QuickInquiryForm } from "@/components/forms/QuickInquiryForm";
 
-interface PageProps {
+interface ProgramPageProps {
   params: Promise<{ id: string }>;
 }
 
-export function generateStaticParams() {
-  return programs.map((p) => ({ id: p.id }));
+export async function generateStaticParams() {
+  return programs.map((p) => ({
+    id: p.id,
+  }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProgramPageProps): Promise<Metadata> {
   const { id } = await params;
   const program = getProgramById(id);
-  if (!program) return { title: "Programme Not Found" };
+
+  if (!program) {
+    return {
+      title: "Programme Not Found",
+    };
+  }
+
   return {
     title: `${program.title} | Izzy Immigration`,
     description: program.intro.slice(0, 160),
+    openGraph: {
+      title: `${program.title} | Sovereign Advisory`,
+      description: program.intro.slice(0, 160),
+      images: [
+        {
+          url: program.flag.startsWith("/") ? program.flag : `/${program.flag}`,
+          width: 800,
+          height: 600,
+          alt: program.title,
+        },
+      ],
+    },
   };
 }
 
-export default async function ProgramDetailPage({ params }: PageProps) {
+export default async function ProgramDetailPage({ params }: ProgramPageProps) {
   const { id } = await params;
   const program = getProgramById(id);
-  if (!program) notFound();
+
+  if (!program) {
+    notFound();
+  }
 
   const isCitizenship = program.type === "citizenship";
-  const flag = program.flag.startsWith("/") ? program.flag : `/${program.flag}`;
-  const heroImage = program.hero?.startsWith("/") ? program.hero : `/${program.hero}`;
-  const related = getProgramsByRegion(program.region).filter((p) => p.id !== program.id).slice(0, 3);
+  let flagSrc = program.flag.startsWith("/") || program.flag.startsWith("http")
+    ? program.flag
+    : `/${program.flag}`;
 
-  // Curated country lifestyle photography set
-  const galleryImages = [
-    {
-      src: heroImage,
-      title: `${program.country} Sovereign Territory`,
-      tag: "Capital & Sovereign Horizon",
-    },
-    {
-      src: "/assets/imgs/projact/projact-img1.jpg",
-      title: "Prime Real Estate Assets",
-      tag: "Approved Developments",
-    },
-    {
-      src: "/assets/imgs/projact/projact-img2.jpg",
-      title: "Coastal & Lifestyle Corridors",
-      tag: "Global Mobility & Quality of Life",
-    },
-  ];
+  // Related programs in the same region
+  const relatedPrograms = getProgramsByRegion(program.region)
+    .filter((p) => p.id !== program.id)
+    .slice(0, 3);
+
+  const faqItems = (program.faqs || []).map((f) => ({
+    question: f.q,
+    answer: f.a,
+  }));
 
   return (
-    <>
-      <PageHero
-        title={program.title}
-        subtitle={program.intro}
-        bgImage={heroImage}
-        crumb={[
-          { label: isCitizenship ? "Citizenship" : "Residency", href: isCitizenship ? "/citizenship" : "/residency" },
-          { label: program.title },
-        ]}
-      />
+    <div className="bg-surface-100 min-h-screen py-10 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: "Programmes", href: "/programmes" },
+              { label: program.region, href: `/programmes?region=${program.region}` },
+              { label: program.title },
+            ]}
+          />
+        </div>
 
-      <section className="section-space pt-8 md:pt-12 bg-white">
-        <div className="container-izzy">
-          {/* Quick metrics + actions bar */}
-          <div className="card mb-12 overflow-visible rounded-3xl border border-gold-500/35 bg-white p-6 md:p-8 shadow-md">
-            <div className="grid items-center gap-6 lg:grid-cols-12">
-              <div className="lg:col-span-8">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="flex h-9 w-14 items-center justify-center overflow-hidden rounded-lg border border-surface-200 bg-white shadow-sm">
-                    <img src={flag} alt="" className="h-full w-full object-cover" />
-                  </span>
-                  <span className="chip chip--gold font-bold">
-                    {isCitizenship ? "Sovereign Citizenship" : "Permanent Residency"}
-                  </span>
-                  <span className="text-[12.5px] font-bold text-ink-light flex items-center gap-1">
-                    <MapPin size={14} className="text-gold-500" /> {program.region}
-                  </span>
+        {/* Hero Banner Card */}
+        <div className="bg-navy-950 text-white rounded-3xl p-8 sm:p-10 md:p-12 border border-navy-850 shadow-2xl relative overflow-hidden mb-12">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-8 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="relative w-12 h-8 rounded-md overflow-hidden shadow-sm border border-white/20 shrink-0">
+                  <Image src={flagSrc} alt={program.country} fill className="object-cover" sizes="48px" />
                 </div>
-                <ProgramActionButtons programTitle={program.title} country={program.country} className="mt-6" />
+                <Badge variant={isCitizenship ? "gold" : "soft"}>
+                  {isCitizenship ? "Sovereign Citizenship" : "Permanent Residency"}
+                </Badge>
+                <span className="text-xs text-gray-400 font-semibold">
+                  {program.region}
+                </span>
               </div>
-              <div className="grid gap-3 sm:grid-cols-3 lg:col-span-4">
-                <div className="rounded-2xl border border-surface-200 bg-surface-50 p-4">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-ink-light">Starting Investment</p>
-                  <p className="mt-1 text-lg font-extrabold text-gold-600">{program.minInvestment}</p>
-                </div>
-                <div className="rounded-2xl border border-surface-200 bg-surface-50 p-4">
-                  <Clock size={15} className="text-navy-800" />
-                  <p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-ink-light">Processing</p>
-                  <p className="text-[14.5px] font-extrabold text-navy-900">{program.processing}</p>
-                </div>
-                <div className="rounded-2xl border border-surface-200 bg-surface-50 p-4">
-                  <Globe2 size={15} className="text-navy-800" />
-                  <p className="mt-1 text-[11px] font-bold uppercase tracking-wider text-ink-light">Filing Channel</p>
-                  <p className="text-[14.5px] font-extrabold text-navy-900">Direct Government</p>
-                </div>
+
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-heading text-white">
+                {program.title}
+              </h1>
+
+              <p className="text-sm md:text-base text-gray-300 leading-relaxed max-w-3xl">
+                {program.intro}
+              </p>
+
+              {/* Action Buttons for Brochure Modal & WhatsApp */}
+              <ProgramActionButtons
+                programTitle={program.title}
+                country={program.country}
+                className="pt-2"
+              />
+            </div>
+
+            {/* Quick Metrics Column */}
+            <div className="lg:col-span-4 bg-navy-900/90 rounded-2xl p-6 border border-white/10 space-y-4">
+              <div>
+                <span className="text-xs text-gray-400 font-medium block">Starting Investment:</span>
+                <span className="text-2xl font-extrabold text-gold-400 font-heading">
+                  {program.minInvestment}
+                </span>
+              </div>
+
+              <div className="pt-3 border-t border-white/10">
+                <span className="text-xs text-gray-400 font-medium block">Processing Timeline:</span>
+                <span className="text-sm font-bold text-white">
+                  {program.processing}
+                </span>
+              </div>
+
+              <div className="pt-3 border-t border-white/10">
+                <span className="text-xs text-gray-400 font-medium block">Due Diligence Authority:</span>
+                <span className="text-xs font-semibold text-emerald-400 flex items-center gap-1.5 mt-0.5">
+                  <ShieldCheck className="w-4 h-4" /> Government Direct Filing
+                </span>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="grid gap-12 lg:grid-cols-12">
-            {/* Main content */}
-            <div className="space-y-14 lg:col-span-8">
-              {/* Section 1: Overview & Strategic Benefits with Left Imagery */}
-              <section className="rounded-3xl border border-surface-200 bg-surface-50 p-6 sm:p-8">
-                <div className="grid gap-8 lg:grid-cols-12 items-center">
-                  <div className="lg:col-span-5">
-                    <div className="relative overflow-hidden rounded-2xl border border-gold-500/30 bg-navy-950 shadow-md">
-                      <img
-                        src={heroImage}
-                        alt={`${program.country} scenery and sovereign lifestyle`}
-                        className="h-64 sm:h-80 w-full object-cover"
-                        loading="lazy"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent" />
-                      <div className="absolute bottom-3 left-3 right-3 rounded-xl bg-navy-950/90 p-3 text-white backdrop-blur-sm">
-                        <p className="text-xs font-extrabold text-gold-400">{program.country}</p>
-                        <p className="text-[11px] text-white/70">Direct Sovereign Statutory Corridor</p>
-                      </div>
-                    </div>
-                  </div>
+        {/* 2-Column Main Content & Sticky Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Left Column (8 cols): Program Details */}
+          <div className="lg:col-span-8 space-y-12">
+            {/* Key Benefits Grid */}
+            <section className="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-sm space-y-6">
+              <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                Key Strategic Benefits &amp; Advantages
+              </h2>
 
-                  <div className="lg:col-span-7">
-                    <span className="chip chip--gold">
-                      <Sparkles size={13} /> Strategic Advantages
-                    </span>
-                    <h2 className="mt-3 text-2xl font-extrabold text-navy-900">Key Benefits & Sovereign Privileges</h2>
-                    
-                    {program.benefitGroups && program.benefitGroups.length > 0 ? (
-                      <div className="mt-5 space-y-4">
-                        {program.benefitGroups.map((g, i) => (
-                          <div key={i} className="rounded-xl bg-white p-4 border border-surface-200 shadow-sm">
-                            <h3 className="mb-2 text-[14px] font-extrabold text-gold-700">{g.t}</h3>
-                            <ul className="space-y-1.5">
-                              {g.items.map((item, j) => (
-                                <li key={j} className="flex items-start gap-2 text-[13px] leading-relaxed text-ink">
-                                  <CheckGold />
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <ul className="mt-5 grid gap-2.5">
-                        {program.benefits.map((b, i) => (
-                          <li key={i} className="flex items-start gap-2.5 rounded-xl bg-white p-3.5 border border-surface-200 shadow-sm text-[13.5px] leading-relaxed text-ink">
-                            <CheckGold />
-                            <span>{b}</span>
+              {program.benefitGroups && program.benefitGroups.length > 0 ? (
+                <div className="space-y-6">
+                  {program.benefitGroups.map((group, idx) => (
+                    <div key={idx} className="p-6 rounded-2xl bg-surface-100 border border-gray-200/60">
+                      <h3 className="text-base font-bold font-heading text-navy-900 mb-3 text-gold-600">
+                        {group.t}
+                      </h3>
+                      <ul className="space-y-2 text-xs md:text-sm text-body">
+                        {group.items.map((item, iIdx) => (
+                          <li key={iIdx} className="flex items-start gap-2.5">
+                            <span className="w-4 h-4 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
+                              <CheckCircle2 className="w-3 h-3" />
+                            </span>
+                            <span>{item}</span>
                           </li>
                         ))}
                       </ul>
-                    )}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </section>
+              ) : (
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs md:text-sm text-body">
+                  {program.benefits.map((b, idx) => (
+                    <li key={idx} className="flex items-start gap-2.5 p-4 rounded-2xl bg-surface-100 border border-gray-200/60">
+                      <span className="w-5 h-5 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center shrink-0 mt-0.5">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                      </span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
 
-              {/* Section 2: Rich Country Visual Showcase & Lifestyle Gallery */}
-              <section>
-                <div className="flex items-center justify-between gap-4 mb-5">
-                  <div>
-                    <span className="chip chip--gold">
-                      <Camera size={13} /> Visual Showcase
-                    </span>
-                    <h2 className="mt-2 text-2xl font-extrabold text-navy-900">
-                      Destination & Lifestyle in {program.country}
-                    </h2>
-                  </div>
-                  <span className="text-xs font-bold text-ink-light">High-Resolution Dossier Views</span>
+            {/* Qualifying Investment Routes */}
+            {program.options && program.options.length > 0 && (
+              <section className="space-y-6">
+                <div className="space-y-2">
+                  <Badge variant="gold">Statutory Pathways</Badge>
+                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                    Qualifying Investment Options
+                  </h2>
+                  <p className="text-xs md:text-sm text-body">
+                    Choose between non-refundable statutory contributions, government-approved luxury real estate, or sovereign bond instruments.
+                  </p>
                 </div>
-                <div className="grid gap-4 sm:grid-cols-3">
-                  {galleryImages.map((g, idx) => (
+
+                <InvestmentOptions options={program.options} />
+              </section>
+            )}
+
+            {/* Statutory Eligibility & Requirements */}
+            {program.requirements && program.requirements.length > 0 && (
+              <section className="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-sm space-y-6">
+                <div className="space-y-2">
+                  <Badge variant="navy">Due Diligence Checklist</Badge>
+                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                    Applicant Eligibility &amp; Statutory Criteria
+                  </h2>
+                </div>
+
+                <div className="space-y-3">
+                  {program.requirements.map((req, idx) => (
                     <div
                       key={idx}
-                      className="group relative overflow-hidden rounded-2xl border border-surface-200 bg-navy-950 shadow-sm"
+                      className="flex items-start gap-3 p-4 rounded-2xl bg-surface-100 border border-gray-200/60 text-xs md:text-sm text-body"
                     >
-                      <div className="h-48 sm:h-52 w-full overflow-hidden">
-                        <img
-                          src={g.src}
-                          alt={g.title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/20 to-transparent" />
-                      <div className="absolute bottom-3 left-3 right-3 text-white">
-                        <span className="chip chip--gold text-[10px] py-0.5 px-2 mb-1">{g.tag}</span>
-                        <p className="text-[12.5px] font-extrabold leading-snug drop-shadow">{g.title}</p>
-                      </div>
+                      <span className="w-6 h-6 rounded-full bg-navy-900 text-gold-400 flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                        0{idx + 1}
+                      </span>
+                      <span className="leading-relaxed">{req}</span>
                     </div>
                   ))}
                 </div>
               </section>
+            )}
 
-              {/* Section 3: Investment Options with Asset Previews */}
-              {program.options && program.options.length > 0 && (
-                <section>
-                  <span className="chip chip--gold">Statutory Pathways</span>
-                  <h2 className="mt-3 text-2xl font-extrabold text-navy-900">Qualifying Investment Options</h2>
-                  <p className="mt-2 text-[14px] text-ink-light">
-                    Choose between non-refundable statutory contributions, government-approved luxury real estate,
-                    or sovereign fund instruments.
+            {/* Step-by-Step Roadmap */}
+            {program.process && program.process.length > 0 && (
+              <section className="space-y-6">
+                <div className="space-y-2">
+                  <Badge variant="gold">End-to-End Execution</Badge>
+                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                    Step-by-Step Application Roadmap
+                  </h2>
+                  <p className="text-xs md:text-sm text-body">
+                    How Izzy Immigration executes your sovereign application from preliminary pre-vetting to statutory naturalization certificate and passport delivery.
                   </p>
-                  <div className="mt-6">
-                    <InvestmentOptions options={program.options} />
-                  </div>
-                </section>
-              )}
+                </div>
 
-              {/* Section 4: Fee calculator */}
-              {CALCULATOR_MODELS[program.id] && (
-                <section>
-                  <span className="chip chip--gold">Official 2026 Statutory Rates</span>
-                  <h2 className="mt-3 text-2xl font-extrabold text-navy-900">Estimate Your Total Investment & Fees</h2>
-                  <p className="mt-2 text-[14px] text-ink-light">
-                    Interactive modeler covering qualifying capital, government due diligence, and statutory filing
-                    fees for {program.country}.
-                  </p>
-                  <div className="mt-6">
-                    <InvestmentCalculator initialCountry={CALCULATOR_MODELS[program.id]} />
-                  </div>
-                </section>
-              )}
+                <ProcessRoadmap steps={program.process} />
+              </section>
+            )}
 
-              {/* Section 5: Requirements */}
-              {program.requirements && program.requirements.length > 0 && (
-                <section>
-                  <span className="chip chip--navy">Due Diligence Checklist</span>
-                  <h2 className="mt-3 text-2xl font-extrabold text-navy-900">Applicant Eligibility & Statutory Criteria</h2>
-                  <div className="mt-6 space-y-3">
-                    {program.requirements.map((req, i) => (
-                      <div key={i} className="flex items-start gap-3 rounded-2xl bg-surface-50 p-4 border border-surface-200">
-                        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy-900 text-[11px] font-extrabold text-gold-400">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span className="text-[14px] leading-relaxed text-ink">{req}</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Section 6: Roadmap */}
-              {program.process && program.process.length > 0 && (
-                <section>
-                  <span className="chip chip--gold">End-to-End Execution</span>
-                  <h2 className="mt-3 text-2xl font-extrabold text-navy-900">Step-by-Step Application Roadmap</h2>
-                  <p className="mt-2 text-[14px] text-ink-light">
-                    How Izzy Immigration executes your application from preliminary pre-vetting to certificate and
-                    passport delivery.
-                  </p>
-                  <div className="mt-6">
-                    <ProcessRoadmap steps={program.process} />
-                  </div>
-                </section>
-              )}
-
-              {/* Section 7: FAQs */}
-              {program.faqs && program.faqs.length > 0 && (
-                <section>
-                  <span className="chip">Programme FAQ</span>
-                  <h2 className="mt-3 text-2xl font-extrabold text-navy-900">
+            {/* Program FAQ */}
+            {faqItems.length > 0 && (
+              <section className="bg-white rounded-3xl p-8 md:p-10 border border-gray-200 shadow-sm space-y-6">
+                <div className="space-y-2">
+                  <Badge variant="soft">Programme FAQ</Badge>
+                  <h2 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
                     Frequently Asked Questions about {program.country}
                   </h2>
-                  <div className="mt-6">
-                    <Accordion
-                      items={program.faqs.map((f, i) => ({ id: `${program.id}-faq-${i}`, title: f.q, content: f.a }))}
-                    />
-                  </div>
-                </section>
-              )}
-            </div>
+                </div>
 
-            {/* Sidebar */}
-            <aside className="lg:col-span-4">
-              <div className="card sticky top-28 rounded-3xl border border-gold-500/40 p-6 md:p-8 bg-white shadow-xl">
-                <span className="chip chip--gold">Private Client Desk</span>
-                <h3 className="mt-3 text-lg font-extrabold text-navy-900">
-                  Confidential Inquiry for {program.country}
-                </h3>
-                <p className="mt-1.5 text-[12.5px] leading-relaxed text-ink-light">
-                  Request a detailed fee quote, family inclusion breakdown, and verified due diligence timeline.
-                </p>
-                <div className="mt-5 border-t border-surface-200 pt-5">
-                  <QuickInquiryForm programTitle={program.title} />
-                </div>
-                <div className="mt-5 space-y-2 border-t border-surface-200 pt-4 text-[11.5px] text-ink-light">
-                  <p className="flex items-center gap-2 font-bold text-emerald-700">
-                    <ShieldCheck size={14} className="shrink-0" /> Licensed Government Migration Agent
-                  </p>
-                  <p>Zero retail broker markups. Direct government escrow account payments.</p>
-                </div>
-              </div>
-            </aside>
+                <Accordion items={faqItems} />
+              </section>
+            )}
           </div>
 
-          {/* Related */}
-          {related.length > 0 && (
-            <section className="mt-20 border-t border-surface-200 pt-12">
-              <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <h2 className="text-2xl font-extrabold text-navy-900">Alternative Programmes in {program.region}</h2>
-                  <p className="mt-1.5 text-[13.5px] text-ink-light">Compare other sovereign jurisdictions in the same region.</p>
-                </div>
-                <Link href="/programmes" className="text-[13px] font-extrabold text-gold-600 transition-colors hover:text-gold-500">
-                  View all in {program.region} →
-                </Link>
+          {/* Right Column (4 cols): Sticky Consultation & Brochure Sidebar */}
+          <div className="lg:col-span-4 space-y-6">
+            <div className="bg-white rounded-3xl p-6 md:p-8 border border-gold-300 shadow-sovereign sticky top-24 space-y-4">
+              <div className="border-b border-gray-100 pb-3">
+                <Badge variant="gold">Private Client Desk</Badge>
+                <h3 className="text-lg font-bold font-heading text-navy-900 mt-2">
+                  Confidential Inquiry for {program.country}
+                </h3>
+                <p className="text-xs text-body mt-1">
+                  Request detailed fee quote, family inclusion breakdown, and verified due diligence timeline.
+                </p>
               </div>
-              <div className="grid gap-6 md:grid-cols-3">
-                {related.map((p, i) => (
-                  <ProgrammeCard key={p.id} program={p} index={i} />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-      </section>
-    </>
-  );
-}
 
-function CheckGold() {
-  return (
-    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-600">
-      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 6 9 17l-5-5" />
-      </svg>
-    </span>
+              <QuickInquiryForm programTitle={program.title} />
+
+              <div className="pt-4 border-t border-gray-100 space-y-2 text-[11px] text-gray-500">
+                <div className="flex items-center gap-2 text-emerald-700 font-semibold">
+                  <ShieldCheck className="w-4 h-4 shrink-0" />
+                  <span>Licensed Government Migration Agent</span>
+                </div>
+                <p>
+                  Zero retail broker markups. Direct government escrow account payments.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Related Programmes in Region */}
+        {relatedPrograms.length > 0 && (
+          <section className="mt-20 pt-12 border-t border-gray-200">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h3 className="text-xl md:text-2xl font-bold font-heading text-navy-900">
+                  Alternative Programmes in {program.region}
+                </h3>
+                <p className="text-xs md:text-sm text-body">
+                  Compare other sovereign jurisdictions in the same region.
+                </p>
+              </div>
+              <Link
+                href={`/programmes?region=${program.region}`}
+                className="text-xs font-bold text-gold-600 hover:underline"
+              >
+                View all in {program.region} →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {relatedPrograms.map((p) => (
+                <ProgrammeCard key={p.id} program={p} />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </div>
   );
 }

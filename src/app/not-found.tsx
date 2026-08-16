@@ -1,33 +1,32 @@
+import React from "react";
 import Link from "next/link";
-import { Compass, Home, ArrowRight } from "lucide-react";
+import { ArrowLeft, Search, Home } from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 
 export default function NotFound() {
   return (
-    <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden bg-navy-900 px-6 py-24">
-      <div className="glow-orb h-72 w-72 bg-gold-400/25 -top-24 -left-24" />
-      <div className="glow-orb h-72 w-72 bg-navy-600/40 -bottom-24 -right-24" />
-      <div className="relative text-center">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gold-500/15 text-gold-400">
-          <Compass size={30} />
-        </span>
-        <p className="mt-6 font-display text-7xl font-extrabold tracking-tight text-white md:text-8xl">404</p>
-        <h1 className="mt-2 font-display text-2xl font-bold text-white md:text-3xl">This Route Has No Visa</h1>
-        <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
-          The page you are looking for does not exist or has moved. Let us guide you back to open territories.
+    <div className="bg-surface-100 min-h-[75vh] flex items-center justify-center py-16 px-4">
+      <div className="max-w-xl mx-auto text-center space-y-6 bg-white rounded-3xl p-8 sm:p-12 border border-gray-200 shadow-sovereign">
+        <Badge variant="gold">404 Error</Badge>
+
+        <h1 className="text-4xl sm:text-5xl font-extrabold font-heading text-navy-900">
+          Page Not Found
+        </h1>
+
+        <p className="text-sm text-body leading-relaxed max-w-md mx-auto">
+          The sovereign dossier, programme, or page you requested could not be located. It may have been updated or relocated.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-[14px] font-bold text-navy-950 transition-colors hover:bg-gold-400"
-          >
-            <Home size={16} /> Back to Home
-          </Link>
-          <Link
-            href="/programmes"
-            className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-[14px] font-bold text-white transition-colors hover:border-gold-400 hover:text-gold-300"
-          >
-            Explore Programmes <ArrowRight size={16} />
-          </Link>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <Button href="/" variant="primary" size="md">
+            <Home className="w-4 h-4 mr-2" />
+            Return Home
+          </Button>
+          <Button href="/programmes" variant="outline" size="md">
+            <Search className="w-4 h-4 mr-2" />
+            Browse Programmes
+          </Button>
         </div>
       </div>
     </div>

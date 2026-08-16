@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { Download, CheckCircle2, Loader2, FileText, ShieldCheck, AlertCircle } from "lucide-react";
+import React, { useState } from "react";
+import { Download, CheckCircle2, AlertCircle, Loader2, FileText, ShieldCheck } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
-import { submitLead } from "@/lib/lead";
 
 interface BrochureModalProps {
   isOpen: boolean;
@@ -13,31 +12,46 @@ interface BrochureModalProps {
   country: string;
 }
 
-export function BrochureModal({ isOpen, onClose, programTitle, country }: BrochureModalProps) {
+export function BrochureModal({
+  isOpen,
+  onClose,
+  programTitle,
+  country,
+}: BrochureModalProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [website, setWebsite] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    setError("");
-    const res = await submitLead({
-      name,
-      email,
-      phone,
-      program: programTitle,
-      subject: `Brochure Dossier Download: ${programTitle}`,
-      type: "brochure",
-      website,
-    });
-    if (res.ok) setStatus("success");
-    else {
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          program: programTitle,
+          subject: `Brochure Dossier Download: ${programTitle}`,
+          type: "brochure",
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Download authorization failed.");
+      }
+
+      setStatus("success");
+    } catch (err: any) {
       setStatus("error");
-      setError(res.error ?? "Download authorization failed.");
+      setErrorMessage(err.message || "An unexpected error occurred.");
     }
   };
 
@@ -46,89 +60,102 @@ export function BrochureModal({ isOpen, onClose, programTitle, country }: Brochu
       isOpen={isOpen}
       onClose={onClose}
       title={`Download Official ${country} Sovereign Dossier`}
+      subtitle={`Comprehensive statutory fee schedules, due diligence procedures, and family investment options for ${programTitle}.`}
+      maxWidth="md"
     >
       {status === "success" ? (
-        <div className="py-4 text-center">
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white">
-            <CheckCircle2 size={28} />
-          </span>
-          <h4 className="mt-4 text-lg font-extrabold text-navy-900">Dossier Authorized & Dispatched</h4>
-          <p className="mx-auto mt-2 max-w-sm text-sm text-ink-light">
-            A secure download link for the official <strong>{programTitle}</strong> guide has been emailed to{" "}
-            <strong>{email}</strong>.
+        <div className="text-center py-6 space-y-4">
+          <div className="w-14 h-14 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto shadow-md">
+            <CheckCircle2 className="w-7 h-7" />
+          </div>
+          <h4 className="text-lg font-bold font-heading text-navy-900">
+            Dossier Authorized &amp; Dispatched
+          </h4>
+          <p className="text-xs sm:text-sm text-body max-w-sm mx-auto">
+            A secure download link for the official <strong>{programTitle}</strong> guide has been emailed to <strong>{email}</strong>.
           </p>
-          <Button variant="gold" size="sm" className="mt-5" onClick={onClose}>
-            Close & Continue Browsing
-          </Button>
+          <div className="pt-2">
+            <Button variant="gold" size="sm" onClick={onClose}>
+              Close &amp; Continue Browsing
+            </Button>
+          </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 pt-2">
           {status === "error" && (
-            <div className="form-msg form-msg--error">
-              <AlertCircle size={16} className="mt-0.5 shrink-0" /> {error}
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+              <span>{errorMessage}</span>
             </div>
           )}
-          <div className="flex items-center gap-3 rounded-2xl border border-gold-500/25 bg-gold-50 px-4 py-3.5 text-[13px] font-bold text-navy-900">
-            <FileText size={18} className="shrink-0 text-gold-600" />
-            Official 2026 Sovereign Legal & Fee Dossier (PDF)
+
+          <div className="p-3.5 rounded-2xl bg-surface-100 border border-gray-200/80 flex items-center gap-3 text-xs text-navy-900 font-semibold">
+            <FileText className="w-5 h-5 text-gold-500 shrink-0" />
+            <span>Official 2026 Sovereign Legal &amp; Fee Dossier (PDF)</span>
           </div>
-          <div className="hidden" aria-hidden="true">
-            <input
-              type="text"
-              name="website"
-              tabIndex={-1}
-              autoComplete="off"
-              value={website}
-              onChange={(e) => setWebsite(e.target.value)}
-            />
-          </div>
-          <label className="block">
-            <span className="mb-1.5 block text-[12.5px] font-bold text-navy-900">Full Name *</span>
+
+          <div>
+            <label className="block text-xs font-semibold text-navy-900 mb-1">Full Name *</label>
             <input
               type="text"
               required
-              className="field"
               placeholder="e.g. Lord Alexander Wright"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs outline-none focus:border-gold-500 bg-white"
             />
-          </label>
-          <label className="block">
-            <span className="mb-1.5 block text-[12.5px] font-bold text-navy-900">Private Email *</span>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-navy-900 mb-1">Private Email *</label>
             <input
               type="email"
               required
-              className="field"
               placeholder="e.g. alexander@familyoffice.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs outline-none focus:border-gold-500 bg-white"
             />
-          </label>
-          <label className="block">
-            <span className="mb-1.5 block text-[12.5px] font-bold text-navy-900">Phone / WhatsApp *</span>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-navy-900 mb-1">Phone / WhatsApp *</label>
             <input
               type="tel"
               required
-              className="field"
               placeholder="e.g. +44 7946 019234"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 text-xs outline-none focus:border-gold-500 bg-white"
             />
-          </label>
-          <Button type="submit" variant="gold" className="w-full justify-center" disabled={status === "loading"}>
-            {status === "loading" ? (
-              <>
-                <Loader2 size={16} className="animate-spin" /> Authorizing Document…
-              </>
-            ) : (
-              <>
-                <Download size={16} /> Instant Secure Download
-              </>
-            )}
-          </Button>
-          <p className="flex items-center justify-center gap-1.5 pt-1 text-[11.5px] font-semibold text-ink-light">
-            <ShieldCheck size={14} className="text-emerald-600" /> Strict privacy. Direct statutory document dispatch.
-          </p>
+          </div>
+
+          <div className="pt-2">
+            <Button
+              type="submit"
+              variant="gold"
+              size="md"
+              disabled={status === "loading"}
+              className="w-full justify-center"
+            >
+              {status === "loading" ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Authorizing Document...
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4 mr-2" />
+                  Instant Secure Download
+                </>
+              )}
+            </Button>
+          </div>
+
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-gray-500 pt-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Strict privacy. Direct statutory document dispatch.</span>
+          </div>
         </form>
       )}
     </Modal>

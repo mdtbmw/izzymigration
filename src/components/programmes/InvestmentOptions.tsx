@@ -1,70 +1,52 @@
-import { ShieldCheck, Building2, Landmark, Coins } from "lucide-react";
-import type { InvestmentOption } from "@/types";
+import React from "react";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
+import { InvestmentOption } from "@/types";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
 
-const OPTION_IMAGES = [
-  "/assets/imgs/projact/projact-img1.jpg",
-  "/assets/imgs/projact/projact-img2.jpg",
-  "/assets/imgs/projact/projact-img3.jpg",
-  "/assets/imgs/projact/projact-img4.jpg",
-  "/assets/imgs/projact/projact-img5.jpg",
-];
+interface InvestmentOptionsProps {
+  options: InvestmentOption[];
+  className?: string;
+}
 
-/** Qualifying investment routes grid with authentic asset and property imagery */
-export function InvestmentOptions({ options }: { options: InvestmentOption[] }) {
+export function InvestmentOptions({ options, className }: InvestmentOptionsProps) {
   if (!options || options.length === 0) return null;
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {options.map((opt, idx) => {
-        const img = opt.image || OPTION_IMAGES[idx % OPTION_IMAGES.length];
-        const isRealEstate = opt.t.toLowerCase().includes("real estate") || opt.t.toLowerCase().includes("property");
-        const isFund = opt.t.toLowerCase().includes("fund") || opt.t.toLowerCase().includes("bond");
+    <div className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6", className)}>
+      {options.map((opt, idx) => (
+        <div
+          key={idx}
+          className="relative flex flex-col bg-white rounded-3xl border border-gray-200/90 p-7 shadow-sm hover:shadow-sovereign hover:border-gold-400 transition-all duration-300 group"
+        >
+          <div className="flex items-center justify-between gap-3 mb-4">
+            <span className="w-9 h-9 rounded-full bg-gold-100 text-gold-600 flex items-center justify-center font-bold text-sm">
+              0{idx + 1}
+            </span>
+            <Badge variant="soft">Qualifying Route</Badge>
+          </div>
 
-        return (
-          <article
-            key={idx}
-            className="card card--hover card--gray group flex h-full flex-col overflow-hidden rounded-3xl border border-surface-200 bg-white shadow-sm transition-all duration-300 hover:shadow-lg"
-          >
-            {/* Asset Photo Preview */}
-            <div className="relative h-44 w-full overflow-hidden bg-navy-950">
-              <img
-                src={img}
-                alt={opt.t}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent" />
-              <div className="absolute top-3 left-3 flex items-center gap-2">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-navy-950/85 text-[11px] font-extrabold text-gold-400 backdrop-blur-sm border border-gold-500/30">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <span className="chip chip--gold text-[10.5px] py-0.5 px-2.5">
-                  {isRealEstate ? "Real Estate Asset" : isFund ? "Regulated Fund" : "Government Contribution"}
-                </span>
-              </div>
-              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
-                <span className="text-xs font-bold drop-shadow">Statutory Route</span>
-                <span className="text-sm font-extrabold text-gold-300 drop-shadow">{opt.price}</span>
-              </div>
-            </div>
+          <h4 className="text-lg font-bold font-heading text-navy-900 mb-2 group-hover:text-gold-600 transition-colors">
+            {opt.t}
+          </h4>
 
-            {/* Content Details */}
-            <div className="flex flex-1 flex-col justify-between p-6">
-              <div>
-                <h3 className="text-base font-extrabold text-navy-900 transition-colors group-hover:text-gold-600">
-                  {opt.t}
-                </h3>
-                <p className="mt-2.5 text-[13px] leading-relaxed text-ink-light">{opt.desc}</p>
-              </div>
+          <div className="my-4 py-3 px-4 rounded-xl bg-surface-200 border border-gray-200/60 flex items-baseline justify-between">
+            <span className="text-xs text-gray-500 font-medium">Statutory Minimum:</span>
+            <span className="text-base font-extrabold text-navy-900 font-heading">
+              {opt.price}
+            </span>
+          </div>
 
-              <div className="mt-5 flex items-center gap-2 border-t border-surface-200 pt-4 text-[12px] font-bold text-emerald-700">
-                <ShieldCheck size={15} className="shrink-0 text-emerald-600" />
-                Government Escrow Protected
-              </div>
-            </div>
-          </article>
-        );
-      })}
+          <p className="text-xs md:text-sm text-body leading-relaxed flex-grow mb-4">
+            {opt.desc}
+          </p>
+
+          <div className="pt-4 border-t border-gray-100 flex items-center gap-2 text-xs text-emerald-700 font-medium">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>Government Escrow Protected</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

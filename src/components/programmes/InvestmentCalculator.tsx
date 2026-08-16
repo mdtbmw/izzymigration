@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { Calculator, ShieldCheck, ArrowRight } from "lucide-react";
+import React, { useState } from "react";
+import { Calculator, DollarSign, Users, ShieldCheck, ArrowRight, RefreshCw } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/Badge";
 
 interface CalculationModel {
   country: string;
@@ -122,39 +122,32 @@ const models: Record<string, CalculationModel> = {
   },
 };
 
-type FamilySize = "single" | "couple" | "family4";
-type RouteType = "donation" | "realEstate";
+export function InvestmentCalculator() {
+  const [selectedCountry, setSelectedCountry] = useState("st-kitts");
+  const [familySize, setFamilySize] = useState<"single" | "couple" | "family4">("single");
+  const [routeType, setRouteType] = useState<"donation" | "realEstate">("donation");
 
-export const CALCULATOR_MODELS: Record<string, string> = {
-  "st-kitts-citizenship": "st-kitts",
-  "antigua-citizenship": "antigua",
-  "dominica-citizenship": "dominica",
-  "grenada-citizenship": "grenada",
-  "saint-lucia-citizenship": "saint-lucia",
-  "portugal-golden-visa": "portugal",
-  "greece-golden-visa": "greece",
-};
+  const model = models[selectedCountry] || models["st-kitts"];
 
-export function InvestmentCalculator({ initialCountry }: { initialCountry?: string }) {
-  const [selectedCountry, setSelectedCountry] = useState(
-    initialCountry && models[initialCountry] ? initialCountry : "st-kitts"
-  );
-  const [familySize, setFamilySize] = useState<FamilySize>("single");
-  const [routeType, setRouteType] = useState<RouteType>("donation");
-
-  const model = models[selectedCountry] ?? models["st-kitts"];
-
+  // Base Investment Calculation
   let baseAmount = 0;
   if (routeType === "realEstate") {
     baseAmount = model.realEstateBase;
-  } else if (familySize === "single") baseAmount = model.donationBaseSingle;
-  else if (familySize === "couple") baseAmount = model.donationBaseCouple;
-  else baseAmount = model.donationBaseFamily4;
+  } else {
+    if (familySize === "single") baseAmount = model.donationBaseSingle;
+    else if (familySize === "couple") baseAmount = model.donationBaseCouple;
+    else baseAmount = model.donationBaseFamily4;
+  }
 
+  // Due Diligence Fees Calculation
   let dueDiligence = model.dueDiligenceMain;
-  if (familySize === "couple") dueDiligence += model.dueDiligenceSpouse;
-  else if (familySize === "family4") dueDiligence += model.dueDiligenceSpouse + model.dueDiligenceDep * 2;
+  if (familySize === "couple") {
+    dueDiligence += model.dueDiligenceSpouse;
+  } else if (familySize === "family4") {
+    dueDiligence += model.dueDiligenceSpouse + model.dueDiligenceDep * 2;
+  }
 
+  // Government & Statutory Processing Fees
   let govFees = model.govFeesSingle;
   if (familySize === "couple") govFees = model.govFeesCouple;
   else if (familySize === "family4") govFees = model.govFeesFamily4;
@@ -162,136 +155,152 @@ export function InvestmentCalculator({ initialCountry }: { initialCountry?: stri
   const totalEstimate = baseAmount + dueDiligence + govFees;
 
   return (
-    <div className="card max-w-4xl rounded-3xl border-gold-500/40 p-6 sm:p-10">
-      <div className="flex flex-col gap-4 border-b border-surface-200 pb-6 sm:flex-row sm:items-center sm:justify-between">
+    <div className="bg-white rounded-3xl border border-gold-300 shadow-sovereign-lg p-6 sm:p-10 max-w-4xl mx-auto space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100">
         <div>
-          <span className="chip chip--gold">
-            <Calculator size={13} /> Interactive Fee Modeler
-          </span>
-          <h3 className="mt-3 text-xl font-extrabold text-navy-900 sm:text-2xl">
-            Sovereign Investment & Fee Estimator
+          <Badge variant="gold">Interactive Fee Modeler</Badge>
+          <h3 className="text-xl sm:text-2xl font-bold font-heading text-navy-900 mt-2">
+            Sovereign Investment &amp; Fee Estimator
           </h3>
         </div>
-        <span className="inline-flex items-center gap-1.5 self-start rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-[12px] font-bold text-emerald-700 sm:self-center">
-          <ShieldCheck size={14} /> Official 2026 Statutory Rates
-        </span>
+        <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-semibold bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+          <ShieldCheck className="w-4 h-4" />
+          <span>Official 2026 Statutory Rates</span>
+        </div>
       </div>
 
-      <div className="mt-8 grid items-start gap-8 lg:grid-cols-12">
-        <div className="space-y-6 lg:col-span-7">
-          <label className="block">
-            <span className="mb-2 block text-[11.5px] font-extrabold uppercase tracking-wider text-navy-900">
-              Select Sovereign Jurisdiction
-            </span>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Controls (7 cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* 1. Country Selector */}
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">
+              Select Sovereign Jurisdiction:
+            </label>
             <select
               value={selectedCountry}
               onChange={(e) => setSelectedCountry(e.target.value)}
-              className="field"
+              className="w-full px-4 py-3 rounded-2xl border border-gray-200 text-sm font-semibold text-navy-900 bg-surface-100 focus:bg-white focus:border-gold-500 outline-none"
             >
-              <option value="st-kitts">St. Kitts & Nevis (Citizenship)</option>
-              <option value="antigua">Antigua & Barbuda (Citizenship)</option>
+              <option value="st-kitts">St. Kitts &amp; Nevis (Citizenship)</option>
+              <option value="antigua">Antigua &amp; Barbuda (Citizenship)</option>
               <option value="dominica">Dominica (Citizenship)</option>
-              <option value="grenada">Grenada (Citizenship & USA E-2)</option>
+              <option value="grenada">Grenada (Citizenship &amp; USA E-2)</option>
               <option value="saint-lucia">Saint Lucia (Citizenship)</option>
               <option value="portugal">Portugal (CMVM Regulated Fund)</option>
               <option value="greece">Greece (Golden Visa Real Estate)</option>
             </select>
-          </label>
+          </div>
 
+          {/* 2. Family Composition */}
           <div>
-            <span className="mb-2 block text-[11.5px] font-extrabold uppercase tracking-wider text-navy-900">
-              Family Structure & Dependents
-            </span>
+            <label className="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">
+              Family Structure &amp; Dependents:
+            </label>
             <div className="grid grid-cols-3 gap-2.5">
-              {(
-                [
-                  { id: "single", label: "Single Applicant", sub: "1 Adult" },
-                  { id: "couple", label: "Married Couple", sub: "2 Adults" },
-                  { id: "family4", label: "Family of 4", sub: "2 + 2 Kids" },
-                ] as { id: FamilySize; label: string; sub: string }[]
-              ).map((f) => (
+              {[
+                { id: "single", label: "Single Applicant", sub: "1 Adult" },
+                { id: "couple", label: "Married Couple", sub: "2 Adults" },
+                { id: "family4", label: "Family of 4", sub: "2 Adults + 2 Kids" },
+              ].map((f) => (
                 <button
                   key={f.id}
                   type="button"
-                  onClick={() => setFamilySize(f.id)}
-                  className={cn(
-                    "rounded-2xl border p-3.5 text-center transition-all",
+                  onClick={() => setFamilySize(f.id as any)}
+                  className={`p-3.5 rounded-2xl border text-center transition-all ${
                     familySize === f.id
-                      ? "border-gold-500 bg-gold-50 text-navy-900 shadow-sm"
-                      : "border-surface-200 text-ink hover:border-surface-300"
-                  )}
+                      ? "border-gold-500 bg-gold-50/70 text-navy-900 shadow-sm"
+                      : "border-gray-200 text-gray-700 hover:border-gray-300"
+                  }`}
                 >
-                  <span className="block text-[12.5px] font-extrabold">{f.label}</span>
-                  <span className="mt-0.5 block text-[10.5px] font-semibold text-ink-light">{f.sub}</span>
+                  <span className="text-xs font-bold block">{f.label}</span>
+                  <span className="text-[10px] text-gray-500 block">{f.sub}</span>
                 </button>
               ))}
             </div>
           </div>
 
+          {/* 3. Investment Route */}
           <div>
-            <span className="mb-2 block text-[11.5px] font-extrabold uppercase tracking-wider text-navy-900">
-              Qualifying Route
-            </span>
+            <label className="block text-xs font-bold uppercase tracking-wider text-navy-900 mb-2">
+              Qualifying Route:
+            </label>
             <div className="grid grid-cols-2 gap-3">
-              {(
-                [
-                  { id: "donation", label: "Statutory Contribution", sub: "Government Sovereign Fund" },
-                  { id: "realEstate", label: "Approved Real Estate", sub: "Freehold / 5-Star Resort" },
-                ] as { id: RouteType; label: string; sub: string }[]
-              ).map((r) => (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={() => setRouteType(r.id)}
-                  className={cn(
-                    "rounded-2xl border p-3.5 text-center transition-all",
-                    routeType === r.id
-                      ? "border-gold-500 bg-gold-50 text-navy-900 shadow-sm"
-                      : "border-surface-200 text-ink hover:border-surface-300"
-                  )}
-                >
-                  <span className="block text-[12.5px] font-extrabold">{r.label}</span>
-                  <span className="mt-0.5 block text-[10.5px] font-semibold text-ink-light">{r.sub}</span>
-                </button>
-              ))}
+              <button
+                type="button"
+                onClick={() => setRouteType("donation")}
+                className={`p-3.5 rounded-2xl border text-center transition-all ${
+                  routeType === "donation"
+                    ? "border-gold-500 bg-gold-50/70 text-navy-900 shadow-sm"
+                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                <span className="text-xs font-bold block">Statutory Contribution</span>
+                <span className="text-[10px] text-gray-500">Government Sovereign Fund</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setRouteType("realEstate")}
+                className={`p-3.5 rounded-2xl border text-center transition-all ${
+                  routeType === "realEstate"
+                    ? "border-gold-500 bg-gold-50/70 text-navy-900 shadow-sm"
+                    : "border-gray-200 text-gray-700 hover:border-gray-300"
+                }`}
+              >
+                <span className="text-xs font-bold block">Approved Real Estate</span>
+                <span className="text-[10px] text-gray-500">Freehold / 5-Star Resort</span>
+              </button>
             </div>
           </div>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-navy-900 p-6 text-white lg:col-span-5 sm:p-7">
-          <span className="block text-[11px] font-bold uppercase tracking-wider text-white/45">
-            Estimated Total Outlay
-          </span>
-          <span className="mt-1 block text-3xl font-extrabold text-gold-400">
-            {formatCurrency(totalEstimate, model.currency)}
-          </span>
-          <span className="mt-0.5 block text-[10.5px] font-semibold text-emerald-400">
-            Includes Base Investment + Statutory Vetting
-          </span>
+        {/* Right Column: Live Itemized Breakdown (5 cols) */}
+        <div className="lg:col-span-5 bg-navy-950 text-white rounded-3xl p-6 sm:p-7 border border-white/10 space-y-5">
+          <div>
+            <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider block">
+              Estimated Total Outlay:
+            </span>
+            <span className="text-3xl font-extrabold text-gold-400 font-heading block mt-1">
+              {formatCurrency(totalEstimate, model.currency)}
+            </span>
+            <span className="text-[10px] text-emerald-400 font-semibold block mt-0.5">
+              Includes Base Investment + Statutory Vetting
+            </span>
+          </div>
 
-          <div className="space-y-2.5 border-t border-white/10 pt-4 text-[13px]">
+          <div className="space-y-2.5 pt-4 border-t border-white/10 text-xs">
             <div className="flex justify-between">
-              <span className="text-white/50">Qualifying Capital / Fund</span>
-              <span className="font-bold">{formatCurrency(baseAmount, model.currency)}</span>
+              <span className="text-gray-400">Qualifying Capital / Fund:</span>
+              <span className="font-bold text-white">
+                {formatCurrency(baseAmount, model.currency)}
+              </span>
             </div>
+
             <div className="flex justify-between">
-              <span className="text-white/50">Government Due Diligence</span>
-              <span className="font-bold">{formatCurrency(dueDiligence, model.currency)}</span>
+              <span className="text-gray-400">Government Due Diligence:</span>
+              <span className="font-bold text-white">
+                {formatCurrency(dueDiligence, model.currency)}
+              </span>
             </div>
+
             <div className="flex justify-between">
-              <span className="text-white/50">Statutory Filing & Passports</span>
-              <span className="font-bold">{formatCurrency(govFees, model.currency)}</span>
+              <span className="text-gray-400">Statutory Filing &amp; Passports:</span>
+              <span className="font-bold text-white">
+                {formatCurrency(govFees, model.currency)}
+              </span>
             </div>
           </div>
 
-          <div className="border-t border-white/10 pt-4">
+          <div className="pt-4 border-t border-white/10">
             <Button
               href={`/contact?program=${encodeURIComponent(model.country)}&budget=${totalEstimate}`}
               variant="gold"
               size="sm"
               className="w-full justify-center"
             >
-              Request Full Itemized Quote <ArrowRight size={15} />
+              Request Full Itemized Quote
+              <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
         </div>

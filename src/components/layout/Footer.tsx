@@ -1,208 +1,226 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, MapPin, Phone, Mail, Send, ArrowUpRight } from "lucide-react";
+import { Send, CheckCircle2, ChevronRight, Check, ShieldCheck, Mail, MapPin, Phone } from "lucide-react";
 import { siteConfig } from "@/data/siteConfig";
-import { programs } from "@/data/programs";
-import { submitLead } from "@/lib/lead";
-import { useState } from "react";
-
-const footerNav = [
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "/about" },
-      { label: "Why Izzy Immigration", href: "/why-izzy" },
-      { label: "Our Expertise", href: "/expertise" },
-      { label: "Citizenship by Descent", href: "/ancestry" },
-      { label: "Contact", href: "/contact" },
-    ],
-  },
-  {
-    title: "Programmes",
-    links: [
-      { label: "All Programmes", href: "/programmes" },
-      { label: "Citizenship Programmes", href: "/citizenship" },
-      { label: "Residency Programmes", href: "/residency" },
-      { label: "Compare Programmes", href: "/compare" },
-      { label: "Global Real Estate", href: "/real-estate" },
-    ],
-  },
-];
-
-const socials = [
-  { icon: Facebook, href: siteConfig.socials.facebook, label: "Facebook" },
-  { icon: Instagram, href: siteConfig.socials.instagram, label: "Instagram" },
-  { icon: Linkedin, href: siteConfig.socials.linkedin, label: "LinkedIn" },
-  { icon: Twitter, href: siteConfig.socials.twitter, label: "Twitter" },
-  { icon: Youtube, href: siteConfig.socials.youtube, label: "YouTube" },
-];
 
 export function Footer() {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "ok" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
-  const onSubscribe = async (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    const res = await submitLead({
-      name: "Newsletter Subscriber",
-      email,
-      type: "newsletter",
-      subject: "Newsletter subscription",
-    });
-    setStatus(res.ok ? "ok" : "error");
-    if (res.ok) setEmail("");
+    if (!email) return;
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, type: "newsletter" }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
-  const featuredIds = [
-    "st-kitts-citizenship",
-    "portugal-golden-visa",
-    "greece-golden-visa",
-    "malta-permanent-residency",
-    "canada-startup",
-    "uk-innovator-founder",
-  ];
-  const top = featuredIds
-    .map((id) => programs.find((p) => p.id === id))
-    .filter((p): p is (typeof programs)[number] => Boolean(p));
-
   return (
-    <footer className="relative overflow-hidden bg-navy-950 text-white">
-      <div className="glow-orb h-80 w-80 bg-navy-700/50 -top-32 -left-24" />
-      <div className="glow-orb h-64 w-64 bg-gold-500/15 bottom-0 right-0" />
+    <footer className="bg-[#050548] text-white border-t border-white/10 relative overflow-hidden">
+      {/* Top Support Banner */}
+      <div className="border-b border-white/10 py-10 bg-navy-950/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0 border border-gold-400/30">
+                <ShieldCheck className="w-7 h-7" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold font-heading text-white leading-tight">
+                Need any support for <br /> residency &amp; citizenship?
+              </h3>
+            </div>
 
-      <div className="container-izzy relative">
-        {/* Top CTA row */}
-        <div className="flex flex-col gap-6 border-b border-white/10 py-10 md:flex-row md:items-center md:justify-between">
-          <div>
-            <h2 className="text-2xl font-extrabold text-white md:text-3xl">Need any support for residency &amp; citizenship?</h2>
-            <p className="mt-2 text-[14.5px] text-white/70">
-              Are you ready to start your global mobility journey? Book a free assessment today.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/contact" className="btn btn-gold">
-              Book a Free Assessment <ArrowUpRight size={16} />
-            </Link>
-            <Link href="/programmes" className="btn btn-ghost-light">
-              Browse Programmes
-            </Link>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-start md:justify-end gap-4">
+              <Link href="/contact" className="rr-btn bg-gold-500 text-navy-950 hover:bg-white hover:text-navy-900 shadow-lg">
+                Book A Consultation <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Widgets */}
-        <div className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <img src="/assets/imgs/logo/logo.svg" alt={`${siteConfig.name} logo`} className="h-11 w-auto" />
-            <p className="mt-5 text-[14px] leading-relaxed text-white/65">
-              {siteConfig.description}
-            </p>
-            <div className="mt-5 space-y-2.5 text-[13.5px] font-semibold text-white/75">
-              <p className="flex items-start gap-2.5">
-                <MapPin size={15} className="mt-0.5 shrink-0 text-gold-400" /> {siteConfig.address}
-              </p>
-              <p className="flex items-center gap-2.5">
-                <Phone size={15} className="shrink-0 text-gold-400" />
-                <a href={`tel:${siteConfig.phoneTel}`} className="hover:text-gold-300">{siteConfig.phoneDisplay}</a>
-              </p>
-              <p className="flex items-center gap-2.5">
-                <Mail size={15} className="shrink-0 text-gold-400" />
-                <a href={`mailto:${siteConfig.email}`} className="hover:text-gold-300">{siteConfig.email}</a>
-              </p>
-            </div>
-          </div>
-
-          {footerNav.map((col) => (
-            <div key={col.title}>
-              <h3 className="mb-5 text-[15px] font-extrabold uppercase tracking-wider text-gold-300">{col.title}</h3>
-              <ul className="space-y-2.5">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <Link href={l.href} className="group inline-flex items-center gap-1.5 text-[14px] font-semibold text-white/70 transition-colors hover:text-gold-300">
-                      {l.label}
-                      <ArrowUpRight size={12} className="opacity-0 transition-opacity group-hover:opacity-100" />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-
-          {/* Featured programmes */}
-          <div>
-            <h3 className="mb-5 text-[15px] font-extrabold uppercase tracking-wider text-gold-300">Featured Routes</h3>
-            <ul className="space-y-2.5">
-              {top.map((p) => (
-                <li key={p.id}>
-                  <Link
-                    href={`/programmes/${p.id}`}
-                    className="inline-flex items-center gap-2 text-[14px] font-semibold text-white/70 transition-colors hover:text-gold-300"
-                  >
-                    <span className="h-1.5 w-1.5 rounded-full bg-gold-400" />
-                    {p.country}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Newsletter */}
-        <div className="border-t border-white/10 py-10">
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h3 className="text-lg font-extrabold text-white">Get the global mobility brief</h3>
-              <p className="mt-1 text-[13.5px] text-white/60">
-                Programme changes, new routes and sovereign updates — monthly, no spam.
-              </p>
-            </div>
-            <form onSubmit={onSubscribe} className="flex w-full max-w-md gap-2">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                aria-label="Email address"
-                className="field field--dark"
+      {/* 4-Column Footer Body */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+          {/* Col 1 (4 cols): Brand & Social */}
+          <div className="lg:col-span-4 space-y-5">
+            <Link href="/" className="inline-block">
+              <img
+                src="/assets/imgs/logo/logo-3.svg"
+                alt={siteConfig.name}
+                className="h-11 w-auto object-contain"
               />
-              <button type="submit" aria-label="Subscribe" className="btn btn-gold shrink-0">
-                <Send size={16} />
-              </button>
-            </form>
-          </div>
-          {status === "ok" && (
-            <p className="form-msg form-msg--ok mt-4">Thanks — you are subscribed. Watch your inbox.</p>
-          )}
-          {status === "error" && (
-            <p className="form-msg form-msg--error mt-4">Subscription failed. Please try again.</p>
-          )}
-        </div>
-
-        {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 py-7 text-[13px] font-semibold text-white/55 md:flex-row">
-          <p>
-            © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved. Since {siteConfig.since}.
-          </p>
-          <ul className="flex flex-wrap items-center justify-center gap-5">
-            <li><Link href="/disclaimer" className="hover:text-gold-300">Disclaimer</Link></li>
-            <li><Link href="/privacy" className="hover:text-gold-300">Privacy Policy</Link></li>
-            <li><Link href="/terms" className="hover:text-gold-300">Terms of Use</Link></li>
-          </ul>
-          <div className="flex items-center gap-2.5">
-            {socials.map((s) => (
+            </Link>
+            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-sm">
+              Izzy Immigration Limited is an accredited sovereign mobility and investment migration firm delivering government-approved residency and citizenship solutions worldwide.
+            </p>
+            <div className="flex items-center gap-3 pt-2">
               <a
-                key={s.label}
-                href={s.href}
+                href="https://www.facebook.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={s.label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-all hover:border-gold-400 hover:bg-gold-500 hover:text-navy-950"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-950 flex items-center justify-center transition-colors text-white"
+                aria-label="Facebook"
               >
-                <s.icon size={15} />
+                <i className="fab fa-facebook-f text-xs"></i>
               </a>
-            ))}
+              <a
+                href="https://instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-950 flex items-center justify-center transition-colors text-white"
+                aria-label="Instagram"
+              >
+                <i className="fa-brands fa-instagram text-xs"></i>
+              </a>
+              <a
+                href="https://linkedin.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-500 hover:text-navy-950 flex items-center justify-center transition-colors text-white"
+                aria-label="LinkedIn"
+              >
+                <i className="fa-brands fa-linkedin text-xs"></i>
+              </a>
+            </div>
+          </div>
+
+          {/* Col 2 (2 cols): Practice Services */}
+          <div className="lg:col-span-2 space-y-4">
+            <h4 className="text-base font-bold font-heading text-white border-b border-white/10 pb-2">
+              Services
+            </h4>
+            <ul className="space-y-2.5 text-xs text-gray-300">
+              <li>
+                <Link href="/about" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <Check className="w-3 h-3 text-gold-400 shrink-0" /> Strategic Advisory
+                </Link>
+              </li>
+              <li>
+                <Link href="/citizenship" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <Check className="w-3 h-3 text-gold-400 shrink-0" /> Citizenship Programmes
+                </Link>
+              </li>
+              <li>
+                <Link href="/residency" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <Check className="w-3 h-3 text-gold-400 shrink-0" /> Residency Programmes
+                </Link>
+              </li>
+              <li>
+                <Link href="/real-estate" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <Check className="w-3 h-3 text-gold-400 shrink-0" /> Global Real Estate
+                </Link>
+              </li>
+              <li>
+                <Link href="/cruise-travel" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <Check className="w-3 h-3 text-gold-400 shrink-0" /> Luxury Cruise &amp; Travel
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 3 (3 cols): Quick Links */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-base font-bold font-heading text-white border-b border-white/10 pb-2">
+              Useful Links
+            </h4>
+            <ul className="space-y-2.5 text-xs text-gray-300">
+              <li>
+                <Link href="/citizenship" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Citizenship by Investment
+                </Link>
+              </li>
+              <li>
+                <Link href="/residency" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Residency by Investment
+                </Link>
+              </li>
+              <li>
+                <Link href="/ancestry" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Ancestry &amp; Descent
+                </Link>
+              </li>
+              <li>
+                <Link href="/compare" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Compare 55+ Programmes
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-gold-400 transition-colors flex items-center gap-1.5">
+                  <ChevronRight className="w-3.5 h-3.5 text-gold-400 shrink-0" /> Contact Advisory Desk
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4 (3 cols): Newsletter Subscription */}
+          <div className="lg:col-span-3 space-y-4">
+            <h4 className="text-base font-bold font-heading text-white border-b border-white/10 pb-2">
+              Subscribe Our Newsletter
+            </h4>
+            <p className="text-xs text-gray-300 leading-relaxed">
+              Subscribe to receive the latest updates on global residency quotas, Caribbean accord updates, and golden visa law changes.
+            </p>
+
+            <form onSubmit={handleSubscribe} className="space-y-2">
+              <div className="relative">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 pr-12 rounded-full bg-white/10 border border-white/20 text-xs text-white placeholder-gray-400 outline-none focus:border-gold-400"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="absolute right-1.5 top-1.5 w-8 h-8 rounded-full bg-gold-500 hover:bg-white text-navy-950 flex items-center justify-center transition-colors"
+                  aria-label="Submit newsletter subscription"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              {status === "success" && (
+                <div className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 pt-1">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Subscribed successfully!</span>
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Copyright & Legal */}
+      <div className="border-t border-white/10 py-6 bg-navy-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+          <p>&copy; Izzy Immigration Limited 2026 | All Rights Reserved</p>
+          <div className="flex items-center gap-6">
+            <Link href="/terms" className="hover:text-gold-400 transition-colors">
+              Terms &amp; Conditions
+            </Link>
+            <Link href="/privacy" className="hover:text-gold-400 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/disclaimer" className="hover:text-gold-400 transition-colors">
+              Disclaimer
+            </Link>
           </div>
         </div>
       </div>

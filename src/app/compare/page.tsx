@@ -1,27 +1,34 @@
-import { PageHero } from "@/components/ui/PageHero";
+import React from "react";
+import { Metadata } from "next";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { Badge } from "@/components/ui/Badge";
 import { ComparisonTable } from "@/components/programmes/ComparisonTable";
-import { CtaBand } from "@/components/home/CtaBand";
 
-export const metadata = {
-  title: "Compare Programmes — Residency & Citizenship by Investment",
+export const metadata: Metadata = {
+  title: "Side-by-Side Sovereign Programme Comparison Engine",
   description:
-    "Compare up to three residency or citizenship by investment programmes side by side — investment, timeline, jurisdiction and core advantages.",
+    "Compare citizenship by investment and European golden visas side-by-side: investment thresholds, processing timelines, and visa-free travel destinations.",
 };
 
 export default function ComparePage() {
   return (
-    <>
-      <PageHero
-        title="Compare Programmes, Side by Side"
-        subtitle="Drop in any three routes and see investment, timeline, jurisdiction and advantages compared at a glance."
-        crumb={[{ label: "Compare" }]}
-      />
-      <section className="section-space pt-14 md:pt-14">
-        <div className="container-izzy">
-          <ComparisonTable />
+    <div className="bg-surface-100 min-h-screen py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <Breadcrumb items={[{ label: "Compare Programmes" }]} />
+          <div className="mt-4 space-y-2">
+            <Badge variant="gold">Interactive Decision Matrix</Badge>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-navy-900 font-heading">
+              Side-by-Side Programme Comparison
+            </h1>
+            <p className="text-sm md:text-base text-body max-w-3xl">
+              Select any 3 sovereign programmes to evaluate investment criteria, statutory processing speed, family eligibility, and physical presence requirements side-by-side.
+            </p>
+          </div>
         </div>
-      </section>
-      <CtaBand />
-    </>
+
+        <ComparisonTable />
+      </div>
+    </div>
   );
 }

@@ -1,29 +1,44 @@
-import { Handshake, Landmark, Scale, HardHat } from "lucide-react";
+"use client";
 
-const PARTNERS = [
-  { icon: Handshake, name: "Economiq Advisory Group" },
-  { icon: Landmark, name: "Global Banking Partners" },
-  { icon: Scale, name: "International Legal Network" },
-  { icon: HardHat, name: "Real Estate Alliance" },
-];
+import React from "react";
 
 export function PartnersStrip() {
-  const row = [...PARTNERS, ...PARTNERS];
+  const partners = [
+    { name: "Investment Migration Council", logo: "/assets/imgs/partners/partner-1.png" },
+    { name: "ICC Commercial Advisory", logo: "/assets/imgs/partners/partner-2.png" },
+    { name: "Caribbean Citizenship Units", logo: "/assets/imgs/partners/partner-3.png" },
+    { name: "CMVM Regulated Funds", logo: "/assets/imgs/partners/partner-4.png" },
+    { name: "Global Private Banking Escrow", logo: "/assets/imgs/partners/partner-5.png" },
+  ];
+
   return (
-    <section className="border-y border-surface-200 bg-white py-9">
-      <div className="container-izzy overflow-hidden">
-        <p className="text-center text-[12px] font-extrabold uppercase tracking-[0.22em] text-ink-light">
-          In Association With
-        </p>
-        <div className="marquee-track mt-6" aria-hidden>
-          <div className="marquee__track">
-            {row.map((p, i) => (
-              <div key={i} className="mx-8 flex shrink-0 items-center gap-3 opacity-70 transition-opacity hover:opacity-100">
-                <p.icon size={22} className="text-gold-600" />
-                <span className="whitespace-nowrap text-[15px] font-extrabold text-navy-900">{p.name}</span>
-              </div>
-            ))}
-          </div>
+    <section className="py-16 bg-[#f4f5f8] border-b border-gray-200/80">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10 space-y-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-gold-600">
+            Our Strategic Partners
+          </span>
+          <h3 className="text-2xl font-bold font-heading text-navy-900">
+            Trusted Alliances Worldwide
+          </h3>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-80 hover:opacity-100 transition-opacity">
+          {partners.map((p, idx) => (
+            <div
+              key={idx}
+              className="grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-105"
+            >
+              <img
+                src={p.logo}
+                alt={p.name}
+                className="h-10 md:h-12 w-auto object-contain"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = "none";
+                }}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </section>
