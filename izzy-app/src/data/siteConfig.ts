@@ -1,0 +1,59 @@
+export const siteConfig = {
+  name: "Izzy Immigration",
+  legalName: "Izzy Immigration Limited",
+  tagline: "Global Visas, Residency & Citizenship, Done Right",
+  description:
+    "Izzy Immigration is a premier global mobility and sovereign advisory firm helping high-net-worth individuals, entrepreneurs, and families secure visas, permanent residency, citizenship by investment, and citizenship by ancestry worldwide.",
+  domain: "https://izzyimmigration.com",
+  phoneDisplay: "+1 (555) 019-2345",
+  phoneTel: "+15550192345",
+  whatsappNumber: "15550192345", // E.164 without plus or spaces
+  whatsappMessage: "Hello Izzy Immigration, I would like a confidential consultation regarding:",
+  email: "info@izzyimmigration.com",
+  analyticsId: "G-XXXXXXXXXX",
+  address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom",
+  hours: "Mon – Fri: 08:30 AM – 06:30 PM (GMT)",
+  offices: [
+    {
+      city: "London",
+      country: "United Kingdom",
+      address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ",
+      phone: "+44 20 7946 0192",
+      email: "london@izzyimmigration.com",
+    },
+    {
+      city: "Dubai",
+      country: "United Arab Emirates",
+      address: "Level 14, Boulevard Plaza Tower 1, Downtown Dubai",
+      phone: "+971 4 312 9000",
+      email: "dubai@izzyimmigration.com",
+    },
+    {
+      city: "Singapore",
+      country: "Singapore",
+      address: "Marina Bay Financial Centre Tower 2, Singapore 018983",
+      phone: "+65 6818 6000",
+      email: "singapore@izzyimmigration.com",
+    },
+  ],
+  socials: {
+    facebook: "https://www.facebook.com/",
+    instagram: "https://instagram.com/",
+    twitter: "https://x.com/",
+    linkedin: "https://linkedin.com/",
+    pinterest: "https://pinterest.com/",
+    youtube: "https://youtube.com/",
+  },
+  stats: [
+    { label: "Successful Applications", value: "3,850+", change: "100% Verified" },
+    { label: "Sovereign Jurisdictions", value: "55+", change: "Global Reach" },
+    { label: "Client Approval Rate", value: "99.4%", change: "Government Direct" },
+    { label: "Capital Deployed", value: "$450M+", change: "Secure Escrows" },
+  ],
+  accreditations: [
+    "Government Licensed Migration Agent",
+    "Investment Migration Council (IMC) Member",
+    "ISO 9001:2015 Quality Management Certified",
+    "Global Due Diligence & Anti-Money Laundering Compliant",
+  ],
+};

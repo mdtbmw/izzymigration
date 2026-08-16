@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-navy-950: #020224;
+    --color-navy-900: #050548;
+    --color-navy-850: #090959;
+    --color-navy-800: #0e0e6e;
+    
+    --color-gold-600: #996515;
+    --color-gold-500: #b8860b;
+    --color-gold-400: #d4af37;
+    --color-gold-300: #e5c158;
+    --color-gold-100: #fdf6d8;
+    --color-gold-50: #fffdf5;
+
+    --color-surface-white: #ffffff;
+    --color-surface-gray: #f4f5f8;
+    --color-surface-alt: #f8f9fc;
+    
+    --color-text-heading: #050548;
+    --color-text-body: #555555;
+    --color-text-muted: #73777d;
+
+    --color-whatsapp: #25D366;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--color-text-body);
+    font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-outfit), system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--color-navy-900);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+}
+
+@layer components {
+  /* Routex Signature Button .rr-btn */
+  .rr-btn {
+    @apply inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full font-bold text-white bg-navy-900 hover:bg-gold-500 transition-all duration-300 shadow-md text-sm tracking-wide cursor-pointer;
+  }
+
+  .rr-btn i, .rr-btn svg {
+    @apply transition-transform duration-300;
+  }
+
+  .rr-btn:hover i, .rr-btn:hover svg {
+    @apply translate-x-1;
+  }
+
+  .btn-hero-gold {
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-extrabold text-navy-950 bg-gold-500 hover:bg-white hover:text-navy-900 transition-all duration-300 shadow-lg text-sm tracking-wide;
+  }
+
+  .btn-hero-outline {
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full font-bold text-white border-2 border-white/40 hover:bg-white hover:text-navy-900 hover:border-white transition-all duration-300 text-sm tracking-wide;
+  }
+
+  /* Routex Visa Item Card */
+  .visa__item {
+    @apply relative flex flex-col h-full bg-[#f4f5f8] hover:bg-white border border-gray-200/80 hover:border-gold-400 rounded-[22px] p-6 md:p-7 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl overflow-hidden;
+  }
+
+  /* Circular Arrow Button with -45deg -> 0deg Rotation */
+  .btn-circle-arrow {
+    @apply w-11 h-11 rounded-full bg-white text-navy-900 flex items-center justify-center shadow-md border border-gray-200 transition-all duration-300;
+  }
+
+  .btn-circle-arrow svg,
+  .btn-circle-arrow i {
+    @apply transition-transform duration-300 -rotate-45;
+  }
+
+  .group:hover .btn-circle-arrow,
+  .visa__item:hover .btn-circle-arrow {
+    @apply bg-gold-500 text-white border-gold-500;
+  }
+
+  .group:hover .btn-circle-arrow svg,
+  .group:hover .btn-circle-arrow i,
+  .visa__item:hover .btn-circle-arrow svg,
+  .visa__item:hover .btn-circle-arrow i {
+    @apply rotate-0;
+  }
+
+  /* Routex Service Item Card */
+  .service__item {
+    @apply bg-[#f4f5f8] hover:bg-white rounded-[22px] p-7 md:p-8 border border-gray-200/80 hover:border-gold-400 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl flex flex-col justify-between h-full;
+  }
+
+  .service__item-icon {
+    @apply w-14 h-14 rounded-2xl bg-navy-900 text-gold-400 flex items-center justify-center mb-6 shadow-md transition-all duration-300;
+  }
+
+  .service__item:hover .service__item-icon {
+    @apply bg-gold-500 text-navy-950 scale-110;
+  }
+
+  /* Spinning Circle Animation */
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .spin-slow {
+    animation: spinSlow 20s linear infinite;
+  }
+
+  /* Gold Gradient Text */
+  .gold-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-gold-400 via-gold-300 to-gold-500;
+  }
+}
+
+/* ==========================================================================
+   Header & Dropdowns Explicit Rules
+   ========================================================================== */
+.main-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-menu ul li {
+  position: relative;
+  display: inline-block;
+}
+
+.main-menu ul li > a {
+  font-size: 15px;
+  font-weight: 700;
+  color: #050548;
+  padding: 28px 0;
+  display: inline-block;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.main-menu ul li > a:hover {
+  color: #b8860b;
+}
+
+.main-menu ul li.has-dropdown > a::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 12px;
+  margin-left: 6px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.main-menu ul li.has-dropdown:hover > a::after {
+  transform: rotate(180deg);
+}
+
+.main-menu ul li .submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 270px;
+  background: #ffffff;
+  box-shadow: 0 15px 35px rgba(5, 5, 72, 0.14);
+  border-radius: 14px;
+  padding: 12px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 99999;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.main-menu ul li:hover > .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.main-menu ul li .submenu li {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.main-menu ul li .submenu li a {
+  padding: 10px 20px;
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #050548;
+  transition: all 0.2s ease;
+}
+
+.main-menu ul li .submenu li a:hover {
+  background-color: #f4f5f8;
+  color: #b8860b;
+  padding-left: 24px;
+}
+
+/* Header Sticky State */
+.header-sticky {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 9999 !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06) !important;
+  animation: 0.4s ease-in-out 0s normal none 1 running fadeInDown !important;
+}
+
+/* Offcanvas Sidebar */
+.offcanvas__area {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  max-width: 85%;
+  height: 100%;
+  background: #ffffff;
+  z-index: 999999;
+  transform: translateX(100%);
+  transition: transform 0.35s ease;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+  overflow-y: auto;
+}
+
+.offcanvas__area.offcanvas-opened {
+  transform: translateX(0);
+}
+
+.offcanvas__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 72, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 999998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.35s ease;
+}
+
+.offcanvas__overlay.overlay-open {
+  opacity: 1;
+  visibility: visible;
+}
