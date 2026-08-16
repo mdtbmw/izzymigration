@@ -20,8 +20,8 @@ import { cn } from "@/lib/utils";
 
 const SLIDES = [
   {
-    eyebrow: "GLOBAL WEALTH MOBILITY & SOVEREIGN FREEDOM",
-    title: "Leading Investment Immigration Advisory Firm",
+    eyebrow: "A Whole New World 🌍!",
+    title: "Your Gateway To Global Mobility.",
     text: "Residency and Citizenship by Investment for Global Mobility, Guided by Integrity, Strict Statutory Compliance, and Thirty Years of Experience.",
     bgImage: "/assets/imgs/banner-1/banner-man-img.png",
     ctas: [

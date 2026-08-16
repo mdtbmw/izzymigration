@@ -22,7 +22,7 @@ const slides = [
   {
     eyebrow: "ESTABLISHED SOVEREIGN ADVISORY · SINCE 1992",
     eyebrowIcon: Crown,
-    title: "Leading Investment Immigration Advisory Firm",
+    title: "Your Gateway To Global Mobility.",
     desc: "Residency and Citizenship by Investment for Global Mobility, Guided by Integrity, Strict Statutory Compliance, and Thirty Years of Experience.",
     btn1: { label: "Residency Programmes", href: "/residency" },
     btn2: { label: "Citizenship Programmes", href: "/citizenship" },

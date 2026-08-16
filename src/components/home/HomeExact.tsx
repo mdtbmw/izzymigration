@@ -55,7 +55,7 @@ export default function HomeExact() {
                                     <div className="col-xl-9 col-lg-10">
                                         <div className="banner-home__content p-relative">
                                             <span className="hero-eyebrow"><i className="fa-solid fa-crown"></i> ESTABLISHED SOVEREIGN ADVISORY · SINCE 1992</span>
-                                            <h1 className="hero-title">Leading Investment Immigration Advisory Firm</h1>
+                                            <h1 className="hero-title">Your Gateway To Global Mobility.</h1>
                                             <p className="hero-description">Residency and Citizenship by Investment for Global Mobility, Guided by Integrity, Strict Statutory Compliance, and Thirty Years of Experience.</p>
                                             <div className="banner-home__btn__wrapper">
                                                 <a href="/residency" className="rr-btn btn-hero-gold">Residency Programmes <i className="fa-solid fa-arrow-right"></i></a>
