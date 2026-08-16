@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Star, ShieldCheck, ChevronLeft, ChevronRight, Quote, Sparkles } from "lucide-react";
+import { Star, ShieldCheck, ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { assetPath } from "@/lib/brand";
 
@@ -88,29 +88,29 @@ export function StoriesSection() {
     <section className="section-space bg-surface-50 overflow-hidden" aria-label="Client Success Stories">
       <div className="container-izzy">
         {/* Header with Navigation Controls */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8 sm:mb-12">
           <SectionHead
             eyebrow="What Our Clients Say"
             title="Real Success Stories"
             text="Verified testimonials from private clients and families who expanded their global mobility and wealth protection through Izzy."
           />
 
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-end sm:self-auto">
             <button
               type="button"
               onClick={prevStory}
               aria-label="Previous testimonial"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-surface-300 bg-white text-navy-900 shadow-sm transition-all hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950"
+              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-surface-300 bg-white text-navy-900 shadow-sm transition-all hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950 cursor-pointer"
             >
-              <ChevronLeft size={18} />
+              <ChevronLeft size={16} />
             </button>
             <button
               type="button"
               onClick={nextStory}
               aria-label="Next testimonial"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-surface-300 bg-white text-navy-900 shadow-sm transition-all hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950"
+              className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-surface-300 bg-white text-navy-900 shadow-sm transition-all hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950 cursor-pointer"
             >
-              <ChevronRight size={18} />
+              <ChevronRight size={16} />
             </button>
           </div>
         </div>
@@ -119,37 +119,37 @@ export function StoriesSection() {
         <div
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          className="relative mx-auto max-w-4xl overflow-hidden rounded-[32px] border border-surface-200 bg-white p-8 sm:p-12 lg:p-14 shadow-xl transition-all duration-500"
+          className="relative mx-auto max-w-4xl overflow-hidden rounded-[24px] sm:rounded-[32px] border border-surface-200 bg-white p-5 sm:p-12 lg:p-14 shadow-lg transition-all duration-500"
         >
           {/* Subtle Background Accent */}
           <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gold-500/5 blur-3xl pointer-events-none" />
           <div className="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-navy-900/5 blur-3xl pointer-events-none" />
 
           {/* Top Row: Stars + Verification Badge */}
-          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 border-b border-surface-200 pb-6 mb-8">
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 border-b border-surface-200 pb-4 sm:pb-6 mb-5 sm:mb-8">
             <div className="flex items-center gap-1 text-gold-500">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} size={18} fill="currentColor" />
+                <Star key={i} size={16} fill="currentColor" />
               ))}
             </div>
 
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-gold-400/40 bg-gold-500/10 px-3.5 py-1 text-[11.5px] font-extrabold text-navy-900">
-              <ShieldCheck size={14} className="text-gold-600" />
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-gold-400/40 bg-gold-500/10 px-3 py-1 text-[10.5px] sm:text-[11.5px] font-extrabold text-navy-900">
+              <ShieldCheck size={13} className="text-gold-600" />
               <span>{story.tag}</span>
             </div>
           </div>
 
           {/* Quote */}
-          <div className="relative z-10 min-h-[140px] sm:min-h-[120px] flex items-center">
-            <p className="text-lg sm:text-xl md:text-2xl font-normal leading-relaxed text-navy-900 font-heading">
+          <div className="relative z-10 min-h-[120px] sm:min-h-[120px] flex items-center">
+            <p className="text-[15px] sm:text-xl md:text-2xl font-normal leading-relaxed text-navy-900 font-heading">
               “{story.quote}”
             </p>
           </div>
 
           {/* Client Avatar & Details */}
-          <div className="relative z-10 mt-10 border-t border-surface-200 pt-6 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-gold-400 bg-navy-950 shadow-md">
+          <div className="relative z-10 mt-6 sm:mt-10 border-t border-surface-200 pt-5 sm:pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 sm:gap-4">
+              <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full border-2 border-gold-400 bg-navy-950 shadow-md">
                 <img
                   src={assetPath(story.avatar)}
                   alt={story.name}
@@ -157,30 +157,30 @@ export function StoriesSection() {
                 />
               </div>
               <div>
-                <h4 className="text-base sm:text-lg font-extrabold text-navy-900 leading-tight">
+                <h4 className="text-[15px] sm:text-lg font-extrabold text-navy-900 leading-tight">
                   {story.name}
                 </h4>
-                <p className="text-xs sm:text-sm font-semibold text-ink-light leading-tight mt-0.5">
+                <p className="text-[11.5px] sm:text-sm font-semibold text-ink-light leading-tight mt-0.5">
                   {story.role}
                 </p>
               </div>
             </div>
 
-            <span className="text-[12px] font-extrabold uppercase tracking-wider text-gold-600 bg-surface-100 px-3.5 py-1.5 rounded-xl border border-surface-200">
+            <span className="text-[11px] sm:text-[12px] font-extrabold uppercase tracking-wider text-gold-600 bg-surface-100 px-3 py-1.5 rounded-xl border border-surface-200">
               {story.jurisdiction}
             </span>
           </div>
 
           {/* Carousel Progress Indicator Dots */}
-          <div className="mt-8 flex items-center justify-center gap-2">
+          <div className="mt-6 sm:mt-8 flex items-center justify-center gap-2">
             {STORIES.map((_, idx) => (
               <button
                 key={idx}
                 type="button"
                 onClick={() => setCurrent(idx)}
                 aria-label={`Go to testimonial ${idx + 1}`}
-                className={`h-2 transition-all duration-300 rounded-full ${
-                  current === idx ? "w-8 bg-gold-500" : "w-2 bg-surface-300 hover:bg-surface-400"
+                className={`h-2 transition-all duration-300 rounded-full cursor-pointer ${
+                  current === idx ? "w-7 sm:w-8 bg-gold-500" : "w-2 bg-surface-300 hover:bg-surface-400"
                 }`}
               />
             ))}

@@ -33,11 +33,11 @@ export function FAQSection() {
   return (
     <section className="section-space bg-surface-100 border-t border-surface-200" aria-label="Frequently Asked Questions">
       <div className="container-izzy">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
           
-          {/* Left Column (5 cols): Pure Authentic Advisory Image (No text or button, balanced height) */}
+          {/* Left Column (5 cols): Pure Authentic Advisory Image (Responsive height for mobile & desktop) */}
           <div className="lg:col-span-5 flex flex-col">
-            <div className="relative h-full min-h-[460px] lg:min-h-[520px] w-full overflow-hidden rounded-[32px] border border-surface-200 bg-navy-950 shadow-xl">
+            <div className="relative h-64 sm:h-80 lg:h-full lg:min-h-[520px] w-full overflow-hidden rounded-[24px] sm:rounded-[32px] border border-surface-200 bg-navy-950 shadow-md">
               <img
                 src={assetPath("/assets/imgs/faq/faq-info-img.png")}
                 alt="Izzy Immigration Sovereign Advisory"
@@ -48,7 +48,7 @@ export function FAQSection() {
           </div>
 
           {/* Right Column (7 cols): Spaciously Designed FAQ Accordion */}
-          <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-7 flex flex-col justify-between space-y-5 sm:space-y-6">
             <div>
               <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
                 Frequently Asked Questions
@@ -58,13 +58,13 @@ export function FAQSection() {
               </h2>
             </div>
 
-            <div className="space-y-3.5 flex-1">
+            <div className="space-y-3 flex-1">
               {faqs.map((faq, idx) => {
                 const isOpen = openIdx === idx;
                 return (
                   <div
                     key={idx}
-                    className={`rounded-2xl border transition-all duration-300 bg-white overflow-hidden ${
+                    className={`rounded-xl sm:rounded-2xl border transition-all duration-300 bg-white overflow-hidden ${
                       isOpen
                         ? "border-gold-400/80 shadow-md ring-1 ring-gold-400/20"
                         : "border-surface-200 hover:border-surface-300 shadow-sm"
@@ -73,22 +73,22 @@ export function FAQSection() {
                     <button
                       type="button"
                       onClick={() => setOpenIdx(isOpen ? null : idx)}
-                      className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 font-extrabold text-[15px] sm:text-[16px] text-navy-900 hover:text-gold-600 transition-colors"
+                      className="w-full p-4 sm:p-6 text-left flex items-center justify-between gap-3 sm:gap-4 font-extrabold text-[14px] sm:text-[16px] text-navy-900 hover:text-gold-600 transition-colors"
                     >
                       <span className="leading-snug">{faq.q}</span>
                       <div
-                        className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                        className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center shrink-0 transition-all ${
                           isOpen
                             ? "bg-navy-950 text-gold-400"
                             : "bg-surface-100 text-navy-900 hover:bg-gold-500 hover:text-navy-950"
                         }`}
                       >
-                        {isOpen ? <Minus size={15} /> : <Plus size={15} />}
+                        {isOpen ? <Minus size={14} /> : <Plus size={14} />}
                       </div>
                     </button>
 
                     {isOpen && (
-                      <div className="px-5 pb-6 pt-1 sm:px-6 text-[13.5px] sm:text-[14px] text-ink-light leading-relaxed font-normal border-t border-surface-100">
+                      <div className="px-4 pb-5 pt-1 sm:px-6 sm:pb-6 text-[13px] sm:text-[14px] text-ink-light leading-relaxed font-normal border-t border-surface-100">
                         {faq.a}
                       </div>
                     )}

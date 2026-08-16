@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu, Search, X, Phone, ArrowRight } from "lucide-react";
+import { ChevronDown, Menu, Search, X, Phone, ArrowRight, ChevronRight, MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
 import { programs } from "@/data/programs";
 import { siteConfig } from "@/data/siteConfig";
@@ -112,10 +112,12 @@ export function Header() {
   const [drawer, setDrawer] = useState(false);
   const [search, setSearch] = useState(false);
   const [sticky, setSticky] = useState(false);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
 
-  // Automatically close mobile menu and dropdowns whenever user navigates to a new page
+  // Automatically close mobile menu whenever user navigates to a new page
   useEffect(() => {
     setDrawer(false);
+    setExpandedMobile(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -124,6 +126,10 @@ export function Header() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const toggleMobileSubmenu = (label: string) => {
+    setExpandedMobile((prev) => (prev === label ? null : label));
+  };
 
   return (
     <>
@@ -159,14 +165,14 @@ export function Header() {
           <div className="flex items-center justify-between gap-4" style={{ height: "var(--header-h)" }}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group" aria-label={siteConfig.name}>
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
+              <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
                 <img src="/assets/imgs/logo/icon-only.svg" alt="Izzy Immigration" className="h-full w-full object-contain" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[17px] font-extrabold tracking-tight text-navy-900 group-hover:text-gold-600 transition-colors leading-none font-heading">
+                <span className="text-[15px] sm:text-[17px] font-extrabold tracking-tight text-navy-900 group-hover:text-gold-600 transition-colors leading-none font-heading">
                   Izzy Immigration
                 </span>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-gold-600 leading-none mt-1">
+                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-gold-600 leading-none mt-1">
                   Mentors Limited
                 </span>
               </div>
@@ -212,14 +218,14 @@ export function Header() {
             </nav>
 
             {/* Actions with Taller Button */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setSearch(true)}
                 aria-label="Search"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-surface-200 bg-white text-navy-900 transition-colors hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950"
+                className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-surface-200 bg-white text-navy-900 transition-colors hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950 cursor-pointer"
               >
-                <Search size={17} />
+                <Search size={16} />
               </button>
 
               {/* Increased Height Header CTA Button */}
@@ -235,7 +241,7 @@ export function Header() {
                 type="button"
                 onClick={() => setDrawer(true)}
                 aria-label="Open menu"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-surface-200 bg-white text-navy-900 transition-colors hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950 xl:hidden"
+                className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-surface-200 bg-white text-navy-900 transition-colors hover:border-gold-500 hover:bg-gold-500 hover:text-navy-950 xl:hidden cursor-pointer"
               >
                 <Menu size={18} />
               </button>
@@ -247,7 +253,7 @@ export function Header() {
       {/* Mobile drawer */}
       <div className={`drawer-overlay ${drawer ? "is-open" : ""}`} onClick={() => setDrawer(false)} />
       <div className={`drawer ${drawer ? "is-open" : ""}`} aria-hidden={!drawer}>
-        <div className="flex items-center justify-between border-b border-surface-100 p-5">
+        <div className="flex items-center justify-between border-b border-surface-100 p-4 sm:p-5">
           <Link href="/" onClick={() => setDrawer(false)} className="flex items-center gap-2.5">
             <div className="h-9 w-9 shrink-0 overflow-hidden rounded-full shadow-sm">
               <img src="/assets/imgs/logo/icon-only.svg" alt="" className="h-full w-full object-contain" />
@@ -265,62 +271,99 @@ export function Header() {
             type="button"
             onClick={() => setDrawer(false)}
             aria-label="Close menu"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-100 text-navy-900 hover:bg-gold-500 hover:text-navy-950"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-100 text-navy-900 hover:bg-gold-500 hover:text-navy-950 cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
-        <nav className="p-5 overflow-y-auto max-h-[calc(100vh-100px)]" aria-label="Mobile">
+
+        <nav className="p-4 sm:p-5 overflow-y-auto max-h-[calc(100vh-90px)]" aria-label="Mobile">
           <ul className="space-y-1">
-            {NAV.map((item) => (
-              <li key={item.label}>
-                <Link
-                  href={item.href}
-                  onClick={() => setDrawer(false)}
-                  className="block rounded-xl px-4 py-3 text-[15px] font-bold text-navy-900 hover:bg-surface-100 hover:text-gold-600"
-                >
-                  {item.label}
-                </Link>
-                {item.children && (
-                  <div className="ml-4 mt-1 grid grid-cols-1 gap-1 border-l-2 border-surface-200 pl-4">
-                    {item.children.map((c) => (
-                      <Link
-                        key={c.label}
-                        href={c.href}
-                        onClick={() => setDrawer(false)}
-                        className="rounded-lg px-3 py-2 text-[13.5px] font-semibold text-ink hover:bg-surface-100 hover:text-gold-600"
+            {NAV.map((item) => {
+              const hasSub = Boolean(item.children || item.mega);
+              const isExpanded = expandedMobile === item.label;
+
+              return (
+                <li key={item.label} className="border-b border-surface-100 pb-1">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      href={item.href}
+                      onClick={() => setDrawer(false)}
+                      className="block flex-1 rounded-xl px-3.5 py-3 text-[14.5px] font-extrabold text-navy-900 hover:bg-surface-100 hover:text-gold-600"
+                    >
+                      {item.label}
+                    </Link>
+                    {hasSub && (
+                      <button
+                        type="button"
+                        onClick={() => toggleMobileSubmenu(item.label)}
+                        className="flex h-9 w-9 items-center justify-center rounded-lg text-ink-light hover:bg-surface-100"
+                        aria-label={`Toggle ${item.label} submenu`}
                       >
-                        {c.label}
-                      </Link>
-                    ))}
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform duration-200 ${isExpanded ? "rotate-180 text-gold-600" : ""}`}
+                        />
+                      </button>
+                    )}
                   </div>
-                )}
-                {item.mega && (
-                  <div className="ml-4 mt-1 grid grid-cols-1 gap-1 border-l-2 border-surface-200 pl-4 max-h-48 overflow-y-auto pr-1">
-                    {(item.mega === "citizenship" ? citizenship : residency).map((p) => (
-                      <Link
-                        key={p.id}
-                        href={`/programmes/${p.id}`}
-                        onClick={() => setDrawer(false)}
-                        className="rounded-lg px-3 py-2 text-[13.5px] font-semibold text-ink hover:bg-surface-100 hover:text-gold-600"
-                      >
-                        {p.country} — {p.minInvestment}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </li>
-            ))}
+
+                  {/* Expandable Children */}
+                  {item.children && isExpanded && (
+                    <div className="ml-3 mb-2 grid grid-cols-1 gap-1 border-l-2 border-gold-400/40 pl-3 pt-1">
+                      {item.children.map((c) => (
+                        <Link
+                          key={c.label}
+                          href={c.href}
+                          onClick={() => setDrawer(false)}
+                          className="rounded-lg px-3 py-2 text-[13px] font-bold text-ink hover:bg-surface-100 hover:text-gold-600"
+                        >
+                          {c.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Expandable Mega List */}
+                  {item.mega && isExpanded && (
+                    <div className="ml-3 mb-2 grid grid-cols-1 gap-1 border-l-2 border-gold-400/40 pl-3 pt-1 max-h-56 overflow-y-auto pr-1">
+                      {(item.mega === "citizenship" ? citizenship : residency).map((p) => (
+                        <Link
+                          key={p.id}
+                          href={`/programmes/${p.id}`}
+                          onClick={() => setDrawer(false)}
+                          className="rounded-lg px-3 py-2 text-[12.5px] font-bold text-navy-900 hover:bg-surface-100 hover:text-gold-600 flex items-center justify-between"
+                        >
+                          <span>{p.country}</span>
+                          <span className="text-[11px] font-semibold text-gold-600">{p.minInvestment}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
-          <div className="mt-6 space-y-3">
-            <Link href="/contact" onClick={() => setDrawer(false)} className="btn btn-gold w-full justify-center">
-              Book a Free Assessment <span aria-hidden>→</span>
+
+          <div className="mt-6 space-y-2.5">
+            <Link
+              href="/contact"
+              onClick={() => setDrawer(false)}
+              className="w-full flex items-center justify-center gap-2 rounded-xl bg-gold-500 hover:bg-white text-navy-950 font-extrabold px-5 py-3.5 text-xs shadow-md transition-all"
+            >
+              <span>Book a Free Assessment</span>
+              <ArrowRight size={14} />
             </Link>
-            <Link href="/compare" onClick={() => setDrawer(false)} className="btn btn-outline w-full justify-center">
-              Compare Programmes
+            <Link
+              href="/compare"
+              onClick={() => setDrawer(false)}
+              className="w-full flex items-center justify-center gap-2 rounded-xl border border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white font-extrabold px-5 py-3 text-xs transition-all"
+            >
+              <span>Compare Programmes</span>
             </Link>
           </div>
-          <p className="mt-8 text-center text-[13px] font-semibold text-ink-light">
+
+          <p className="mt-6 text-center text-[12px] font-semibold text-ink-light">
             {siteConfig.phoneDisplay} · {siteConfig.email}
           </p>
         </nav>

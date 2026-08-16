@@ -104,7 +104,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
         </div>
 
         {/* Hero Banner Card with Real Country Background */}
-        <div className="relative overflow-hidden rounded-[32px] border border-navy-850 bg-navy-950 p-8 sm:p-12 shadow-2xl text-white mb-12">
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-navy-850 bg-navy-950 p-5 sm:p-8 md:p-12 shadow-xl text-white mb-8 sm:mb-12">
           {/* Background Country Photo Overlay */}
           <div className="absolute inset-0 z-0">
             <img
@@ -117,25 +117,25 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-transparent to-transparent" />
           </div>
 
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-8 space-y-5">
-              <div className="flex items-center gap-3">
-                <div className="relative h-7 w-10 overflow-hidden rounded-md border border-white/30 shadow bg-white">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+            <div className="lg:col-span-8 space-y-4 sm:space-y-5">
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <div className="relative h-6 w-9 sm:h-7 sm:w-10 overflow-hidden rounded-md border border-white/30 shadow bg-white">
                   <img src={flagSrc} alt={program.country} className="h-full w-full object-cover" />
                 </div>
                 <Badge variant={isCitizenship ? "gold" : "navy"}>
                   {isCitizenship ? "Sovereign Citizenship" : "Permanent Residency"}
                 </Badge>
-                <span className="text-xs text-white/70 font-semibold">
+                <span className="text-[11px] sm:text-xs text-white/70 font-semibold">
                   {program.region}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-heading text-white leading-tight">
+              <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-heading text-white leading-tight">
                 {program.title}
               </h1>
 
-              <p className="text-sm md:text-base text-white/85 leading-relaxed max-w-3xl font-normal">
+              <p className="text-[13px] sm:text-sm md:text-base text-white/85 leading-relaxed max-w-3xl font-normal">
                 {program.intro}
               </p>
 
@@ -143,30 +143,30 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               <ProgramActionButtons
                 programTitle={program.title}
                 country={program.country}
-                className="pt-2"
+                className="pt-1 sm:pt-2"
               />
             </div>
 
             {/* Quick Metrics Column */}
-            <div className="lg:col-span-4 rounded-2xl border border-white/15 bg-navy-900/90 p-6 backdrop-blur-md space-y-4">
+            <div className="lg:col-span-4 rounded-xl sm:rounded-2xl border border-white/15 bg-navy-900/90 p-4 sm:p-6 backdrop-blur-md space-y-3 sm:space-y-4">
               <div>
-                <span className="text-xs text-white/70 font-medium block">Starting Investment:</span>
-                <span className="text-2xl font-extrabold text-gold-400 font-heading">
+                <span className="text-[11px] sm:text-xs text-white/70 font-medium block">Starting Investment:</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-gold-400 font-heading">
                   {program.minInvestment}
                 </span>
               </div>
 
-              <div className="pt-3 border-t border-white/10">
-                <span className="text-xs text-white/70 font-medium block">Processing Timeline:</span>
-                <span className="text-sm font-bold text-white">
+              <div className="pt-2.5 sm:pt-3 border-t border-white/10">
+                <span className="text-[11px] sm:text-xs text-white/70 font-medium block">Processing Timeline:</span>
+                <span className="text-xs sm:text-sm font-bold text-white">
                   {program.processing}
                 </span>
               </div>
 
-              <div className="pt-3 border-t border-white/10">
-                <span className="text-xs text-white/70 font-medium block">Due Diligence Authority:</span>
-                <span className="text-xs font-semibold text-gold-400 flex items-center gap-1.5 mt-0.5">
-                  <ShieldCheck className="w-4 h-4" /> Government Direct Statutory Channel
+              <div className="pt-2.5 sm:pt-3 border-t border-white/10">
+                <span className="text-[11px] sm:text-xs text-white/70 font-medium block">Due Diligence Authority:</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-gold-400 flex items-center gap-1.5 mt-0.5">
+                  <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" /> Government Direct Statutory Channel
                 </span>
               </div>
             </div>
