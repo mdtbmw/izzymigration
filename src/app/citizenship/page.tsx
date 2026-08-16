@@ -30,15 +30,15 @@ export default function CitizenshipPage() {
       <section className="section-space bg-surface-50">
         <div className="container-izzy">
           {/* Quick Metrics Bar */}
-          <div className="mb-10 grid grid-cols-2 gap-4 rounded-3xl border border-surface-200 bg-white p-6 shadow-sm md:grid-cols-4">
+          <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 rounded-2xl sm:rounded-3xl border border-surface-200 bg-white p-4 sm:p-6 shadow-sm w-full min-w-0">
             {STATS.map((s) => (
-              <div key={s.label} className="flex items-center gap-3">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-600">
-                  <s.icon size={20} />
+              <div key={s.label} className="flex items-center gap-3 min-w-0 p-1 sm:p-0">
+                <span className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-2xl bg-gold-500/15 text-gold-600">
+                  <s.icon size={18} className="sm:w-5 sm:h-5" />
                 </span>
-                <div>
-                  <p className="text-xl font-extrabold text-navy-900 leading-tight">{s.value}</p>
-                  <p className="text-[12px] font-semibold text-ink-light leading-tight mt-0.5">{s.label}</p>
+                <div className="min-w-0 flex-1 overflow-hidden">
+                  <p className="text-lg sm:text-xl font-extrabold text-navy-900 leading-tight truncate">{s.value}</p>
+                  <p className="text-[11.5px] sm:text-[12px] font-semibold text-ink-light leading-tight mt-0.5 truncate">{s.label}</p>
                 </div>
               </div>
             ))}
