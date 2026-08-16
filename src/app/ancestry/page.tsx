@@ -3,6 +3,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { createWhatsAppLink } from "@/lib/whatsapp";
 
 export default function CitizenshipbyAncestryPage() {
   return (
@@ -150,7 +151,7 @@ export default function CitizenshipbyAncestryPage() {
                 <h2>Your passport may already exist in your family tree</h2>
                 <p>Tell us about your parents and grandparents — we will tell you whether any of the 56 programmes we manage, or a descent route, fits you.</p>
                 <div className="cta-band__actions">
-                    <a href="#" id="cta-whatsapp" className="rr-btn btn-light-gold" target="_blank" rel="noopener"><i className="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+                    <a href={createWhatsAppLink({ type: "ancestry", message: "Hello Izzy Immigration, I would like to check my family tree for citizenship by ancestry and descent." })} id="cta-whatsapp" className="rr-btn btn-light-gold" target="_blank" rel="noopener"><i className="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
                     <a href="/contact" className="rr-btn btn-ghost-light">Book a Free Assessment <i className="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>

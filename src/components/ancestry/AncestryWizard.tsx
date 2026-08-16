@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckCircle2, ChevronRight, Loader2, RotateCcw, Send, Sparkles, ShieldCheck, TreePine } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { submitLead } from "@/lib/lead";
 import { siteConfig } from "@/data/siteConfig";
+import { getClientProfile, saveClientProfile, dispatchToWhatsApp, createWhatsAppLink } from "@/lib/whatsapp";
 
 interface AncestryPathway {
   id: string;
@@ -94,6 +95,17 @@ export function AncestryWizard() {
   });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  useEffect(() => {
+    const saved = getClientProfile();
+    setFormData((prev) => ({
+      ...prev,
+      name: prev.name || saved.name || "",
+      email: prev.email || saved.email || "",
+      phone: prev.phone || saved.phone || "",
+    }));
+  }, []);
 
   const currentPathway = PATHWAYS.find((p) => p.id === selectedCountry) || PATHWAYS[0];
 
@@ -108,7 +120,27 @@ export function AncestryWizard() {
     setStatus("loading");
     setErrorMsg("");
 
-    const summary = `Ancestry Assessment for ${currentPathway.country} (${currentPathway.program}). Ancestor: ${ancestor}. Docs available: ${documents.join(", ") || "None"}. Notes: ${formData.notes || "None"}`;
+    saveClientProfile({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+    });
+
+    const summary = `Ancestry Assessment for ${currentPathway.country} (${currentPathway.program}). Qualifying Ancestor: ${ancestor}. Held Documents: ${documents.join(", ") || "None"}. Client Notes: ${formData.notes || "None"}`;
+
+    const waData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      country: currentPathway.country,
+      program: currentPathway.program,
+      subject: `Citizenship by Ancestry: ${currentPathway.country}`,
+      message: summary,
+      type: "ancestry" as const,
+    };
+
+    const waLink = createWhatsAppLink(waData);
+    setWhatsappLink(waLink);
 
     const res = await submitLead({
       name: formData.name,
@@ -123,6 +155,7 @@ export function AncestryWizard() {
 
     if (res.ok) {
       setStatus("success");
+      dispatchToWhatsApp(waData);
     } else {
       setStatus("error");
       setErrorMsg(res.error || "Assessment submission failed. Please try again.");
@@ -174,12 +207,12 @@ export function AncestryWizard() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(`Hello Izzy Immigration, I just submitted an ancestry eligibility check for ${currentPathway.country} citizenship.`)}`}
+              href={whatsappLink || `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(`Hello Izzy Immigration, I submitted an ancestry eligibility assessment for ${currentPathway.country}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-gold"
+              className="btn btn-gold bg-[#25D366] hover:bg-[#128C7E] text-white border-0"
             >
-              Discuss on WhatsApp Now <ChevronRight size={16} />
+              Open Formatted Dossier on WhatsApp <ChevronRight size={16} />
             </a>
             <button
               type="button"

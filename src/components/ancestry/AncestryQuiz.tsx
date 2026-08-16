@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { CheckCircle2, ArrowRight, RotateCcw, Send, Shield, Sparkles } from "lucide-react";
+import { CheckCircle2, ArrowRight, RotateCcw, Send, Shield, Sparkles, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
+import { getClientProfile, saveClientProfile, dispatchToWhatsApp, createWhatsAppLink } from "@/lib/whatsapp";
 
 interface CountryOption {
   country: string;
@@ -62,6 +63,14 @@ export function AncestryQuiz() {
   const [leadEmail, setLeadEmail] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  useEffect(() => {
+    const saved = getClientProfile();
+    if (saved.name) setLeadName(saved.name);
+    if (saved.email) setLeadEmail(saved.email);
+    if (saved.phone) setLeadPhone(saved.phone);
+  }, []);
 
   const resetQuiz = () => {
     setStep(1);
@@ -73,6 +82,28 @@ export function AncestryQuiz() {
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    saveClientProfile({
+      name: leadName,
+      email: leadEmail,
+      phone: leadPhone,
+    });
+
+    const summary = `Ancestry Assessment for ${selectedCountry}. Qualifying Ancestor: ${ancestorRelation}. Document Availability: ${hasBirthCert}.`;
+
+    const waData = {
+      name: leadName,
+      email: leadEmail,
+      phone: leadPhone,
+      country: selectedCountry,
+      subject: `Citizenship by Descent (${selectedCountry})`,
+      message: summary,
+      type: "ancestry" as const,
+    };
+
+    const waLink = createWhatsAppLink(waData);
+    setWhatsappLink(waLink);
+
     try {
       await fetch("/api/lead", {
         method: "POST",
@@ -83,14 +114,16 @@ export function AncestryQuiz() {
           phone: leadPhone,
           program: `Citizenship by Ancestry: ${selectedCountry}`,
           subject: `Ancestry Eligibility Assessment (${selectedCountry})`,
-          message: `Assessment Details:\n- Country: ${selectedCountry}\n- Ancestor: ${ancestorRelation}\n- Has Documents: ${hasBirthCert}`,
+          message: summary,
           type: "assessment",
         }),
       });
     } catch {
       // ignore
     }
+
     setIsSubmitted(true);
+    dispatchToWhatsApp(waData);
   };
 
   return (
@@ -284,11 +317,23 @@ export function AncestryQuiz() {
                 Assessment File Dispatched to Archival Unit
               </h4>
               <p className="text-xs text-body max-w-md mx-auto mb-5">
-                Our Senior Archival Counsel will contact you with specific municipality registry protocols for {selectedCountry}.
+                Our Senior Archival Counsel will contact you with specific municipality registry protocols for {selectedCountry}. We have prefilled your archival inquiry on WhatsApp for instant receipt.
               </p>
-              <Button variant="outline" size="sm" onClick={resetQuiz}>
-                <RotateCcw className="w-3.5 h-3.5 mr-1.5" /> Start New Assessment
-              </Button>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                {whatsappLink && (
+                  <a
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-md"
+                  >
+                    <MessageSquare className="w-4 h-4" /> Open Dossier on WhatsApp
+                  </a>
+                )}
+                <Button variant="outline" size="sm" onClick={resetQuiz}>
+                  <RotateCcw className="w-3.5 h-3.5 mr-1.5" /> Start New Assessment
+                </Button>
+              </div>
             </div>
           )}
         </div>

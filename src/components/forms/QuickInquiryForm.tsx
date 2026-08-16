@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { Send, ShieldCheck, AlertCircle, Loader2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Send, ShieldCheck, AlertCircle, Loader2, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getClientProfile, saveClientProfile, dispatchToWhatsApp, createWhatsAppLink } from "@/lib/whatsapp";
 
 interface QuickInquiryFormProps {
   programTitle: string;
@@ -25,11 +26,41 @@ export function QuickInquiryForm({
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  useEffect(() => {
+    const saved = getClientProfile();
+    setFormData((prev) => ({
+      ...prev,
+      name: prev.name || saved.name || "",
+      email: prev.email || saved.email || "",
+      phone: prev.phone || saved.phone || "",
+    }));
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
     setErrorMessage("");
+
+    saveClientProfile({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+    });
+
+    const waData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      program: programTitle,
+      subject: `Official Dossier & Inquiry: ${programTitle}`,
+      message: formData.message,
+      type: "inquiry" as const,
+    };
+
+    const waLink = createWhatsAppLink(waData);
+    setWhatsappLink(waLink);
 
     try {
       const res = await fetch("/api/lead", {
@@ -51,6 +82,8 @@ export function QuickInquiryForm({
 
       setStatus("success");
       if (onSuccess) onSuccess();
+
+      dispatchToWhatsApp(waData);
     } catch (err: any) {
       setStatus("error");
       setErrorMessage(err.message || "An unexpected error occurred.");
@@ -59,16 +92,26 @@ export function QuickInquiryForm({
 
   if (status === "success") {
     return (
-      <div className={cn("p-6 rounded-2xl bg-gold-500/10 border border-gold-400/40 text-center", className)}>
-        <div className="w-12 h-12 rounded-full bg-navy-950 text-gold-400 flex items-center justify-center mx-auto mb-3 shadow-md border border-gold-400/50">
+      <div className={cn("p-6 rounded-2xl bg-gold-500/10 border border-gold-400/40 text-center space-y-3", className)}>
+        <div className="w-12 h-12 rounded-full bg-navy-950 text-gold-400 flex items-center justify-center mx-auto shadow-md border border-gold-400/50">
           <ShieldCheck className="w-6 h-6" />
         </div>
         <h4 className="text-base font-extrabold font-heading text-navy-900 mb-1">
           Dossier Request Submitted
         </h4>
-        <p className="text-xs text-ink-light">
-          A senior solicitor will contact you shortly with the official statutory fee breakdown for <strong>{programTitle}</strong>.
+        <p className="text-xs text-ink-light leading-relaxed">
+          Your request for <strong>{programTitle}</strong> has been received. We have prefilled your statutory inquiry on WhatsApp for instant priority consultation.
         </p>
+        {whatsappLink && (
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#128C7E] text-white font-extrabold text-[11.5px] uppercase tracking-wider transition-all shadow-md shadow-emerald-600/20 mt-2"
+          >
+            <MessageSquare className="w-3.5 h-3.5" /> Open WhatsApp Direct
+          </a>
+        )}
       </div>
     );
   }

@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { Download, CheckCircle2, AlertCircle, Loader2, FileText, ShieldCheck } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Download, CheckCircle2, AlertCircle, Loader2, FileText, ShieldCheck, MessageSquare } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
+import { getClientProfile, saveClientProfile, dispatchToWhatsApp, createWhatsAppLink } from "@/lib/whatsapp";
 
 interface BrochureModalProps {
   isOpen: boolean;
@@ -23,11 +24,36 @@ export function BrochureModal({
   const [phone, setPhone] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      const saved = getClientProfile();
+      if (!name && saved.name) setName(saved.name);
+      if (!email && saved.email) setEmail(saved.email);
+      if (!phone && saved.phone) setPhone(saved.phone);
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
     setErrorMessage("");
+
+    saveClientProfile({ name, email, phone });
+
+    const waData = {
+      name,
+      email,
+      phone,
+      program: programTitle,
+      country,
+      subject: `Official Statutory Brochure & Fee Schedule: ${programTitle}`,
+      type: "brochure" as const,
+    };
+
+    const waLink = createWhatsAppLink(waData);
+    setWhatsappLink(waLink);
 
     try {
       const res = await fetch("/api/lead", {
@@ -49,6 +75,7 @@ export function BrochureModal({
       }
 
       setStatus("success");
+      dispatchToWhatsApp(waData);
     } catch (err: any) {
       setStatus("error");
       setErrorMessage(err.message || "An unexpected error occurred.");
@@ -72,10 +99,20 @@ export function BrochureModal({
             Dossier Authorized &amp; Dispatched
           </h4>
           <p className="text-xs sm:text-sm text-body max-w-sm mx-auto">
-            A secure download link for the official <strong>{programTitle}</strong> guide has been emailed to <strong>{email}</strong>.
+            A secure download link for <strong>{programTitle}</strong> has been generated and prefilled on WhatsApp for instant receipt.
           </p>
-          <div className="pt-2">
-            <Button variant="gold" size="sm" onClick={onClose}>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            {whatsappLink && (
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-md"
+              >
+                <MessageSquare className="w-4 h-4" /> Receive on WhatsApp
+              </a>
+            )}
+            <Button variant="outline" size="sm" onClick={onClose}>
               Close &amp; Continue Browsing
             </Button>
           </div>

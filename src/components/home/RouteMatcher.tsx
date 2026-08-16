@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Compass, ArrowRight, Check } from "lucide-react";
+import { Compass, ArrowRight, Check, MessageSquare } from "lucide-react";
 import { programs } from "@/data/programs";
 import { assetPath } from "@/lib/brand";
+import { createWhatsAppLink } from "@/lib/whatsapp";
 
 const GOALS = [
   { id: "mobility", label: "Global Visa-Free Travel", desc: "150+ countries including UK & Schengen" },
@@ -224,15 +225,31 @@ export function RouteMatcher() {
                   href="/programmes"
                   className="text-[11px] sm:text-xs font-bold text-gold-400 hover:text-gold-300 transition-colors inline-flex items-center justify-center gap-1 text-center py-1 sm:py-0"
                 >
-                  <span>Explore all 55 sovereign programmes</span>
+                  <span>Explore all 55 programmes</span>
                   <ArrowRight size={12} />
                 </Link>
-                <Link
-                  href="/contact"
-                  className="w-full sm:w-auto text-center rounded-xl bg-gold-500 hover:bg-white text-navy-950 font-extrabold px-4 py-2.5 text-xs shadow-md transition-all"
-                >
-                  Book Private Assessment
-                </Link>
+                <div className="flex items-center gap-2">
+                  <a
+                    href={createWhatsAppLink({
+                      type: "matcher",
+                      subject: `Sovereign Corridor Assessment: ${GOALS.find((g) => g.id === goal)?.label || "Strategic Route"}`,
+                      budget: BUDGETS.find((b) => b.id === budget)?.label,
+                      message: `I completed the 30-Second Sovereign Assessment for ${GOALS.find((g) => g.id === goal)?.label} (${BUDGETS.find((b) => b.id === budget)?.label}). Recommended: ${matchedList.filter((p): p is NonNullable<typeof p> => Boolean(p)).map((p) => p.country).join(", ")}. Please advise on my eligibility.`,
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto text-center rounded-xl bg-[#25D366] hover:bg-[#128C7E] text-white font-extrabold px-3.5 py-2.5 text-xs shadow-md transition-all inline-flex items-center justify-center gap-1.5"
+                  >
+                    <MessageSquare size={13} />
+                    <span>WhatsApp</span>
+                  </a>
+                  <Link
+                    href={`/contact?program=${encodeURIComponent(matchedList[0]?.title || "")}&budget=${encodeURIComponent(BUDGETS.find((b) => b.id === budget)?.label || "")}`}
+                    className="w-full sm:w-auto text-center rounded-xl bg-gold-500 hover:bg-white text-navy-950 font-extrabold px-4 py-2.5 text-xs shadow-md transition-all"
+                  >
+                    Book Assessment
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

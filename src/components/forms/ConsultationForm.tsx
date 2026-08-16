@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Send, CheckCircle2, AlertCircle, Loader2, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { programs } from "@/data/programs";
 import { cn } from "@/lib/utils";
+import { getClientProfile, saveClientProfile, dispatchToWhatsApp, createWhatsAppLink } from "@/lib/whatsapp";
 
 interface ConsultationFormProps {
   initialProgram?: string;
@@ -29,11 +30,52 @@ export function ConsultationForm({
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  // Intelligent Profile Auto-Fill from previous interactions or URL params
+  useEffect(() => {
+    const saved = getClientProfile();
+    let urlProg = initialProgram;
+    if (typeof window !== "undefined") {
+      const sp = new URLSearchParams(window.location.search);
+      const qProg = sp.get("program") || sp.get("pathway");
+      if (qProg) urlProg = qProg;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      name: prev.name || saved.name || "",
+      email: prev.email || saved.email || "",
+      phone: prev.phone || saved.phone || "",
+      program: urlProg || prev.program || "",
+    }));
+  }, [initialProgram]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
     setErrorMessage("");
+
+    // Save profile for auto-filling across site
+    saveClientProfile({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+    });
+
+    const waData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      program: formData.program || "General Sovereign Advisory",
+      subject: formData.subject,
+      message: formData.message,
+      type: "consultation" as const,
+    };
+
+    // Generate WhatsApp direct link
+    const waLink = createWhatsAppLink(waData);
+    setWhatsappLink(waLink);
 
     try {
       const res = await fetch("/api/lead", {
@@ -53,6 +95,9 @@ export function ConsultationForm({
 
       setStatus("success");
       if (onSuccess) onSuccess();
+
+      // Automatically dispatch to WhatsApp in new tab
+      dispatchToWhatsApp(waData);
     } catch (err: any) {
       setStatus("error");
       setErrorMessage(err.message || "An unexpected error occurred. Please try again.");
@@ -68,27 +113,30 @@ export function ConsultationForm({
         <h3 className="text-xl font-bold font-heading text-navy-900 mb-2">
           Consultation Request Received
         </h3>
-        <p className="text-sm text-body max-w-md mx-auto mb-6">
-          Thank you. A Senior Sovereign Mobility Advisor from Izzy Immigration will review your profile and contact you within 2 business hours.
+        <p className="text-sm text-body max-w-md mx-auto mb-5">
+          Thank you. Your dossier brief has been recorded. We have prefilled your confidential details on WhatsApp for immediate priority consultation with Senior Counsel.
         </p>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            setStatus("idle");
-            setFormData({
-              name: "",
-              email: "",
-              phone: "",
-              program: initialProgram,
-              subject: "Private Client Consultation Booking",
-              message: "",
-              website: "",
-            });
-          }}
-        >
-          Submit Another Inquiry
-        </Button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+          {whatsappLink && (
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-md shadow-emerald-600/20"
+            >
+              <MessageSquare className="w-4 h-4" /> Open Chat on WhatsApp
+            </a>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              setStatus("idle");
+            }}
+          >
+            Submit Another Inquiry
+          </Button>
+        </div>
       </div>
     );
   }

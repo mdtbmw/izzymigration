@@ -1,16 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MessageSquare, X, Send } from "lucide-react";
-import { siteConfig } from "@/data/siteConfig";
+import { getClientProfile, createWhatsAppLink } from "@/lib/whatsapp";
 
 export function WhatsAppFloat() {
   const [isOpen, setIsOpen] = useState(false);
   const [customMsg, setCustomMsg] = useState("");
+  const [clientName, setClientName] = useState("");
 
-  const directChatUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
-    customMsg || siteConfig.whatsappMessage
-  )}`;
+  useEffect(() => {
+    if (isOpen) {
+      const saved = getClientProfile();
+      if (saved.name) setClientName(saved.name);
+    }
+  }, [isOpen]);
+
+  const directChatUrl = createWhatsAppLink({
+    name: clientName,
+    message: customMsg || "Hello Izzy Immigration, I would like a confidential sovereign advisory consultation.",
+    type: "consultation",
+  });
 
   return (
     <div className="fixed right-5 bottom-6 z-50 flex flex-col items-end">

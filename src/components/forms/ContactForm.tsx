@@ -1,20 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Send, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+import { Send, CheckCircle2, Loader2, AlertCircle, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { submitLead } from "@/lib/lead";
+import { getClientProfile, saveClientProfile, dispatchToWhatsApp, createWhatsAppLink } from "@/lib/whatsapp";
 
 /** Full-page contact form; type "contact", optional program/budget prefilled via URL. */
 export function ContactForm({ program: programProp }: { program?: string }) {
   const [program, setProgram] = useState(programProp || "");
-
-  useEffect(() => {
-    if (!programProp && typeof window !== "undefined") {
-      const p = new URLSearchParams(window.location.search).get("program") || "";
-      setProgram(p);
-    }
-  }, [programProp]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,18 +20,56 @@ export function ContactForm({ program: programProp }: { program?: string }) {
     website: "",
   });
 
-  useEffect(() => {
-    if (program) {
-      setFormData((f) => ({ ...f, subject: f.subject || `Enquiry: ${program}` }));
-    }
-  }, [program]);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState("");
+  const [whatsappLink, setWhatsappLink] = useState("");
+
+  useEffect(() => {
+    const saved = getClientProfile();
+    let p = programProp || "";
+    let b = "";
+    if (typeof window !== "undefined") {
+      const sp = new URLSearchParams(window.location.search);
+      p = p || sp.get("program") || sp.get("pathway") || "";
+      b = sp.get("budget") || "";
+    }
+    if (p) setProgram(p);
+
+    setFormData((f) => ({
+      ...f,
+      name: f.name || saved.name || "",
+      email: f.email || saved.email || "",
+      phone: f.phone || saved.phone || "",
+      budget: f.budget || b || "",
+      subject: f.subject || (p ? `Enquiry: ${p}` : "General Advisory & Global Mobility"),
+    }));
+  }, [programProp]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
     setError("");
+
+    saveClientProfile({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+    });
+
+    const waData = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      program: program || formData.subject,
+      subject: formData.subject,
+      budget: formData.budget,
+      message: formData.message,
+      type: "contact" as const,
+    };
+
+    const waLink = createWhatsAppLink(waData);
+    setWhatsappLink(waLink);
+
     const res = await submitLead({
       name: formData.name,
       email: formData.email,
@@ -48,8 +80,11 @@ export function ContactForm({ program: programProp }: { program?: string }) {
       type: "contact",
       website: formData.website,
     });
-    if (res.ok) setStatus("success");
-    else {
+
+    if (res.ok) {
+      setStatus("success");
+      dispatchToWhatsApp(waData);
+    } else {
       setStatus("error");
       setError(res.error ?? "Submission failed. Please try again.");
     }
@@ -57,19 +92,33 @@ export function ContactForm({ program: programProp }: { program?: string }) {
 
   if (status === "success") {
     return (
-      <div className="flex flex-col items-center justify-center rounded-[24px] border border-emerald-200 bg-emerald-50 px-8 py-16 text-center">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-600 text-white">
+      <div className="flex flex-col items-center justify-center rounded-[24px] border border-emerald-200 bg-emerald-50 px-8 py-14 text-center">
+        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md">
           <CheckCircle2 size={32} />
         </span>
-        <h2 className="mt-5 font-display text-2xl font-bold text-navy-900">Message Sent</h2>
-        <p className="mt-2 max-w-md text-[15px] leading-relaxed text-slate-600">
-          Thank you for contacting Izzy Immigration. A senior consultant will reach out within one
-          business day. For urgent matters, call us directly at{" "}
-          <a href="tel:+2347067203694" className="font-bold text-gold-700">
-            0706 720 3694
-          </a>
-          .
+        <h2 className="mt-5 font-display text-2xl font-bold text-navy-900">Enquiry Received</h2>
+        <p className="mt-2 max-w-md text-[14.5px] leading-relaxed text-slate-600">
+          Thank you for contacting Izzy Immigration. We have prefilled your enquiry on WhatsApp for immediate direct connection with our senior advisory desk.
         </p>
+        <div className="mt-6 flex flex-col sm:flex-row items-center gap-3">
+          {whatsappLink && (
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#25D366] hover:bg-[#128C7E] text-white font-extrabold text-xs tracking-wider uppercase transition-all shadow-md shadow-emerald-600/20"
+            >
+              <MessageSquare size={16} /> Continue on WhatsApp
+            </a>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setStatus("idle")}
+          >
+            Send Another Message
+          </Button>
+        </div>
       </div>
     );
   }

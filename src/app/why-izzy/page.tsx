@@ -3,6 +3,7 @@
 
 import React from "react";
 import Link from "next/link";
+import { createWhatsAppLink } from "@/lib/whatsapp";
 
 export default function WhyChooseUsPage() {
   return (
@@ -116,7 +117,7 @@ export default function WhyChooseUsPage() {
                         <p>Start with a free, no-obligation assessment. You will know your options within one working day.</p>
                         <div className="cta-band__actions">
                             <a href="/contact" className="rr-btn btn-light-gold">Book a Free Assessment <i className="fa-solid fa-arrow-right"></i></a>
-                            <a href="#" id="cta-whatsapp" className="rr-btn btn-ghost-light"><i className="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+                            <a href={createWhatsAppLink({ type: "consultation", message: "Hello Izzy Immigration, I would like to learn more about the Izzy Difference and book a confidential consultation." })} id="cta-whatsapp" className="rr-btn btn-ghost-light" target="_blank" rel="noopener"><i className="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
                         </div>
                     </div>
                 </div>

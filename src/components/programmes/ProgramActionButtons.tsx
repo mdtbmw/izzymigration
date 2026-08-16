@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Download, MessageSquare } from "lucide-react";
 import { BrochureModal } from "./BrochureModal";
-import { siteConfig } from "@/data/siteConfig";
+import { createWhatsAppLink } from "@/lib/whatsapp";
 
 interface ProgramActionButtonsProps {
   programTitle: string;
@@ -18,9 +18,13 @@ export function ProgramActionButtons({
 }: ProgramActionButtonsProps) {
   const [isBrochureOpen, setIsBrochureOpen] = useState(false);
 
-  const directWhatsAppUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
-    `Hello Izzy Immigration, I would like to inquire about statutory quotas and fee schedules for ${programTitle}.`
-  )}`;
+  const directWhatsAppUrl = createWhatsAppLink({
+    type: "inquiry",
+    program: programTitle,
+    country: country,
+    subject: `Statutory Quotas & Due Diligence: ${programTitle}`,
+    message: `Hello Izzy Immigration Senior Counsel, I am inquiring about the ${programTitle} programme. Please provide official statutory fee breakdowns, investment routes, and processing timelines.`,
+  });
 
   return (
     <>
