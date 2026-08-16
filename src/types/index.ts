@@ -17,6 +17,7 @@ export interface InvestmentOption {
   t: string;
   price: string;
   desc: string;
+  image?: string;
 }
 
 export interface ProcessStep {
@@ -37,6 +38,8 @@ export interface Program {
   country: string;
   flag: string;
   hero: string;
+  lifestyleImage?: string;
+  propertyImage?: string;
   minInvestment: string;
   processing: string;
   intro: string;

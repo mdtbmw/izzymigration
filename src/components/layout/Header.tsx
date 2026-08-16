@@ -31,7 +31,9 @@ const NAV: MenuItem[] = [
   },
   { label: "Citizenship", href: "/citizenship", mega: "citizenship" },
   { label: "Residency", href: "/residency", mega: "residency" },
-  { label: "All Programmes", href: "/programmes" },
+  { label: "Real Estate", href: "/real-estate" },
+  { label: "Ancestry", href: "/ancestry" },
+  { label: "Cruise & Travel", href: "/cruise-travel" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -39,14 +41,14 @@ function MegaPanel({ items, href, cta }: { items: typeof citizenship; href: stri
   return (
     <div className="mega-panel">
       <div className="mega-panel__card">
-        <div className="grid gap-1 md:grid-cols-3">
-          {items.slice(0, 9).map((p) => (
+        <div className="grid gap-1 md:grid-cols-3 max-h-[380px] overflow-y-auto pr-2">
+          {items.map((p) => (
             <Link
               key={p.id}
               href={`/programmes/${p.id}`}
               className="group flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-surface-100"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-surface-200 bg-white text-[11px] font-bold text-navy-900">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-surface-200 bg-white text-[11px] font-bold text-navy-900 shadow-sm">
                 {p.flag ? (
                   <img src={p.flag.startsWith("/") ? p.flag : `/${p.flag}`} alt="" className="h-full w-full object-cover" loading="lazy" />
                 ) : (
@@ -54,17 +56,20 @@ function MegaPanel({ items, href, cta }: { items: typeof citizenship; href: stri
                 )}
               </span>
               <span>
-                <span className="block text-[13.5px] font-bold text-navy-900 group-hover:text-gold-600">{p.country}</span>
+                <span className="block text-[13.5px] font-bold text-navy-900 group-hover:text-gold-600 transition-colors">{p.country}</span>
                 <span className="block text-[11.5px] font-semibold text-ink-light">{p.minInvestment}</span>
               </span>
             </Link>
           ))}
         </div>
-        <div className="mt-5 border-t border-surface-200 pt-4">
-          <Link href={href} className="inline-flex items-center gap-2 text-sm font-bold text-gold-600 hover:text-gold-700">
+        <div className="mt-4 border-t border-surface-200 pt-3 flex items-center justify-between">
+          <Link href={href} className="inline-flex items-center gap-2 text-sm font-bold text-gold-600 hover:text-gold-700 transition-colors">
             {cta}
             <span aria-hidden>→</span>
           </Link>
+          <span className="text-[12px] font-semibold text-ink-light">
+            {items.length} Standalone Sovereign Routes
+          </span>
         </div>
       </div>
     </div>
@@ -108,7 +113,7 @@ export function Header() {
           </div>
         </div>
 
-        <div className="container-izzy">
+        <div className="container-izzy relative">
           <div className="flex items-center justify-between gap-4" style={{ height: "var(--header-h)" }}>
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5" aria-label={siteConfig.name}>
@@ -117,10 +122,10 @@ export function Header() {
 
             {/* Desktop nav */}
             <nav className="hidden xl:block" aria-label="Main">
-              <ul className="flex items-center gap-6">
+              <ul className="flex items-center gap-5 lg:gap-6">
                 {NAV.map((item) => (
-                  <li key={item.label} className="nav-item relative">
-                    <Link href={item.href} className={cn("nav-link", (item.mega || item.children) && "dropdown-trigger")}>
+                  <li key={item.label} className={cn("nav-item", item.children && "relative")}>
+                    <Link href={item.href} className={cn("nav-link text-[14.5px]", (item.mega || item.children) && "dropdown-trigger")}>
                       {item.label}
                       {(item.mega || item.children) && <ChevronDown size={13} />}
                     </Link>
@@ -138,10 +143,10 @@ export function Header() {
                       </div>
                     )}
                     {item.mega === "citizenship" && (
-                      <MegaPanel items={citizenship} href="/citizenship" cta="View all 10 citizenship programmes" />
+                      <MegaPanel items={citizenship} href="/citizenship" cta="View all citizenship programmes" />
                     )}
                     {item.mega === "residency" && (
-                      <MegaPanel items={residency} href="/residency" cta="View all 45 residency programmes" />
+                      <MegaPanel items={residency} href="/residency" cta="View all residency programmes" />
                     )}
                   </li>
                 ))}
@@ -190,7 +195,7 @@ export function Header() {
             <X size={18} />
           </button>
         </div>
-        <nav className="p-5" aria-label="Mobile">
+        <nav className="p-5 overflow-y-auto max-h-[calc(100vh-100px)]" aria-label="Mobile">
           <ul className="space-y-1">
             {NAV.map((item) => (
               <li key={item.label}>
@@ -201,9 +206,23 @@ export function Header() {
                 >
                   {item.label}
                 </Link>
-                {item.mega && (
+                {item.children && (
                   <div className="ml-4 mt-1 grid grid-cols-1 gap-1 border-l-2 border-surface-200 pl-4">
-                    {(item.mega === "citizenship" ? citizenship : residency).slice(0, 6).map((p) => (
+                    {item.children.map((c) => (
+                      <Link
+                        key={c.label}
+                        href={c.href}
+                        onClick={() => setDrawer(false)}
+                        className="rounded-lg px-3 py-2 text-[13.5px] font-semibold text-ink hover:bg-surface-100 hover:text-gold-600"
+                      >
+                        {c.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {item.mega && (
+                  <div className="ml-4 mt-1 grid grid-cols-1 gap-1 border-l-2 border-surface-200 pl-4 max-h-48 overflow-y-auto pr-1">
+                    {(item.mega === "citizenship" ? citizenship : residency).map((p) => (
                       <Link
                         key={p.id}
                         href={`/programmes/${p.id}`}
@@ -219,10 +238,10 @@ export function Header() {
             ))}
           </ul>
           <div className="mt-6 space-y-3">
-            <Link href="/contact" onClick={() => setDrawer(false)} className="btn btn-gold w-full">
+            <Link href="/contact" onClick={() => setDrawer(false)} className="btn btn-gold w-full justify-center">
               Book a Free Assessment <span aria-hidden>→</span>
             </Link>
-            <Link href="/compare" onClick={() => setDrawer(false)} className="btn btn-outline w-full">
+            <Link href="/compare" onClick={() => setDrawer(false)} className="btn btn-outline w-full justify-center">
               Compare Programmes
             </Link>
           </div>
