@@ -90,8 +90,22 @@ export function HeroSlider() {
 
           {/* Top Header: Eyebrow + Slide Controls */}
           <div className="relative z-10 flex items-center justify-between gap-3">
-            <div className="inline-flex items-center rounded-full border border-gold-400/40 bg-gold-500/15 px-3 py-1 sm:px-4 sm:py-1.5 text-[9.5px] sm:text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-gold-300 backdrop-blur-md shadow-sm truncate max-w-[220px] sm:max-w-none">
-              {current.eyebrow}
+            {/* Eyebrow Pill Container */}
+            <div className="inline-flex items-center rounded-full border border-gold-400/40 bg-gold-500/15 px-3.5 py-1.5 sm:px-4 sm:py-1.5 backdrop-blur-md shadow-sm overflow-hidden max-w-[210px] xs:max-w-[260px] sm:max-w-none">
+              {/* Mobile Smooth Horizontal Loop Scroll */}
+              <div className="sm:hidden overflow-hidden w-full select-none">
+                <div className="pill-marquee text-[9.5px] font-extrabold uppercase tracking-widest text-gold-300">
+                  <span className="mr-5">{current.eyebrow}</span>
+                  <span className="mr-5 text-gold-400/60">•</span>
+                  <span className="mr-5">{current.eyebrow}</span>
+                  <span className="mr-5 text-gold-400/60">•</span>
+                </div>
+              </div>
+
+              {/* Desktop Static Pill */}
+              <span className="hidden sm:inline-block text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-gold-300 whitespace-nowrap">
+                {current.eyebrow}
+              </span>
             </div>
 
             {/* Slide Navigation Arrows */}

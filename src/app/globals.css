@@ -409,7 +409,7 @@
     color: transparent;
   }
 
-  /* ---------------- Marquee (PartnersStrip) ---------------- */
+  /* ---------------- Marquee (PartnersStrip & Hero Pill) ---------------- */
   .marquee-track {
     @apply flex w-max items-center gap-12;
     animation: marquee 30s linear infinite;
@@ -420,6 +420,17 @@
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(calc(-50% - 24px)); }
+  }
+
+  .pill-marquee {
+    display: flex;
+    width: max-content;
+    animation: pill-scroll 14s linear infinite;
+    will-change: transform;
+  }
+  @keyframes pill-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
 
   /* ---------------- Timeline (ProcessRoadmap) ---------------- */
