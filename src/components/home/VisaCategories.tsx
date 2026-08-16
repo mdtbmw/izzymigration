@@ -129,13 +129,13 @@ export function VisaCategories() {
           ))}
         </div>
 
-        <div className="mt-14 text-center">
+        <div className="mt-10 sm:mt-14 text-center px-2">
           <Link
             href="/programmes"
-            className="inline-flex items-center justify-center gap-2.5 rounded-xl border-2 border-navy-900 bg-white hover:bg-navy-950 hover:text-white text-navy-950 px-8 py-4 text-sm sm:text-base font-extrabold shadow-sm hover:shadow-md transition-all duration-300"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 rounded-xl border-2 border-navy-900 bg-white hover:bg-navy-950 hover:text-white text-navy-950 px-5 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-base font-extrabold shadow-sm hover:shadow-md transition-all duration-300 text-center"
           >
             <span>Explore All 55 Sovereign Programmes</span>
-            <ArrowRight size={16} />
+            <ArrowRight size={15} />
           </Link>
         </div>
       </div>
