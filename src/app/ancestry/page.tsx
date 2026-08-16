@@ -1,164 +1,191 @@
-
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { PageHero } from "@/components/ui/PageHero";
+import { CtaBand } from "@/components/home/CtaBand";
+import { AncestryWizard } from "@/components/ancestry/AncestryWizard";
+import {
+  TreePine,
+  FileCheck2,
+  Scale,
+  Award,
+  ArrowRight,
+  ChevronDown,
+  MessageSquare,
+  CheckCircle2,
+} from "lucide-react";
 import { createWhatsAppLink } from "@/lib/whatsapp";
 
+const PILLARS = [
+  {
+    icon: TreePine,
+    title: "Free Lineage Assessment",
+    desc: "We analyze birth records and descent claims across Italy, Ireland, Poland, Germany, and Portugal to establish your legal qualification path.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Archival Record Sourcing",
+    desc: "Our genealogy researchers obtain certified archival birth, marriage, and naturalization certificates directly from international municipal registries.",
+  },
+  {
+    icon: Scale,
+    title: "Legalization & Apostilles",
+    desc: "Every record is sworn-translated, apostilled, and assembled into an airtight statutory petition ready for consular or judicial lodging.",
+  },
+  {
+    icon: Award,
+    title: "Passport Issuance & Settlement",
+    desc: "From consulate appointments to physical passport collection, citizenship certificates, and registering your children.",
+  },
+];
+
+const FAQS = [
+  {
+    q: "How far back can ancestry claims go?",
+    a: "It depends on the country. Italy has no generation limit under Jus Sanguinis provided the chain is unbroken and the ancestor did not naturalize prematurely. Ireland requires a grandparent born on the island of Ireland. Poland and Germany can extend to great-grandparents.",
+  },
+  {
+    q: "Is citizenship by descent different from citizenship by investment?",
+    a: "Yes. Ancestry routes are based on statutory birthright rather than capital deployment. While they involve document research rather than investment funds, they result in full sovereign citizenship that passes automatically to future generations.",
+  },
+  {
+    q: "Can my spouse and children be included?",
+    a: "Yes. Minor children typically obtain citizenship automatically upon registration. Spouses can often apply for expedited citizenship or permanent residency once your citizenship is recognized.",
+  },
+];
+
 export default function CitizenshipbyAncestryPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   return (
-    <main>
+    <main className="w-full min-w-0 max-w-full overflow-hidden">
+      <PageHero
+        title="Citizenship by Descent & Ancestry"
+        subtitle="Your family history may already hold the key to a tier-1 European passport. We trace qualifying lineage, retrieve municipal archives, and manage the entire statutory petition."
+        bgImage="/assets/imgs/breadcrumb/breadcrumb.png"
+        crumb={[{ label: "Citizenship by Descent" }]}
+      />
 
-
-    <section className="page-hero">
-        <div className="container">
-            <div className="page-hero-breadcrumb"><a href="/">Home</a><span className="sep"><i className="fa-solid fa-angle-right"></i></span><span className="current">Citizenship by Descent</span></div>
-            <h1>Citizenship &amp; Residency by Descent</h1>
-            <p>Your family history may already hold the key to a second passport or a lawful right to live in another country. We trace qualifying ancestry, gather the documents, and manage the entire application for you.</p>
+      {/* Interactive Ancestry Wizard Section */}
+      <section className="py-12 sm:py-16 md:py-20 bg-surface-50">
+        <div className="container-izzy">
+          <div className="max-w-4xl mx-auto">
+            <AncestryWizard />
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section className="program-section">
-        <div className="container">
-            <div className="program-section__head">
-                <span className="eyebrow">What We Do</span>
-                <h2>How Ancestry-Based Routes Work</h2>
-                <p>Many countries grant citizenship or residency to descendants of their nationals — sometimes through a grandparent or great-grandparent. Eligibility rules, document requirements and processing times differ by country.</p>
-            </div>
-            <div className="row g-4">
-                <div className="col-md-6">
-                    <div className="media-card">
-                        <div className="media-card__icon"><i className="fa-solid fa-tree"></i></div>
-                        <div>
-                            <h3>Free Eligibility Assessment</h3>
-                            <p>Tell us where your parents, grandparents or great-grandparents were born. We map your family tree against every descent-based route we manage and tell you, honestly, whether a claim is worth pursuing.</p>
-                        </div>
-                    </div>
+      {/* 4 Pillars */}
+      <section className="py-12 sm:py-16 md:py-24 bg-white">
+        <div className="container-izzy">
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+            <span className="eyebrow eyebrow--center justify-center">What We Do</span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-navy-900 mt-2">
+              How Ancestry-Based Routes Work
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-ink-light mt-2">
+              Our archival research team handles the complex multinational paperwork so you don't have to.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {PILLARS.map((p) => (
+              <div
+                key={p.title}
+                className="card rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-white border border-surface-200 shadow-sm hover:shadow-md hover:border-gold-400/50 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-navy-950 text-gold-400 mb-4 shadow-md">
+                    <p.icon size={22} />
+                  </span>
+                  <h3 className="text-sm sm:text-base font-extrabold text-navy-900 mb-2 leading-snug">
+                    {p.title}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-ink-light leading-relaxed">
+                    {p.desc}
+                  </p>
                 </div>
-                <div className="col-md-6">
-                    <div className="media-card">
-                        <div className="media-card__icon"><i className="fa-solid fa-file-lines"></i></div>
-                        <div>
-                            <h3>Document Sourcing &amp; Apostilles</h3>
-                            <p>Birth certificates, marriage records, naturalisation papers — often decades old and across multiple countries. Our research team sources certified copies, arranges translations and handles apostilles and legalisation.</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="media-card">
-                        <div className="media-card__icon"><i className="fa-solid fa-scale-balanced"></i></div>
-                        <div>
-                            <h3>Government Liaison &amp; Submissions</h3>
-                            <p>Consular offices and civil registries rarely respond quickly to public inquiries. We manage the correspondence, respond to queries, and track your file from submission to registration.</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="media-card">
-                        <div className="media-card__icon"><i className="fa-solid fa-passport"></i></div>
-                        <div>
-                            <h3>Passport &amp; Settlement Support</h3>
-                            <p>Once approved, we support your passport application, citizenship registration for children and the practicalities of settling — identity documents, addresses and local processes in your new country.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+              </div>
+            ))}
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section className="program-section program-section--alt">
-        <div className="container">
-            <div className="row g-4 align-items-center">
-                <div className="col-lg-6">
-                    <div className="program-section__head" style={{"marginBottom":"20px"}}>
-                        <span className="eyebrow">The Izzy Advantage</span>
-                        <h2>Why Entitlement Is Worth Checking</h2>
-                    </div>
-                    <ul className="req-list" style={{"gridTemplateColumns":"1fr"}}>
-                        <li>No investment required — eligibility is based on family history, not money.</li>
-                        <li>Citizenship can pass automatically to your children and future generations.</li>
-                        <li>A second nationality opens doors in business, travel and education.</li>
-                        <li>Even rejected claims are low-cost to evaluate: the assessment is free.</li>
-                        <li>Documents sourced once are reusable for other routes, including investment programmes.</li>
-                    </ul>
-                    <div className="d-flex flex-wrap gap-3 mt-30">
-                        <a href="/contact" className="rr-btn btn-light-gold">Start a Free Assessment <i className="fa-solid fa-arrow-right"></i></a>
-                        <a href="/citizenship" className="rr-btn btn-ghost-light">Explore Citizenship Programmes <i className="fa-solid fa-angle-right"></i></a>
-                    </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="side-card">
-                        <h3>Frequently Asked Questions</h3>
-                        <div className="faq-accordion accordion" id="ancestry-faqs">
-                            <div className="accordion-item">
-                                <h5 className="accordion-header">
-                                    <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#ancestry-faq-1" aria-expanded="true" aria-controls="ancestry-faq-1">
-                                        How far back can ancestry claims go?
-                                    </button>
-                                </h5>
-                                <div id="ancestry-faq-1" className="accordion-collapse collapse show" aria-labelledby="ancestry-faq-1" data-bs-parent="#ancestry-faqs">
-                                    <div className="accordion-body">
-                                        <p>It depends entirely on the country. Some accept parents or grandparents only; others reach back to great-grandparents and beyond. During your free assessment we establish which of your ancestors may qualify you.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h5 className="accordion-header">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ancestry-faq-2" aria-expanded="false" aria-controls="ancestry-faq-2">
-                                        Is this the same as citizenship by investment?
-                                    </button>
-                                </h5>
-                                <div id="ancestry-faq-2" className="accordion-collapse collapse" aria-labelledby="ancestry-faq-2" data-bs-parent="#ancestry-faqs">
-                                    <div className="accordion-body">
-                                        <p>No. Descent routes are based on family history and usually require no investment at all. They are slower and more document-heavy, but they cost far less. If you do not qualify by descent, our citizenship and residency programmes cover the investment routes.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h5 className="accordion-header">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ancestry-faq-3" aria-expanded="false" aria-controls="ancestry-faq-3">
-                                        Can my children be included?
-                                    </button>
-                                </h5>
-                                <div id="ancestry-faq-3" className="accordion-collapse collapse" aria-labelledby="ancestry-faq-3" data-bs-parent="#ancestry-faqs">
-                                    <div className="accordion-body">
-                                        <p>Yes — in most countries citizenship by descent extends to children automatically, and in some cases to grandchildren. We map the full family line during your assessment so the entire family can be covered by one application.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="accordion-item">
-                                <h5 className="accordion-header">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ancestry-faq-4" aria-expanded="false" aria-controls="ancestry-faq-4">
-                                        What does the process cost?
-                                    </button>
-                                </h5>
-                                <div id="ancestry-faq-4" className="accordion-collapse collapse" aria-labelledby="ancestry-faq-4" data-bs-parent="#ancestry-faqs">
-                                    <div className="accordion-body">
-                                        <p>The eligibility assessment is free and comes with our honest recommendation. If we take the file forward, you receive a fixed, transparent fee schedule covering research, document sourcing, translations, apostilles and government submissions — no surprises later.</p>
-                                    </div>
-                                </div>
-                            </div>
+      {/* Advantages & FAQs */}
+      <section className="py-12 sm:py-16 md:py-20 bg-surface-50">
+        <div className="container-izzy">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left: Advantages */}
+            <div className="lg:col-span-6 w-full min-w-0 space-y-4">
+              <span className="eyebrow">The Izzy Advantage</span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 leading-tight">
+                Why Lineage Entitlement Is Worth Checking
+              </h2>
+              <ul className="space-y-3 list-none p-0 my-4 text-xs sm:text-sm text-navy-900 font-medium">
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-surface-200 shadow-2xs">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <span>No capital investment required — eligibility is grounded in genealogy law.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-surface-200 shadow-2xs">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <span>Citizenship passes automatically to your children and future descendants.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-surface-200 shadow-2xs">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <span>Unrestricted right to live, work, study, and buy property across the European Union.</span>
+                </li>
+                <li className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-surface-200 shadow-2xs">
+                  <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                  <span>Transparent, fixed legal fees covering archival retrieval and apostilles.</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Right: FAQs */}
+            <div className="lg:col-span-6 w-full min-w-0 space-y-4">
+              <span className="eyebrow">Common Inquiries</span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-navy-900 leading-tight">
+                Frequently Asked Questions
+              </h2>
+
+              <div className="space-y-3">
+                {FAQS.map((faq, idx) => {
+                  const isOpen = openFaq === idx;
+                  return (
+                    <div
+                      key={faq.q}
+                      className="rounded-2xl bg-white border border-surface-200 shadow-2xs overflow-hidden transition-all"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(isOpen ? null : idx)}
+                        className="w-full flex items-center justify-between gap-3 p-4 sm:p-5 text-left font-bold text-xs sm:text-sm text-navy-900"
+                      >
+                        <span>{faq.q}</span>
+                        <ChevronDown
+                          size={16}
+                          className={`shrink-0 text-gold-600 transition-transform duration-200 ${
+                            isOpen ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                      {isOpen && (
+                        <div className="px-4 sm:px-5 pb-4 sm:pb-5 text-xs sm:text-[13.5px] text-ink-light leading-relaxed border-t border-surface-100 pt-3">
+                          {faq.a}
                         </div>
+                      )}
                     </div>
-                </div>
+                  );
+                })}
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section className="program-section program-section--last">
-        <div className="container">
-            <div className="cta-band">
-                <h2>Your passport may already exist in your family tree</h2>
-                <p>Tell us about your parents and grandparents — we will tell you whether any of the 56 programmes we manage, or a descent route, fits you.</p>
-                <div className="cta-band__actions">
-                    <a href={createWhatsAppLink({ type: "ancestry", message: "Hello Izzy Immigration, I would like to check my family tree for citizenship by ancestry and descent." })} id="cta-whatsapp" className="rr-btn btn-light-gold" target="_blank" rel="noopener"><i className="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
-                    <a href="/contact" className="rr-btn btn-ghost-light">Book a Free Assessment <i className="fa-solid fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+      {/* CTA Band */}
+      <CtaBand />
     </main>
   );
 }

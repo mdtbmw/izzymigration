@@ -1,401 +1,116 @@
-
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
+import { PageHero } from "@/components/ui/PageHero";
+import { CtaBand } from "@/components/home/CtaBand";
+import { programs } from "@/data/programs";
+import { Globe2, ArrowRight, ShieldCheck, Award } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const REGIONS = [
+  { id: "all", label: "All Jurisdictions" },
+  { id: "Caribbean", label: "Caribbean" },
+  { id: "Europe", label: "Europe" },
+  { id: "Americas", label: "Americas" },
+  { id: "Asia-Pacific", label: "Asia-Pacific" },
+  { id: "Africa & Middle East", label: "Africa & Middle East" },
+];
 
 export default function CountriesJurisdictionsPage() {
+  const [selectedRegion, setSelectedRegion] = useState("all");
+
+  // Group unique countries from programs data
+  const countryMap = new Map<string, { country: string; flag?: string; region: string; count: number; minInvestment: string; sampleId: string }>();
+
+  programs.forEach((p) => {
+    const existing = countryMap.get(p.country);
+    if (!existing) {
+      countryMap.set(p.country, {
+        country: p.country,
+        flag: p.flag,
+        region: p.region,
+        count: 1,
+        minInvestment: p.minInvestment,
+        sampleId: p.id,
+      });
+    } else {
+      existing.count += 1;
+    }
+  });
+
+  const allCountries = Array.from(countryMap.values());
+  const filteredCountries = selectedRegion === "all"
+    ? allCountries
+    : allCountries.filter((c) => c.region === selectedRegion);
+
   return (
-    <main>
+    <main className="w-full min-w-0 max-w-full overflow-hidden">
+      <PageHero
+        title="Sovereign Jurisdictions & Countries"
+        subtitle="Explore over 30 global jurisdictions offering government-approved citizenship, golden visas, and residency by investment programmes."
+        bgImage="/assets/imgs/breadcrumb/breadcrumb.png"
+        crumb={[{ label: "Countries" }]}
+      />
 
+      <section className="py-12 sm:py-16 md:py-20 bg-surface-50">
+        <div className="container-izzy">
+          {/* Region Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-10 max-w-full overflow-x-auto no-scrollbar pb-1">
+            {REGIONS.map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                onClick={() => setSelectedRegion(r.id)}
+                className={cn(
+                  "px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 border whitespace-nowrap",
+                  selectedRegion === r.id
+                    ? "bg-navy-950 text-gold-400 border-navy-950 shadow-sm"
+                    : "bg-white text-navy-800 border-surface-200 hover:border-gold-400"
+                )}
+              >
+                {r.label}
+              </button>
+            ))}
+          </div>
 
-    <div className="breadcrumb__area dark-green breadcrumb-space overflow-hidden custom-width position-relative z-1" data-background="/assets/imgs/breadcrumb/breadcrumb.png">
-        <div className="container">
-            <div className="row align-items-center justify-content-between">
-                <div className="col-12">
-                    <div className="breadcrumb__content">
-                        <div className="breadcrumb__title-wrapper mb-15 mb-sm-10 mb-xs-5">
-                            <h1 className="breadcrumb__title color-white wow fadeInLeft animated" data-wow-delay=".2s">Countries</h1>
-                        </div>
-                        <div className="breadcrumb__menu wow fadeInLeft animated" data-wow-delay=".3s">
-                            <nav>
-                                <ul>
-                                    <li><span><a href="/">Home</a></span></li>
-                                    <li className="active"><span>Countries</span></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+          {/* Countries Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+            {filteredCountries.map((c) => (
+              <Link
+                key={c.country}
+                href={`/programmes?search=${encodeURIComponent(c.country)}`}
+                className="group card rounded-2xl sm:rounded-3xl p-5 bg-white border border-surface-200 shadow-sm hover:shadow-md hover:border-gold-400/60 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-xs font-bold uppercase tracking-wider text-gold-600">
+                      {c.region}
+                    </span>
+                    <span className="chip chip--navy text-[10px] py-0.5 px-2">
+                      {c.count} {c.count === 1 ? "Route" : "Routes"}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-extrabold text-navy-900 group-hover:text-gold-600 transition-colors mb-1">
+                    {c.country}
+                  </h3>
+                  <p className="text-xs text-ink-light">
+                    From <strong className="text-navy-900 font-semibold">{c.minInvestment}</strong>
+                  </p>
                 </div>
-            </div>
+
+                <div className="mt-4 pt-3 border-t border-surface-100 flex items-center justify-between text-xs font-bold text-navy-950 group-hover:text-gold-600 transition-colors">
+                  <span>Explore Programmes</span>
+                  <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-    </div>
+      </section>
 
-    {/* countries start */}
-    <section className="countries section-space tab overflow-hidden">
-        <div className="container">
-            <div className="row">
-                <div className="col-lg-4">
-                    <ul className="nav nav-tabs countries__tab tab__wrap"  id="myTab" role="tablist">
-                        <li className="nav-item" role="presentation">
-                            <button className="active tab__btn pb-20" id="asia-tab" data-bs-toggle="tab" data-bs-target="#asia" type="button" role="tab" aria-controls="asia" aria-selected="true">
-                                Asia
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <button className="pb-20"  id="europe-tab" data-bs-toggle="tab" data-bs-target="#europe" type="button" role="tab" aria-controls="europe" aria-selected="true">
-                                Europe
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <button className="pb-20"  id="north-america-tab" data-bs-toggle="tab" data-bs-target="#north-america" type="button" role="tab" aria-controls="north-america" aria-selected="true">
-                                North America
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <button className="pb-20"  id="australia-tab" data-bs-toggle="tab" data-bs-target="#australia" type="button" role="tab" aria-controls="australia" aria-selected="true">
-                                Australia
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <button className="pb-20"  id="latin-america-tab" data-bs-toggle="tab" data-bs-target="#latin-america" type="button" role="tab" aria-controls="latin-america" aria-selected="true">
-                                Latin America
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </li>
-                        <li className="nav-item" role="presentation">
-                            <button id="africa-tab" data-bs-toggle="tab" data-bs-target="#africa" type="button" role="tab" aria-controls="africa" aria-selected="true">
-                                Africa
-                                <i className="fa-solid fa-angle-right"></i>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div className="col-lg-8">
-                    <div className="tab-content" >
-                        <div className="tab-pane fade show active" id="asia" role="tabpanel" aria-labelledby="asia-tab">
-                            <div className="countries__tab-content">
-                                <div className="countries__tab-content__countries-name  mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/russia.png" alt="" />
-                                    <h5>Russia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/japan.png" alt="" />
-                                    <h5>Japan</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/egypt.png" alt="" />
-                                    <h5>Egypt</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/south-korea.png" alt="" />
-                                    <h5>South Korea</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/indonesia.png" alt="" />
-                                    <h5>Indonesia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex">
-                                    <img src="/assets/imgs/countrie/turkey.png" alt="" />
-                                    <h5>Turkey</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/thailand.png" alt="" />
-                                    <h5>Thailand</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/china.png" alt="" />
-                                    <h5>China</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/india.png" alt="" />
-                                    <h5>India</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/malaysia.png" alt="" />
-                                    <h5>Malaysia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex">
-                                    <img src="/assets/imgs/countrie/cambodia.png" alt="" />
-                                    <h5>Cambodia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex">
-                                    <img src="/assets/imgs/countrie/myanmar.png" alt="" />
-                                    <h5>Myanmar</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="europe" role="tabpanel" aria-labelledby="europe-tab">
-                            <div className="countries__tab-content">
-                                <div className="countries__tab-content__countries-name  mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/germany.png" alt="" />
-                                    <h5>Germany</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/russia.png" alt="" />
-                                    <h5>Russia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/italy.png" alt="" />
-                                    <h5>Italy</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/switzerland.png" alt="" />
-                                    <h5>Switzerland</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/sweden.png" alt="" />
-                                    <h5>Sweden</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/greece.png" alt="" />
-                                    <h5>Greece</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/belgium.png" alt="" />
-                                    <h5>Belgium</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/croatia.png" alt="" />
-                                    <h5>Croatia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/norway.png" alt="" />
-                                    <h5>Norway</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/denmark.png" alt="" />
-                                    <h5>Denmark</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/iceland.png" alt="" />
-                                    <h5>Iceland</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name  d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/hungary.png" alt="" />
-                                    <h5>Hungary</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="north-america" role="tabpanel" aria-labelledby="north-america-tab">
-                           <div className="countries__tab-content">
-                                <div className="countries__tab-content__countries-name  mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/united-states.png" alt="" />
-                                    <h5>United States</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/bahamas.png" alt="" />
-                                    <h5>Bahamas</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/dominican-republic.png" alt="" />
-                                    <h5>Dominican Republic</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie//jamaica.png" alt="" />
-                                    <h5>Jamaica</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/belize.png" alt="" />
-                                    <h5>Belize</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/honduras.png" alt="" />
-                                    <h5>Honduras</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/panama.png" alt="" />
-                                    <h5>Panama</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/barbados.png" alt="" />
-                                    <h5>Barbados</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/guadeloupe.png" alt="" />
-                                    <h5>Guadeloupe</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/grenada.png" alt="" />
-                                    <h5>Grenada</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/montserrat.png" alt="" />
-                                    <h5>Montserrat</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/sint-maarten.png" alt="" />
-                                    <h5>Sint Maarten</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="australia" role="tabpanel" aria-labelledby="australia-tab">
-                           <div className="countries__tab-content">
-                                <div className="countries__tab-content__countries-name  mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/australia.png" alt="" />
-                                    <h5>Australia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/nauru.png" alt="" />
-                                    <h5>Nauru</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/papua.png" alt="" />
-                                    <h5>Papua New Guinea</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/micronesia.png" alt="" />
-                                    <h5>Micronesia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/tuvalu.png" alt="" />
-                                    <h5>Tuvalu</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/kiribati.png" alt="" />
-                                    <h5>Kiribati</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/new-zealand.png" alt="" />
-                                    <h5>New Zealand</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/solomon-islands.png" alt="" />
-                                    <h5>Solomon-Islands</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/fiji.png" alt="" />
-                                    <h5>Fiji</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/new-south-wales.png" alt="" />
-                                    <h5>New South Wales</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/ashmore-and-cartier-islands.png" alt="" />
-                                    <h5>Cartier Islands</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/united-states.png" alt="" />
-                                    <h5>United states</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="latin-america" role="tabpanel" aria-labelledby="latin-america-tab">
-                           <div className="countries__tab-content">
-                                <div className="countries__tab-content__countries-name  mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/argentina.png" alt="" />
-                                    <h5>Argentina</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/brazil.png" alt="" />
-                                    <h5>Brazil</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/venezuela.png" alt="" />
-                                    <h5>Venezuela</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/uruguay.png" alt="" />
-                                    <h5>Uruguay</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/colombia.png" alt="" />
-                                    <h5>Colombia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/martinique.png" alt="" />
-                                    <h5>Martinique</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/peru.png" alt="" />
-                                    <h5>Peru</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/barbuda.png" alt="" />
-                                    <h5>Barbuda</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/el-salvador.png" alt="" />
-                                    <h5>El Salvador</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/puerto-rico.png" alt="" />
-                                    <h5>Puerto Rico</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/saint-barthelemy.png" alt="" />
-                                    <h5>Saint Barthélemy</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/ecuador.png" alt="" />
-                                    <h5>Ecuador</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="africa" role="tabpanel" aria-labelledby="africa-tab">
-                           <div className="countries__tab-content">
-                                <div className="countries__tab-content__countries-name  mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/south-africa.png" alt="" />
-                                    <h5>South Africa</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/uganda.png" alt="" />
-                                    <h5>Uganda</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/ethiopia.png" alt="" />
-                                    <h5>Ethiopia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/ghana.png" alt="" />
-                                    <h5>Ghana</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/morocco.png" alt="" />
-                                    <h5>Morocco</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/tanzania.png" alt="" />
-                                    <h5>Tanzania</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/senegal.png" alt="" />
-                                    <h5>Senegal</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/niger.png" alt="" />
-                                    <h5>Niger</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/rwanda.png" alt="" />
-                                    <h5>Rwanda</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/somalia.png" alt="" />
-                                    <h5>Somalia</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name mb-30 d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/guinea.png" alt="" />
-                                    <h5>guinea</h5>
-                                </div>
-                                <div className="countries__tab-content__countries-name d-flex wow fadeInLeft animated">
-                                    <img src="/assets/imgs/countrie/gabon.png" alt="" />
-                                    <h5>gabon</h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
+      {/* CTA Band */}
+      <CtaBand />
     </main>
   );
 }

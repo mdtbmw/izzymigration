@@ -57,9 +57,16 @@
     --header-h: 84px;
   }
 
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-h) + 12px);
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
 
   body {
@@ -68,6 +75,16 @@
     font-family: var(--font-inter), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+  }
+
+  main {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -77,6 +94,13 @@
     letter-spacing: -0.02em;
     line-height: 1.15;
     margin: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  p {
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   a {
@@ -86,6 +110,7 @@
 
   img {
     max-width: 100%;
+    height: auto;
     display: block;
   }
 
@@ -96,8 +121,8 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
     background: var(--surface-100);
@@ -703,5 +728,138 @@
     z-index: -1;
     border-radius: 6px;
     background: rgba(212, 175, 55, 0.28);
+  }
+
+  /* ---------------- Responsive Utility Classes ---------------- */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .container {
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-[1320px] box-border;
+  }
+
+  .row {
+    @apply flex flex-wrap -mx-2 sm:-mx-3 w-full box-border;
+  }
+
+  .col-12 { @apply w-full px-2 sm:px-3 min-w-0; }
+  .col-lg-3, .col-xl-3 { @apply w-full sm:w-1/2 lg:w-1/4 px-2 sm:px-3 min-w-0; }
+  .col-lg-4, .col-xl-4 { @apply w-full md:w-1/2 lg:w-1/3 px-2 sm:px-3 min-w-0; }
+  .col-lg-6, .col-xl-6 { @apply w-full lg:w-1/2 px-2 sm:px-3 min-w-0; }
+  .col-lg-8, .col-xl-8 { @apply w-full lg:w-2/3 px-2 sm:px-3 min-w-0; }
+  .col-md-6 { @apply w-full md:w-1/2 px-2 sm:px-3 min-w-0; }
+  .col-md-7 { @apply w-full md:w-7/12 px-2 sm:px-3 min-w-0; }
+  .col-md-5 { @apply w-full md:w-5/12 px-2 sm:px-3 min-w-0; }
+  .col-sm-6 { @apply w-full sm:w-1/2 px-2 sm:px-3 min-w-0; }
+
+  /* Legacy page-hero & cards */
+  .page-hero {
+    @apply relative bg-navy-950 text-white py-14 sm:py-20 md:py-24 overflow-hidden;
+    background: linear-gradient(135deg, #020224 0%, #050548 60%, #0e0e6e 100%);
+  }
+  .page-hero-breadcrumb {
+    @apply flex flex-wrap items-center gap-2 text-xs sm:text-[13px] font-semibold text-white/60 mb-3 sm:mb-4;
+  }
+  .page-hero-breadcrumb a {
+    @apply text-white/75 hover:text-gold-400 transition-colors;
+  }
+  .page-hero-breadcrumb .current {
+    @apply text-gold-400 font-bold;
+  }
+  .page-hero h1 {
+    @apply text-2xl sm:text-4xl md:text-5xl lg:text-[48px] font-extrabold text-white leading-tight mb-3 sm:mb-4;
+  }
+  .page-hero p {
+    @apply text-sm sm:text-base md:text-lg text-white/80 max-w-3xl leading-relaxed;
+  }
+
+  .program-section {
+    @apply py-12 sm:py-16 md:py-20 bg-white overflow-hidden;
+  }
+  .program-section--alt {
+    @apply bg-surface-50;
+  }
+  .program-section__head {
+    @apply mb-8 sm:mb-12;
+  }
+  .program-section__head h2 {
+    @apply text-2xl sm:text-3xl md:text-4xl font-extrabold text-navy-900 mt-2;
+  }
+  .program-section__head p {
+    @apply text-sm sm:text-base text-ink-light mt-2 max-w-2xl;
+  }
+
+  .benefit-card, .step-card, .media-card, .service__item {
+    @apply rounded-2xl sm:rounded-3xl border border-surface-200 bg-white p-5 sm:p-7 transition-all duration-300 shadow-sm hover:shadow-md hover:border-gold-400/50 mb-4 sm:mb-6 box-border w-full min-w-0;
+  }
+  .benefit-card__icon, .media-card__icon, .service__item-icon {
+    @apply flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-2xl bg-navy-900 text-gold-400 text-lg sm:text-xl mb-4 shrink-0 shadow-md transition-transform duration-300;
+  }
+  .benefit-card:hover .benefit-card__icon,
+  .media-card:hover .media-card__icon,
+  .service__item:hover .service__item-icon {
+    @apply bg-gold-500 text-navy-950 scale-105;
+  }
+  .step-card__num {
+    @apply text-2xl sm:text-3xl font-extrabold text-gold-500 font-display mb-2;
+  }
+  .benefit-card h3, .step-card h3, .media-card h3, .service__item h4 {
+    @apply text-base sm:text-lg font-bold text-navy-900 mb-2 leading-snug;
+  }
+  .benefit-card p, .step-card p, .media-card p, .service__item p {
+    @apply text-xs sm:text-sm text-ink-light leading-relaxed;
+  }
+
+  .cta-band {
+    @apply rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 text-white overflow-hidden box-border shadow-lg relative;
+    background: linear-gradient(135deg, #020224 0%, #050548 70%, #17178a 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+  .cta-band h2 {
+    @apply text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-2 sm:mb-3 leading-tight;
+  }
+  .cta-band p {
+    @apply text-xs sm:text-sm md:text-base text-white/80 mb-5 sm:mb-6 max-w-2xl leading-relaxed;
+  }
+  .cta-band__actions {
+    @apply flex flex-col sm:flex-row items-stretch sm:items-center gap-3;
+  }
+
+  .rr-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 sm:px-7 py-3 sm:py-3.5 text-xs sm:text-sm font-extrabold transition-all duration-300 cursor-pointer shadow-md;
+    background: var(--gold-500);
+    color: var(--navy-950);
+  }
+  .rr-btn:hover {
+    @apply bg-navy-950 text-white;
+  }
+  .btn-light-gold {
+    @apply bg-gold-500 hover:bg-white text-navy-950;
+  }
+  .btn-ghost-light {
+    @apply border-2 border-white/40 bg-white/10 hover:bg-white text-white hover:text-navy-950 backdrop-blur-sm;
+  }
+
+  .req-list {
+    @apply grid gap-2.5 sm:gap-3 list-none p-0 my-5 text-xs sm:text-sm font-medium text-navy-900;
+  }
+  .req-list li {
+    @apply flex items-start gap-2.5 rounded-xl border border-surface-200 bg-white p-3 shadow-2xs;
+  }
+  .req-list li::before {
+    content: "✓";
+    @apply flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold mt-0.5;
+  }
+
+  .side-card {
+    @apply rounded-2xl sm:rounded-3xl border border-surface-200 bg-white p-5 sm:p-7 shadow-sm box-border;
+  }
+  .side-card h3 {
+    @apply text-lg sm:text-xl font-extrabold text-navy-900 mb-4;
   }
 }
