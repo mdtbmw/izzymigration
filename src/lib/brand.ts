@@ -1,6 +1,9 @@
-/** Normalize asset paths from data files (e.g. "assets/imgs/x.png" -> "/assets/imgs/x.png"). */
+/** Normalize asset paths from data files (e.g. "assets/imgs/x.png" -> "/assets/imgs/x.png") while preserving external URLs. */
 export function assetPath(p: string): string {
   if (!p) return "";
+  if (p.startsWith("http://") || p.startsWith("https://") || p.startsWith("data:") || p.startsWith("//")) {
+    return p;
+  }
   return p.startsWith("/") ? p : `/${p}`;
 }
 

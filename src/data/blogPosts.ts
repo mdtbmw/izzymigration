@@ -73,7 +73,7 @@ export const blogPosts: BlogPost[] = [
     },
     date: "December 20, 2025",
     readTime: "5 min read",
-    image: "/assets/imgs/blog/blog-details/blog-details1.jpg",
+    image: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
     featured: false,
     tags: ["Greece", "Golden Visa", "Real Estate", "Schengen", "Europe"],
     content: [
