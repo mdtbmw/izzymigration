@@ -76,16 +76,16 @@ export function HeroSlider() {
           onMouseLeave={() => setPaused(false)}
           className="relative min-h-[480px] sm:min-h-[580px] lg:min-h-[640px] rounded-[24px] sm:rounded-[32px] overflow-hidden border border-white/10 bg-navy-950 flex flex-col justify-between p-5 sm:p-8 lg:p-14 text-white"
         >
-          {/* Real Photography Background Overlay */}
+          {/* Real Photography Background Overlay - Bright, Vivid & Clear */}
           <div className="absolute inset-0 z-0">
             <img
               src={assetPath(current.bgImage)}
               alt="Sovereign Freedom"
-              className="h-full w-full object-cover object-center transition-all duration-1000 transform scale-105"
+              className="h-full w-full object-cover object-center transition-all duration-1000 transform scale-105 opacity-95"
             />
-            {/* Natural Directional Dark Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/85 to-navy-950/25" />
-            <div className="absolute inset-0 bg-gradient-to-t from-navy-950/95 via-transparent to-transparent" />
+            {/* Subtle natural transparent gradient for high contrast readability without dark blue haze */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
           </div>
 
           {/* Top Header: Eyebrow + Slide Controls */}

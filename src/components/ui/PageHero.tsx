@@ -21,22 +21,22 @@ export function PageHero({ title, crumb, subtitle, bgImage, className }: PageHer
     <section className={cn("bg-surface-50 pt-24 pb-4 sm:pt-28 sm:pb-6 lg:pt-32 lg:pb-8", className)}>
       <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-gold-500/35 bg-navy-950 p-7 sm:p-10 lg:p-12 shadow-2xl text-white">
-          {/* Background Photography - clearly visible with natural contrast */}
+          {/* Background Photography - clearly visible with clean, subtle contrast */}
           {bgImage && (
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <img
                 src={bgImage}
                 alt=""
-                className="h-full w-full object-cover object-center opacity-80 filter brightness-95 contrast-100"
+                className="h-full w-full object-cover object-center opacity-95"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-navy-950/95 via-navy-950/75 via-50% to-navy-950/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-transparent to-navy-950/30" />
+              {/* Natural transparent gradient for clean typography readability without dark blue haze */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             </div>
           )}
 
-          {/* Ambient orbs */}
-          <div className="glow-orb h-72 w-72 bg-gold-400/15 -top-20 -right-16 pointer-events-none" />
-          <div className="glow-orb h-56 w-56 bg-navy-600/30 top-1/3 -left-24 pointer-events-none" />
+          {/* Subtle Ambient Accent */}
+          <div className="glow-orb h-72 w-72 bg-gold-400/10 -top-20 -right-16 pointer-events-none" />
 
           {/* Content */}
           <div className="relative z-10">

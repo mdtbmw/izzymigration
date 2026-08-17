@@ -567,16 +567,6 @@
     max-width: 1100px;
     z-index: 50;
     padding-top: 0.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-    transform: translateY(8px);
-  }
-  .nav-item:hover .mega-panel,
-  .nav-item:focus-within .mega-panel {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
   }
   .mega-panel__card {
     @apply overflow-hidden rounded-[24px] border border-surface-200 bg-white p-6;

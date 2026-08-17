@@ -113,11 +113,16 @@ export function Header() {
   const [search, setSearch] = useState(false);
   const [sticky, setSticky] = useState(false);
   const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  // Automatically close mobile menu whenever user navigates to a new page
+  // Automatically close all menus and blur active elements on route change
   useEffect(() => {
     setDrawer(false);
     setExpandedMobile(null);
+    setOpenDropdown(null);
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement)?.blur?.();
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -126,6 +131,14 @@ export function Header() {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleNavClick = () => {
+    setOpenDropdown(null);
+    setDrawer(false);
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement)?.blur?.();
+    }
+  };
 
   const toggleMobileSubmenu = (label: string) => {
     setExpandedMobile((prev) => (prev === label ? null : label));
@@ -164,7 +177,7 @@ export function Header() {
         <div className="container-izzy relative">
           <div className="flex items-center justify-between gap-4" style={{ height: "var(--header-h)" }}>
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group" aria-label={siteConfig.name}>
+            <Link href="/" onClick={handleNavClick} className="flex items-center gap-3 group" aria-label={siteConfig.name}>
               <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-full overflow-hidden shadow-sm transition-transform group-hover:scale-105">
                 <img src="/assets/imgs/logo/icon-only.svg" alt="Izzy Immigration" className="h-full w-full object-contain" />
               </div>
@@ -181,39 +194,84 @@ export function Header() {
             {/* Desktop nav */}
             <nav className="hidden xl:block" aria-label="Main">
               <ul className="flex items-center gap-5 lg:gap-6">
-                {NAV.map((item) => (
-                  <li key={item.label} className={cn("nav-item", item.children && "relative")}>
-                    <Link
-                      href={item.href}
-                      className={cn("nav-link text-[14.5px]", (item.mega || item.children) && "dropdown-trigger")}
+                {NAV.map((item) => {
+                  const isOpen = openDropdown === item.label;
+                  return (
+                    <li
+                      key={item.label}
+                      className={cn("nav-item", item.children && "relative")}
+                      onMouseEnter={() => (item.mega || item.children) && setOpenDropdown(item.label)}
+                      onMouseLeave={() => setOpenDropdown(null)}
                     >
-                      {item.label}
-                      {(item.mega || item.children) && <ChevronDown size={13} />}
-                    </Link>
+                      <Link
+                        href={item.href}
+                        onClick={handleNavClick}
+                        className={cn("nav-link text-[14.5px]", (item.mega || item.children) && "dropdown-trigger")}
+                      >
+                        {item.label}
+                        {(item.mega || item.children) && <ChevronDown size={13} />}
+                      </Link>
 
-                    {item.children && (
-                      <div className="invisible absolute left-0 top-full z-40 w-60 rounded-2xl border border-surface-200 bg-white p-2 opacity-0 shadow-[var(--shadow-sovereign-lg)] transition-all duration-200 [transform:translateY(10px)] [.nav-item:hover_&]:visible [.nav-item:hover_&]:opacity-100 [.nav-item:hover_&]:[transform:translateY(0)]">
-                        {item.children.map((c) => (
-                          <Link
-                            key={c.label}
-                            href={c.href}
-                            className="block rounded-xl px-4 py-2.5 text-[14px] font-bold text-navy-900 hover:bg-surface-100 hover:text-gold-600"
-                          >
-                            {c.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+                      {item.children && (
+                        <div
+                          className={cn(
+                            "absolute left-0 top-full z-40 w-60 rounded-2xl border border-surface-200 bg-white p-2 shadow-[var(--shadow-sovereign-lg)] transition-all duration-200",
+                            isOpen
+                              ? "visible opacity-100 translate-y-0"
+                              : "invisible opacity-0 translate-y-2 pointer-events-none"
+                          )}
+                        >
+                          {item.children.map((c) => (
+                            <Link
+                              key={c.label}
+                              href={c.href}
+                              onClick={handleNavClick}
+                              className="block rounded-xl px-4 py-2.5 text-[14px] font-bold text-navy-900 hover:bg-surface-100 hover:text-gold-600"
+                            >
+                              {c.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
 
-                    {item.mega === "citizenship" && (
-                      <MegaPanel items={citizenship} href="/citizenship" cta="View all citizenship programmes" />
-                    )}
+                      {item.mega === "citizenship" && (
+                        <div
+                          className={cn(
+                            "transition-all duration-200",
+                            isOpen
+                              ? "visible opacity-100 translate-y-0 pointer-events-auto"
+                              : "invisible opacity-0 translate-y-2 pointer-events-none"
+                          )}
+                        >
+                          <MegaPanel
+                            items={citizenship}
+                            href="/citizenship"
+                            cta="View all citizenship programmes"
+                            onItemClick={handleNavClick}
+                          />
+                        </div>
+                      )}
 
-                    {item.mega === "residency" && (
-                      <MegaPanel items={residency} href="/residency" cta="View all residency programmes" />
-                    )}
-                  </li>
-                ))}
+                      {item.mega === "residency" && (
+                        <div
+                          className={cn(
+                            "transition-all duration-200",
+                            isOpen
+                              ? "visible opacity-100 translate-y-0 pointer-events-auto"
+                              : "invisible opacity-0 translate-y-2 pointer-events-none"
+                          )}
+                        >
+                          <MegaPanel
+                            items={residency}
+                            href="/residency"
+                            cta="View all residency programmes"
+                            onItemClick={handleNavClick}
+                          />
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
 
