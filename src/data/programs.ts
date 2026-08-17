@@ -110,8 +110,8 @@ export const programs: Program[] = [
         "a": "Yes. St. Kitts and Nevis permits lifelong dual citizenship with zero obligation to renounce existing citizenships."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "antigua-citizenship",
@@ -164,8 +164,8 @@ export const programs: Program[] = [
         "a": "Yes, unmarried siblings of any age can be included under the main applicant's file."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "dominica-citizenship",
@@ -208,8 +208,8 @@ export const programs: Program[] = [
         "a": "Dominica's citizenship by investment programme was created in 1993 under Section 101 of the Constitution."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "grenada-citizenship",
@@ -256,8 +256,8 @@ export const programs: Program[] = [
         "a": "Yes, Grenada is one of the few passports in the world offering 30-day visa-free entry to mainland China."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "saint-lucia-citizenship",
@@ -266,7 +266,7 @@ export const programs: Program[] = [
     "region": "Caribbean",
     "country": "Saint Lucia",
     "flag": "assets/imgs/flags/lc.svg",
-    "hero": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 240,000",
     "processing": "12-18 months",
     "intro": "Saint Lucia is an elite Caribbean jurisdiction offering versatile statutory pathways including national donations, real estate acquisitions, enterprise investments, and government relief bonds. Provides visa-free access to 140+ destinations with zero personal income tax.",
@@ -305,8 +305,8 @@ export const programs: Program[] = [
         "a": "Yes, the National Action Government Bonds are fully returned at 100% face value after the 5-year holding period."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "vanuatu-dsp",
@@ -315,7 +315,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Vanuatu",
     "flag": "assets/imgs/flags/vu.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
+    "hero": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 130,000",
     "processing": "2-3 months",
     "intro": "The Vanuatu Development Support Program is the fastest sovereign citizenship programme in the world, granting full honorary citizenship and passport in just 6 to 12 weeks. Vanuatu features a zero-tax regime with no personal, corporate, or capital gains taxes.",
@@ -354,8 +354,8 @@ export const programs: Program[] = [
         "a": "FIU pre-approval takes approximately 48-72 hours, and final passport issuance is completed in 6 to 10 weeks."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "vanuatu-ciip",
@@ -364,7 +364,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Vanuatu",
     "flag": "assets/imgs/flags/vu.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
+    "hero": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 150,000",
     "processing": "1-2 months",
     "intro": "The Vanuatu CIIP programme is a specialized capital investment citizenship route focusing on sustainable energy and agricultural development, offering fast-track processing in 30 to 60 days.",
@@ -391,8 +391,8 @@ export const programs: Program[] = [
         "a": "CIIP directs funds into designated national economic projects with slightly expedited processing timelines."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "nauru-citizenship",
@@ -401,7 +401,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Nauru",
     "flag": "assets/imgs/flags/nr.svg",
-    "hero": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 90,000",
     "processing": "3-4 months",
     "intro": "Nauru's Economic Climate Resilience Citizenship Program (Naoero) is the newest and most affordable sovereign citizenship by investment programme in the world. Starting at just USD 90,000, it provides a commonwealth passport with visa-free travel to 89+ countries including the UAE, Singapore, and Hong Kong, and allows up to four generations in a single application.",
@@ -444,8 +444,8 @@ export const programs: Program[] = [
         "a": "Nauru allows up to four generations on a single family application."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "turkiye-citizenship",
@@ -497,8 +497,8 @@ export const programs: Program[] = [
         "a": "Yes, Türkiye has an active E-2 treaty with the United States."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "egypt-citizenship",
@@ -551,8 +551,8 @@ export const programs: Program[] = [
         "a": "Yes, Egypt fully permits dual citizenship under Law No. 140 of 2019."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "cyprus-pr",
@@ -561,7 +561,7 @@ export const programs: Program[] = [
     "region": "Europe",
     "country": "Cyprus",
     "flag": "assets/imgs/flags/cy.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
+    "hero": "https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "EUR 300,000",
     "processing": "2-3 months",
     "intro": "The Cyprus Permanent Residency Programme (Regulation 6(2)) allows non-EU nationals to acquire permanent EU residency through a real estate investment of EUR 300,000. It grants lifelong residency for the investor, spouse, and dependent children up to 25 with no stay requirements other than visiting once every two years.",
@@ -595,8 +595,8 @@ export const programs: Program[] = [
         "a": "You and your family only need to visit Cyprus once every two years for at least one day."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1568849676085-51415703900f?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "france-business-creation",
@@ -632,8 +632,8 @@ export const programs: Program[] = [
         "a": "Yes, spouse and minor children receive French residency permits."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "france-talent-passport",
@@ -642,7 +642,7 @@ export const programs: Program[] = [
     "region": "Europe",
     "country": "France",
     "flag": "assets/imgs/flags/fr.svg",
-    "hero": "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "EUR 300,000",
     "processing": "4-6 months",
     "intro": "The French Talent Passport provides a 4-year renewable residence permit for economic investors, corporate officers, and qualified innovators making substantial financial investments in France.",
@@ -669,8 +669,8 @@ export const programs: Program[] = [
         "a": "Yes, the Passeport Talent Famille grants the spouse full rights to work in any salaried or commercial activity in France."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "greece-golden-visa",
@@ -723,8 +723,8 @@ export const programs: Program[] = [
         "a": "Yes, Greece is one of the few European programmes that allows parents of both the main investor and the spouse without dependency tests."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1601581875309-fafbf2d3ed3a?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "hungary-golden-visa",
@@ -771,8 +771,8 @@ export const programs: Program[] = [
         "a": "The residence permit is issued for 10 years and can be renewed for an additional 10 years."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1565426873118-a17ed65d74b9?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "italy-golden-visa",
@@ -781,7 +781,7 @@ export const programs: Program[] = [
     "region": "Europe",
     "country": "Italy",
     "flag": "assets/imgs/flags/it.svg",
-    "hero": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "EUR 250,000",
     "processing": "3-6 months",
     "intro": "The Italian Investor Visa allows non-EU investors to obtain a 2-year renewable residence permit in Italy through investment in innovative startups, Italian companies, government bonds, or philanthropic donations.",
@@ -819,8 +819,8 @@ export const programs: Program[] = [
         "a": "Yes. Resident investors can opt for Italy's flat tax of EUR 100,000 on all foreign-sourced income."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "italy-retirement-visa",
@@ -855,8 +855,8 @@ export const programs: Program[] = [
         "a": "No, this visa does not allow local employment or commercial business operations in Italy."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1543429776-2782fc8e1acd?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "malta-permanent-residency",
@@ -898,8 +898,8 @@ export const programs: Program[] = [
         "a": "Yes, MPRP grants a Certificate of Permanent Residence that remains valid indefinitely."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "monaco-residency",
@@ -908,7 +908,7 @@ export const programs: Program[] = [
     "region": "Europe",
     "country": "Monaco",
     "flag": "assets/imgs/flags/mc.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
+    "hero": "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "EUR 500,000 deposit",
     "processing": "9-12 months",
     "intro": "The Principality of Monaco offers one of the world's most prestigious tax-neutral residencies for ultra-high-net-worth individuals. Residents enjoy zero personal income tax, zero capital gains tax, zero wealth tax, and unrivaled safety on the French Riviera.",
@@ -935,8 +935,8 @@ export const programs: Program[] = [
         "a": "Tax residents must generally spend at least 183 days per year in the Principality."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "netherlands-startup",
@@ -972,8 +972,8 @@ export const programs: Program[] = [
         "a": "Entrepreneurs transition into the Dutch Self-Employed residence permit through the point-based RVO system."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "portugal-golden-visa",
@@ -1020,8 +1020,8 @@ export const programs: Program[] = [
         "a": "No, the real estate routes were phased out under the Mais Habitação law. The fund investment (EUR 500k) and cultural donation (EUR 250k) are the primary active routes."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "switzerland-residence",
@@ -1057,8 +1057,8 @@ export const programs: Program[] = [
         "a": "No local commercial employment is permitted; however, foreign asset and corporate management is fully authorized."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "uk-expansion-worker",
@@ -1067,7 +1067,7 @@ export const programs: Program[] = [
     "region": "Europe",
     "country": "United Kingdom",
     "flag": "assets/imgs/flags/gb.svg",
-    "hero": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "Setup UK entity",
     "processing": "12 months",
     "intro": "The UK Expansion Worker Visa allows overseas senior managers or specialist employees to establish a UK branch or wholly-owned subsidiary of an overseas business.",
@@ -1094,8 +1094,8 @@ export const programs: Program[] = [
         "a": "Yes, dependent spouses have unrestricted work rights in the United Kingdom."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "uk-innovator-founder",
@@ -1104,7 +1104,7 @@ export const programs: Program[] = [
     "region": "Europe",
     "country": "United Kingdom",
     "flag": "assets/imgs/flags/gb.svg",
-    "hero": "https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "GBP 50,000",
     "processing": "3-6 months",
     "intro": "The UK Innovator Founder Visa is designed for leading entrepreneurs seeking to establish an innovative, viable, and scalable business in the United Kingdom, endorsed by an official Home Office endorsing body.",
@@ -1131,8 +1131,8 @@ export const programs: Program[] = [
         "a": "Innovator Founders can apply for Indefinite Leave to Remain (ILR) in just 3 years."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1508807526345-15e9b5f4eaff?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "canada-bcpnp",
@@ -1168,8 +1168,8 @@ export const programs: Program[] = [
         "a": "Yes, successful entrepreneurs receive a provincial nomination leading directly to Canadian PR."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "canada-cptpp",
@@ -1205,8 +1205,8 @@ export const programs: Program[] = [
         "a": "Australia, Brunei, Chile, Japan, Malaysia, Mexico, New Zealand, Peru, Singapore, Vietnam, and the UK."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "canada-startup",
@@ -1215,7 +1215,7 @@ export const programs: Program[] = [
     "region": "Americas",
     "country": "Canada",
     "flag": "assets/imgs/flags/ca.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
+    "hero": "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "CAD 75,000",
     "processing": "18-24 months",
     "intro": "The Canadian Start-Up Visa Programme targets immigrant entrepreneurs with the skills and potential to build innovative businesses in Canada that can create jobs and compete globally.",
@@ -1242,8 +1242,8 @@ export const programs: Program[] = [
         "a": "No. Permanent residency is unconditional once granted."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "costa-rica-residency",
@@ -1280,8 +1280,8 @@ export const programs: Program[] = [
         "a": "You only need to visit Costa Rica for at least 1 day per year to maintain residency."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "panama-pensionado",
@@ -1290,7 +1290,7 @@ export const programs: Program[] = [
     "region": "Americas",
     "country": "Panama",
     "flag": "assets/imgs/flags/pa.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
+    "hero": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 1,000/mo income",
     "processing": "3-6 months",
     "intro": "The Panama Pensionado Visa is renowned as the world's best retirement residency programme, granting permanent residency to anyone with a guaranteed lifetime passive pension of USD 1,000/month.",
@@ -1317,8 +1317,8 @@ export const programs: Program[] = [
         "a": "No minimum age requirement; as long as you have a certified lifetime monthly pension of USD 1,000+, you qualify."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "panama-qualified-investment",
@@ -1327,7 +1327,7 @@ export const programs: Program[] = [
     "region": "Americas",
     "country": "Panama",
     "flag": "assets/imgs/flags/pa.svg",
-    "hero": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
+    "hero": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 300,000",
     "processing": "30 days fast-track",
     "intro": "The Panama Qualified Investor Visa offers fast-track permanent residency in just 30 days through real estate purchase, stock exchange investments, or fixed-term bank deposits.",
@@ -1365,8 +1365,8 @@ export const programs: Program[] = [
         "a": "Approvals are typically issued in approximately 30 business days under Decree 722."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-eb5",
@@ -1409,8 +1409,8 @@ export const programs: Program[] = [
         "a": "Yes, applicants in the US can file concurrently and receive an open work permit (EAD) and travel permit in months."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-e2",
@@ -1419,7 +1419,7 @@ export const programs: Program[] = [
     "region": "Americas",
     "country": "United States",
     "flag": "assets/imgs/flags/us.svg",
-    "hero": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 200,000",
     "processing": "2-4 months",
     "intro": "The US E-2 Treaty Investor Visa permits citizens of treaty nations (such as Grenada, Türkiye, Egypt, Canada, UK, Japan) to reside in the United States to direct and develop a substantial commercial business enterprise.",
@@ -1446,8 +1446,8 @@ export const programs: Program[] = [
         "a": "Yes! Acquiring Grenadian or Turkish citizenship allows you to apply for an E-2 treaty investor visa."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-eb1a",
@@ -1483,8 +1483,8 @@ export const programs: Program[] = [
         "a": "No, you can self-petition without an employer sponsor."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-eb2",
@@ -1519,8 +1519,8 @@ export const programs: Program[] = [
         "a": "USCIS evaluates if the endeavor has substantial merit, if the applicant is well positioned, and if waiving the labor certification benefits the US."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-eb2-niw-stem",
@@ -1555,8 +1555,8 @@ export const programs: Program[] = [
         "a": "Professionals working in AI, aerospace, cybersecurity, biotech, and advanced engineering."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-eb2-niw-ame",
@@ -1591,8 +1591,8 @@ export const programs: Program[] = [
         "a": "The US aviation industry faces severe structural workforce shortages critical to national transport safety."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "us-eb2-niw-pilot",
@@ -1601,7 +1601,7 @@ export const programs: Program[] = [
     "region": "Americas",
     "country": "United States",
     "flag": "assets/imgs/flags/us.svg",
-    "hero": "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "Commercial Pilot Petition",
     "processing": "8-24 months",
     "intro": "Fast-track US Permanent Residency (Green Card) for qualified commercial airline captains, first officers, and helicopter pilots addressing major US aviation capacity challenges.",
@@ -1628,8 +1628,8 @@ export const programs: Program[] = [
         "a": "Yes, once permanent residency is granted and FAA license conversions are completed, pilots can work for US carriers."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "australia-niv",
@@ -1665,8 +1665,8 @@ export const programs: Program[] = [
         "a": "Resources, critical minerals, agriculture, medtech, defense, renewables, fintech, and digital technologies."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "cambodia-business-visa",
@@ -1702,8 +1702,8 @@ export const programs: Program[] = [
         "a": "Yes, Cambodia's banking system operates largely in US Dollars."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "cambodia-my-second-home",
@@ -1712,7 +1712,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Cambodia",
     "flag": "assets/imgs/flags/kh.svg",
-    "hero": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 100,000",
     "processing": "4-6 months",
     "intro": "Cambodia My Second Home (CM2H) is an official government initiative granting a 10-year golden visa with eligibility for Cambodian citizenship after 5 years.",
@@ -1739,8 +1739,8 @@ export const programs: Program[] = [
         "a": "Yes, participants are eligible to apply for Cambodian citizenship by naturalization after 5 years."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "hong-kong-investment-visa",
@@ -1782,8 +1782,8 @@ export const programs: Program[] = [
         "a": "No. Hong Kong operates a strict territorial tax system; foreign-sourced profits and income are not taxed."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "indonesia-golden-visa",
@@ -1835,8 +1835,8 @@ export const programs: Program[] = [
         "a": "Applications are typically processed and issued within 2 to 3 months."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "malaysia-mm2h",
@@ -1882,8 +1882,8 @@ export const programs: Program[] = [
         "a": "Yes, up to 50% can be withdrawn after year one for property purchase, healthcare, or education in Malaysia."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "malaysia-pvip",
@@ -1919,8 +1919,8 @@ export const programs: Program[] = [
         "a": "Yes, PVIP holders have full statutory authorization to work and operate businesses."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "new-zealand-active-investor",
@@ -1966,8 +1966,8 @@ export const programs: Program[] = [
         "a": "Direct investments count for 3x, so an NZD 5M direct investment satisfies the NZD 15M statutory baseline."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "singapore-pr",
@@ -2013,8 +2013,8 @@ export const programs: Program[] = [
         "a": "The initial Re-Entry Permit (REP) is issued for 5 years, renewable upon meeting business and stay requirements."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "singapore-startup",
@@ -2023,7 +2023,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Singapore",
     "flag": "assets/imgs/flags/sg.svg",
-    "hero": "https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 230,000",
     "processing": "8 weeks",
     "intro": "The Singapore EntrePass allows eligible foreign entrepreneurs and innovators to start and operate an innovative business venture in Singapore backed by venture capital or recognized incubators.",
@@ -2049,8 +2049,8 @@ export const programs: Program[] = [
         "a": "Yes, once the company meets minimum annual business spending and local hiring requirements."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "thailand-ltr",
@@ -2091,8 +2091,8 @@ export const programs: Program[] = [
         "a": "Yes, LTR holders can obtain a Digital Work Permit to work legally in Thailand."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "thailand-elite",
@@ -2101,7 +2101,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Thailand",
     "flag": "assets/imgs/flags/th.svg",
-    "hero": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "THB 650,000",
     "processing": "1-3 months",
     "intro": "The Thailand Privilege Card (formerly Thailand Elite) is a premier state-sponsored residency programme offering 5 to 20+ years of hassle-free luxury living in Thailand, complete with airport concierge, VIP immigration lanes, and lifestyle perks.",
@@ -2143,8 +2143,8 @@ export const programs: Program[] = [
         "a": "Foreign-sourced income remitted into Thailand is subject to Thai tax laws; however, foreign income kept offshore is 100% tax-free."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "vietnam-dt3",
@@ -2180,8 +2180,8 @@ export const programs: Program[] = [
         "a": "Yes, spouse and minor children are eligible for TT dependent visas."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "vietnam-dt4",
@@ -2190,7 +2190,7 @@ export const programs: Program[] = [
     "region": "Asia-Pacific",
     "country": "Vietnam",
     "flag": "assets/imgs/flags/vn.svg",
-    "hero": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 70,000",
     "processing": "4-6 months",
     "intro": "The Vietnam DT4 Visa allows small business owners and individual foreign investors contributing under VND 3 Billion (approx. USD 70,000 - USD 120,000) to live and operate an enterprise in Vietnam on a 1-year renewable visa.",
@@ -2216,8 +2216,8 @@ export const programs: Program[] = [
         "a": "The DT4 visa is renewed annually as long as the enterprise remains active."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "mauritius-occupation-permit",
@@ -2253,8 +2253,8 @@ export const programs: Program[] = [
         "a": "Yes, after 3 consecutive years with cumulative turnover of MUR 45 Million, you can apply for a 20-year Permanent Residence Permit."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "mauritius-residence-permit",
@@ -2263,7 +2263,7 @@ export const programs: Program[] = [
     "region": "Africa & Middle East",
     "country": "Mauritius",
     "flag": "assets/imgs/flags/mu.svg",
-    "hero": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "hero": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1200&q=85",
     "minInvestment": "USD 375,000",
     "processing": "2-6 months",
     "intro": "Foreign nationals purchasing luxury real estate valued at USD 375,000 or above under designated government schemes (IRS, RES, PDS, Smart City) receive permanent residence in Mauritius for as long as they retain property ownership.",
@@ -2289,8 +2289,8 @@ export const programs: Program[] = [
         "a": "Yes, property residents are permitted to invest and work in Mauritius without a separate permit."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "south-africa-pr",
@@ -2326,8 +2326,8 @@ export const programs: Program[] = [
         "a": "Yes, the Department of Trade, Industry and Competition (DTIC) can recommend capital reductions for priority sectors."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_modern_residence.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
   },
   {
     "id": "uae-residence",
@@ -2374,8 +2374,8 @@ export const programs: Program[] = [
         "a": "No! Golden Visa holders can stay outside the UAE for any duration without losing residency status."
       }
     ],
-    "lifestyleImage": "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
-    "propertyImage": "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg"
+    "lifestyleImage": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
   }
 ];
 
