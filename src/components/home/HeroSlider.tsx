@@ -23,7 +23,7 @@ const SLIDES = [
     eyebrow: "A Whole New World 🌍!",
     title: "Your Gateway To Global Mobility.",
     text: "Residency and Citizenship by Investment for Global Mobility, Guided by Integrity, Strict Statutory Compliance, and Thirty Years of Experience.",
-    bgImage: "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
+    bgImage: "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
     ctas: [
       { label: "Residency Programmes", href: "/residency", variant: "gold" as const },
       { label: "Citizenship Programmes", href: "/citizenship", variant: "outline" as const },
@@ -99,9 +99,9 @@ export function HeroSlider() {
               alt="Sovereign Freedom"
               className="h-full w-full object-cover object-center transition-all duration-1000 transform scale-105 opacity-95"
             />
-            {/* Subtle natural transparent gradient for high contrast readability without dark blue haze */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+            {/* Subtle natural transparent gradient for crisp text readability without darkening the photo */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
           </div>
 
           {/* Top Header: Eyebrow + Slide Controls */}
