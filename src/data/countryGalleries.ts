@@ -14,7 +14,7 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Superyacht marina and dramatic twin-coast views between the Atlantic and Caribbean Sea.",
     },
     {
-      url: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
       title: "Frigate Bay Beachfront",
       category: "Lifestyle",
       caption: "Crystal turquoise waters and private beachfront villas with direct Caribbean access.",
@@ -26,7 +26,7 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "UNESCO World Heritage panoramic vistas across neighboring Caribbean islands.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "Luxury Island Living",
       category: "Real Estate",
       caption: "Government-approved five-star resort residences and hillside freehold estates.",
@@ -40,13 +40,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "World-renowned sailing capital with historic Georgian naval heritage.",
     },
     {
-      url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
       title: "365 White Sand Beaches",
       category: "Coast",
       caption: "Pristine secluded coves and calm turquoise bays across Antigua and Barbuda.",
     },
     {
-      url: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "Jumby Bay & Luxury Estates",
       category: "Real Estate",
       caption: "Ultra-exclusive private island villas with deep-water yacht moorings.",
@@ -66,13 +66,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Lush tropical rainforests, volcanic thermal springs, and cascading mountain waterfalls.",
     },
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
       title: "Secret Bay & Cabrits National Park",
       category: "Coast",
       caption: "Award-winning eco-luxury cliffside villas with private beach access.",
     },
     {
-      url: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "Kempinski & Luxury Resorts",
       category: "Real Estate",
       caption: "Approved CBI resort developments surrounded by untouched natural beauty.",
@@ -86,13 +86,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "The Caribbean's most picturesque Georgian harbour capital framed by volcanic hills.",
     },
     {
-      url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
       title: "Grand Anse Beach",
       category: "Coast",
       caption: "Two miles of soft golden sand, warm calm surf, and luxury beachfront hotels.",
     },
     {
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "Silversands & Beachfront Living",
       category: "Real Estate",
       caption: "Contemporary luxury architecture and US E-2 Treaty access opportunity.",
@@ -106,13 +106,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "UNESCO World Heritage volcanic spires rising dramatically from the Caribbean Sea.",
     },
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
       title: "Marigot Bay & Rodney Bay",
       category: "Coast",
       caption: "Sheltered yacht havens, beach clubs, and five-star waterfront dining.",
     },
     {
-      url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
       title: "Sugar Beach Residences",
       category: "Real Estate",
       caption: "Secluded hillside villas nestled directly between the iconic Pitons.",
@@ -132,13 +132,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Historic riverside architecture, terraced vineyards, and dynamic tech hubs.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: "Cascais & Estoril Coastline",
       category: "Coast",
       caption: "The Portuguese Riviera with championship golf, marinas, and palatial villas.",
     },
     {
-      url: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
       title: "Algarve Golden Clifftops",
       category: "Lifestyle",
       caption: "300+ days of annual sunshine, Michelin dining, and golden ocean cliffs.",
@@ -158,13 +158,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Iconic whitewashed architecture overlooking breathtaking Aegean Sea sunsets.",
     },
     {
-      url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: "Athens Riviera & Glyfada",
       category: "Real Estate",
       caption: "Prime coastal residential developments, luxury beach clubs, and yacht marinas.",
     },
     {
-      url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
       title: "Crete & Mykonos Island Living",
       category: "Lifestyle",
       caption: "Idyllic Mediterranean lifestyle with seamless Schengen travel access.",
@@ -184,13 +184,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Gothic Quarter, modernist architecture, and vibrant seaside promenades.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
       title: "Marbella & Costa del Sol",
       category: "Real Estate",
       caption: "Luxury Mediterranean villas, private beach clubs, and international schools.",
     },
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: "Balearic Islands (Mallorca & Ibiza)",
       category: "Coast",
       caption: "Crystal turquoise coves and peaceful inland country fincas.",
@@ -210,13 +210,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Cliffside coastal villages overlooking the sparkling Tyrrhenian Sea.",
     },
     {
-      url: "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
       title: "Milan Fashion & Financial District",
       category: "Culture",
       caption: "Italy's economic engine with lucrative lump-sum 100k flat-tax regime.",
     },
     {
-      url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "Lake Como & Tuscany Country Estates",
       category: "Real Estate",
       caption: "Historic lakeside palazzos and rolling vineyard estates.",
@@ -230,13 +230,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "UNESCO fortified capital and strategic Mediterranean maritime hub.",
     },
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: "Blue Lagoon & Comino",
       category: "Coast",
       caption: "Crystal clear Mediterranean waters and year-round yachting conditions.",
     },
     {
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
       title: "Sliema & St. Julian's Waterfront",
       category: "Real Estate",
       caption: "Modern seafront luxury towers and vibrant cosmopolitan nightlife.",
@@ -244,19 +244,19 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "Cyprus": [
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
       title: "Limassol Marina & Coastal Towers",
       category: "Real Estate",
       caption: "Eastern Mediterranean's leading financial and luxury residential hub.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: "Paphos Coastline & Ancient Ruins",
       category: "Landmark",
       caption: "UNESCO archaeological treasures and serene Mediterranean coastal living.",
     },
     {
-      url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
       title: "Ayia Napa & Cape Greco",
       category: "Coast",
       caption: "Turquoise lagoons, sea caves, and premier European golf resorts.",
@@ -264,13 +264,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "United Arab Emirates": [
     {
-      url: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
       title: "Dubai Downtown & Burj Khalifa",
       category: "Landmark",
       caption: "Global metropolis of the future with unmatched security, luxury, and 0% tax.",
     },
     {
-      url: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
       title: "Palm Jumeirah Waterfront Mansions",
       category: "Real Estate",
       caption: "World-famous man-made island with private beach mansions and superyacht berths.",
@@ -282,7 +282,7 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Louvre Abu Dhabi, pristine white sand beaches, and peaceful capital lifestyle.",
     },
     {
-      url: "https://images.unsplash.com/photo-1546412414-e1885259563a?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
       title: "Dubai Marina & JBR Skyline",
       category: "Lifestyle",
       caption: "Vibrant waterfront promenades, Michelin-starred dining, and international commerce.",
@@ -296,13 +296,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Where East meets West across the majestic Bosphorus Strait.",
     },
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: "Bodrum Peninsula & Turkish Riviera",
       category: "Coast",
       caption: "The St. Tropez of Turkey with luxury marinas, beach clubs, and ancient castles.",
     },
     {
-      url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
       title: "Bebek & Bosphorus Waterfront Mansions",
       category: "Real Estate",
       caption: "Historic Yalı mansions and modern luxury residential developments.",
@@ -310,19 +310,19 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "United States": [
     {
-      url: "https://images.unsplash.com/photo-1534430480872-3498386e7856?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
       title: "New York Manhattan Skyline",
       category: "Landmark",
       caption: "The financial and cultural capital of the world with limitless opportunity.",
     },
     {
-      url: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
       title: "Miami South Beach & Brickell",
       category: "Lifestyle",
       caption: "Tropical gateway with no state income tax and thriving financial ecosystem.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "California Coastal Living",
       category: "Real Estate",
       caption: "Silicon Valley innovation, Beverly Hills luxury, and Pacific coastline.",
@@ -336,7 +336,7 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "Global financial hub, world-class education, and rich constitutional heritage.",
     },
     {
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
       title: "Mayfair & Kensington Prime Mansions",
       category: "Real Estate",
       caption: "World's most coveted prime central London residential addresses.",
@@ -350,13 +350,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "Canada": [
     {
-      url: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
       title: "Vancouver Waterfront & Mountains",
       category: "Coast",
       caption: "Pacific rim metropolis where modern skyscrapers meet snow-capped peaks.",
     },
     {
-      url: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_metropolis_downtown.jpg",
       title: "Toronto Skyline & Lake Ontario",
       category: "Landmark",
       caption: "Canada's commercial engine and one of the most multicultural cities globally.",
@@ -376,13 +376,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
       caption: "The pinnacle of European wealth security, private banking, and serenity.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
       title: "Zurich & Lucerne Waterfront",
       category: "Lifestyle",
       caption: "Unmatched quality of life, highest safety indices, and global connectivity.",
     },
     {
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: "Alpine Luxury Chalets",
       category: "Real Estate",
       caption: "Private ski estates in Zermatt and St. Moritz with lump-sum tax privileges.",
@@ -390,13 +390,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "Monaco": [
     {
-      url: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_luxury_waterfront.jpg",
       title: "Port Hercules Superyacht Marina",
       category: "Landmark",
       caption: "The world capital of yachting and luxury, nestled along the French Riviera.",
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_european_architecture.jpg",
       title: "Monte Carlo Casino & Palaces",
       category: "Culture",
       caption: "0% personal income tax, 0% capital gains, and unmatched sovereign prestige.",
@@ -404,13 +404,13 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "Vanuatu": [
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_tropical_peninsula.jpg",
       title: "Port Vila & South Pacific Lagoons",
       category: "Coast",
       caption: "Fastest direct citizenship by investment in the world (30-60 days approval).",
     },
     {
-      url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_caribbean_beach.jpg",
       title: "Espiritu Santo Blue Holes",
       category: "Landmark",
       caption: "Untouched tropical South Pacific paradise with zero corporate or personal tax.",
@@ -426,22 +426,22 @@ export function getCountryGallery(countryName: string): GalleryImage[] {
     }
   }
 
-  // High quality default collection
+  // High quality default collection using Globevisa photography
   return [
     {
-      url: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
       title: `${countryName} Coastal Splendour`,
       category: "Coast",
       caption: `Discover the pristine coastlines, climate, and luxury maritime lifestyle in ${countryName}.`,
     },
     {
-      url: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
       title: `${countryName} Sovereign Capital`,
       category: "Landmark",
       caption: `Experience the institutional stability, security, and vibrant city lifestyle in ${countryName}.`,
     },
     {
-      url: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85",
+      url: "/assets/imgs/globevisa/globevisa_modern_residence.jpg",
       title: `${countryName} Prime Real Estate`,
       category: "Real Estate",
       caption: `High-value residential acquisitions, tax optimization, and family wealth preservation in ${countryName}.`,

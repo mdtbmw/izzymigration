@@ -23,7 +23,7 @@ const SLIDES = [
     eyebrow: "A Whole New World 🌍!",
     title: "Your Gateway To Global Mobility.",
     text: "Residency and Citizenship by Investment for Global Mobility, Guided by Integrity, Strict Statutory Compliance, and Thirty Years of Experience.",
-    bgImage: "/assets/imgs/banner-1/banner-man-img.png",
+    bgImage: "/assets/imgs/globevisa/globevisa_hero_skyline.jpg",
     ctas: [
       { label: "Residency Programmes", href: "/residency", variant: "gold" as const },
       { label: "Citizenship Programmes", href: "/citizenship", variant: "outline" as const },
@@ -39,7 +39,7 @@ const SLIDES = [
     eyebrow: "GLOBAL WEALTH MOBILITY & SOVEREIGN FREEDOM",
     title: "Invest Globally. Expand Your Sovereign Freedom.",
     text: "Direct sovereign second passports, European golden visas, and prime international real estate acquisitions structured around your family's future.",
-    bgImage: "/assets/imgs/banner-2/banner2-img.png",
+    bgImage: "/assets/imgs/globevisa/globevisa_city_sunset.jpg",
     ctas: [
       { label: "Global Real Estate", href: "/real-estate", variant: "gold" as const },
       { label: "Ancestry & Descent", href: "/ancestry", variant: "outline" as const },
@@ -49,6 +49,22 @@ const SLIDES = [
       { icon: Scale, value: "Zero Tax", label: "Fiscal Optimization" },
       { icon: Users, value: "3+ Generations", label: "Family Inclusion" },
       { icon: Lock, value: "Confidential", label: "Strict Discretion" },
+    ],
+  },
+  {
+    eyebrow: "EUROPEAN & CARIBBEAN CORRIDORS",
+    title: "Gateway to Europe & The Americas.",
+    text: "Unlock visa-free travel across 150+ countries, top-tier global healthcare, premier educational institutions, and complete sovereign fiscal freedom.",
+    bgImage: "/assets/imgs/globevisa/globevisa_mediterranean_coast.jpg",
+    ctas: [
+      { label: "Explore All Routes", href: "/programmes", variant: "gold" as const },
+      { label: "Free Assessment", href: "/contact", variant: "outline" as const },
+    ],
+    stats: [
+      { icon: Globe, value: "Schengen Area", label: "Unrestricted Access" },
+      { icon: ShieldCheck, value: "Direct CIU", label: "Statutory License" },
+      { icon: Users, value: "3+ Generations", label: "Lifelong Dual Rights" },
+      { icon: Award, value: "Top Tier", label: "Global Reputation" },
     ],
   },
 ];
