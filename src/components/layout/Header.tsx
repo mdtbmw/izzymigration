@@ -48,25 +48,34 @@ function MegaPanel({
   items,
   href,
   cta,
+  isOpen,
   onItemClick,
 }: {
   items: typeof citizenship;
   href: string;
   cta: string;
+  isOpen: boolean;
   onItemClick?: () => void;
 }) {
   return (
-    <div className="mega-panel">
+    <div
+      className={cn(
+        "mega-panel transition-all duration-200",
+        isOpen
+          ? "visible opacity-100 translate-y-0 pointer-events-auto"
+          : "invisible opacity-0 translate-y-2 pointer-events-none"
+      )}
+    >
       <div className="mega-panel__card">
-        <div className="grid gap-1 md:grid-cols-3 max-h-[380px] overflow-y-auto pr-2">
+        <div className="grid gap-2 md:grid-cols-3 max-h-[420px] overflow-y-auto pr-2">
           {items.map((p) => (
             <Link
               key={p.id}
               href={`/programmes/${p.id}`}
               onClick={onItemClick}
-              className="group flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-surface-100"
+              className="group flex items-center gap-3 rounded-xl p-2.5 transition-colors hover:bg-surface-100 cursor-pointer"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-surface-200 bg-white text-[11px] font-bold text-navy-900 shadow-sm">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-surface-200 bg-white text-[11px] font-bold text-navy-900 shadow-xs">
                 {p.flag ? (
                   <img
                     src={p.flag.startsWith("/") ? p.flag : `/${p.flag}`}
@@ -78,8 +87,8 @@ function MegaPanel({
                   p.country.slice(0, 2)
                 )}
               </span>
-              <span>
-                <span className="block text-[13.5px] font-bold text-navy-900 group-hover:text-gold-600 transition-colors">
+              <span className="min-w-0">
+                <span className="block text-[13.5px] font-bold text-navy-900 group-hover:text-gold-600 transition-colors truncate">
                   {p.country}
                 </span>
                 <span className="block text-[11.5px] font-semibold text-ink-light">
@@ -93,7 +102,7 @@ function MegaPanel({
           <Link
             href={href}
             onClick={onItemClick}
-            className="inline-flex items-center gap-2 text-sm font-bold text-gold-600 hover:text-gold-700 transition-colors"
+            className="inline-flex items-center gap-2 text-sm font-bold text-gold-600 hover:text-gold-700 transition-colors cursor-pointer"
           >
             {cta}
             <span aria-hidden>→</span>
@@ -215,9 +224,9 @@ export function Header() {
                       {item.children && (
                         <div
                           className={cn(
-                            "absolute left-0 top-full z-40 w-60 rounded-2xl border border-surface-200 bg-white p-2 shadow-[var(--shadow-sovereign-lg)] transition-all duration-200",
+                            "absolute left-0 top-full z-40 w-64 rounded-2xl border border-surface-200 bg-white p-2 shadow-[var(--shadow-sovereign-lg)] transition-all duration-200",
                             isOpen
-                              ? "visible opacity-100 translate-y-0"
+                              ? "visible opacity-100 translate-y-0 pointer-events-auto"
                               : "invisible opacity-0 translate-y-2 pointer-events-none"
                           )}
                         >
@@ -226,7 +235,7 @@ export function Header() {
                               key={c.label}
                               href={c.href}
                               onClick={handleNavClick}
-                              className="block rounded-xl px-4 py-2.5 text-[14px] font-bold text-navy-900 hover:bg-surface-100 hover:text-gold-600"
+                              className="block rounded-xl px-4 py-2.5 text-[14px] font-bold text-navy-900 hover:bg-surface-100 hover:text-gold-600 transition-colors cursor-pointer"
                             >
                               {c.label}
                             </Link>
@@ -235,39 +244,23 @@ export function Header() {
                       )}
 
                       {item.mega === "citizenship" && (
-                        <div
-                          className={cn(
-                            "transition-all duration-200",
-                            isOpen
-                              ? "visible opacity-100 translate-y-0 pointer-events-auto"
-                              : "invisible opacity-0 translate-y-2 pointer-events-none"
-                          )}
-                        >
-                          <MegaPanel
-                            items={citizenship}
-                            href="/citizenship"
-                            cta="View all citizenship programmes"
-                            onItemClick={handleNavClick}
-                          />
-                        </div>
+                        <MegaPanel
+                          items={citizenship}
+                          href="/citizenship"
+                          cta="View all citizenship programmes"
+                          isOpen={isOpen}
+                          onItemClick={handleNavClick}
+                        />
                       )}
 
                       {item.mega === "residency" && (
-                        <div
-                          className={cn(
-                            "transition-all duration-200",
-                            isOpen
-                              ? "visible opacity-100 translate-y-0 pointer-events-auto"
-                              : "invisible opacity-0 translate-y-2 pointer-events-none"
-                          )}
-                        >
-                          <MegaPanel
-                            items={residency}
-                            href="/residency"
-                            cta="View all residency programmes"
-                            onItemClick={handleNavClick}
-                          />
-                        </div>
+                        <MegaPanel
+                          items={residency}
+                          href="/residency"
+                          cta="View all residency programmes"
+                          isOpen={isOpen}
+                          onItemClick={handleNavClick}
+                        />
                       )}
                     </li>
                   );
