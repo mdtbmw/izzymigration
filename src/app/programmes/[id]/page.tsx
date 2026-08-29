@@ -24,6 +24,8 @@ import { QuickInquiryForm } from "@/components/forms/QuickInquiryForm";
 import { ProgrammeCard } from "@/components/programmes/ProgrammeCard";
 import { ProgramActionButtons } from "@/components/programmes/ProgramActionButtons";
 import { CountryExperienceSlider } from "@/components/programmes/CountryExperienceSlider";
+import { ComprehensiveDossier } from "@/components/programmes/ComprehensiveDossier";
+import { getProgramDossier } from "@/data/programDetails";
 import { assetPath } from "@/lib/brand";
 
 interface ProgramPageProps {
@@ -41,6 +43,7 @@ export async function generateMetadata({
 }: ProgramPageProps): Promise<Metadata> {
   const { id } = await params;
   const program = getProgramById(id);
+  const dossier = program ? getProgramDossier(program.id) : null;
 
   if (!program) {
     return {
@@ -69,6 +72,7 @@ export async function generateMetadata({
 export default async function ProgramDetailPage({ params }: ProgramPageProps) {
   const { id } = await params;
   const program = getProgramById(id);
+  const dossier = program ? getProgramDossier(program.id) : null;
 
   if (!program) {
     notFound();
@@ -227,7 +231,10 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               fallbackLifestyle={lifestyleSrc}
             />
 
-            {/* Section 3: Due Diligence & Statutory Criteria */}
+            {/* Section 3: Comprehensive Legal Dossier & Regulatory Analysis */}
+            {dossier && <ComprehensiveDossier dossier={dossier} />}
+
+            {/* Section 4: Due Diligence & Statutory Criteria */}
             {program.requirements && program.requirements.length > 0 && (
               <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
                 <div className="space-y-2">
@@ -255,7 +262,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               </section>
             )}
 
-            {/* Section 4: Step-by-Step Application Roadmap */}
+            {/* Section 5: Step-by-Step Application Roadmap */}
             {program.process && program.process.length > 0 && (
               <section className="space-y-6">
                 <div className="space-y-2">
@@ -274,7 +281,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               </section>
             )}
 
-            {/* Section 5: Programme FAQs */}
+            {/* Section 6: Programme FAQs */}
             {faqItems.length > 0 && (
               <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
                 <div className="space-y-2">
