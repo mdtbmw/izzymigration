@@ -8,7 +8,7 @@ export interface GalleryImage {
 export const countryGalleries: Record<string, GalleryImage[]> = {
   "South Korea": [
     {
-      "url": "https://static.wixstatic.com/media/nsplsh_3eedd3ffea274621bd4736b023864875~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/Image%20by%20Hoyoung%20Choi.jpg",
+      "url": "/assets/imgs/programs/korea-hero.jpg",
       "title": "Seoul Namsan Skyline by Hoyoung Choi",
       "category": "Landmark",
       "caption": "Dynamic global metropolis blending hypermodern infrastructure with rich cultural heritage."
@@ -34,7 +34,7 @@ export const countryGalleries: Record<string, GalleryImage[]> = {
   ],
   "Japan": [
     {
-      "url": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1400&q=85",
+      "url": "/assets/imgs/programs/japan-hero.png",
       "title": "Tokyo Tower & Metropolitan Skyline",
       "category": "Landmark",
       "caption": "World-class financial and technological capital offering unparalleled safety and enterprise opportunities."

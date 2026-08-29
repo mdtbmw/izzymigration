@@ -88,8 +88,8 @@ function MegaPanel({
                 )}
               </span>
               <span className="min-w-0">
-                <span className="block text-[13.5px] font-bold text-navy-900 group-hover:text-gold-600 transition-colors truncate">
-                  {p.country}
+                <span className="block text-[13px] font-bold text-navy-900 group-hover:text-gold-600 transition-colors truncate" title={p.title}>
+                  {p.title.length > 32 ? p.title.slice(0, 32) + "…" : p.title}
                 </span>
                 <span className="block text-[11.5px] font-semibold text-ink-light">
                   {p.minInvestment}

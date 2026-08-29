@@ -2377,97 +2377,60 @@ export const programs: Program[] = [
     "lifestyleImage": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=85",
     "propertyImage": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=85"
   },
-  {
-      "id": "japan-business-manager",
-      "title": "Japan Business Manager Visa",
-      "type": "residency",
-      "region": "Asia-Pacific",
-      "country": "Japan",
-      "flag": "assets/imgs/flags/jp.svg",
-      "hero": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1400&q=85",
-      "minInvestment": "JPY 5,000,000",
-      "processing": "3-6 months",
-      "intro": "The Japan Business Manager Visa allows international entrepreneurs, executives, and investors to establish a company and reside in Japan with renewable residency status, world-class healthcare, and a direct pathway to Japanese Permanent Residency.",
-      "benefits": [
-          "Renewable legal residence in Japan (1, 3, or 5 years) for the applicant and family",
-          "Full access to Japan's tier-1 national health insurance, pension, and education systems",
-          "Direct route to Japanese Permanent Residency (PR) or Citizenship (Naturalization)",
-          "Spouse and dependent children included with full residency and educational rights",
-          "Zero requirement for Japanese language proficiency to apply"
-      ],
-      "options": [
-          {
-              "t": "Capital Investment in Japanese Entity",
-              "price": "JPY 5,000,000",
-              "desc": "Minimum paid-in registered capital deposited into a Japanese Kabushiki Kaisha (KK) or Godo Kaisha (GK)."
-          }
-      ],
-      "requirements": [
-          "Registered physical commercial office space in Japan.",
-          "Paid-in company capital of at least JPY 5,000,000 or employing two full-time permanent staff in Japan.",
-          "Coherent, sustainable business plan with financial projections.",
-          "Clean personal background with no criminal record."
-      ],
-      "faqs": [
-          {
-              "q": "How long is the Japan Business Manager visa valid?",
-              "a": "The visa is initially issued for 1 year and can be renewed for 1, 3, or 5-year periods based on ongoing business operations."
-          },
-          {
-              "q": "When can I apply for Permanent Residency in Japan?",
-              "a": "Standard PR eligibility is after 10 years of continuous residence (or earlier if qualifying for the points-based fast track)."
-          }
-      ],
-      "lifestyleImage": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=85",
-      "propertyImage": "https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=1200&q=85"
-  },
-  {
-      "id": "japan-highly-skilled",
-      "title": "Japan Highly Skilled Professional Visa (HSP)",
-      "type": "residency",
-      "region": "Asia-Pacific",
-      "country": "Japan",
-      "flag": "assets/imgs/flags/jp.svg",
-      "hero": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1400&q=85",
-      "minInvestment": "Points-Based (70+ Pts)",
-      "processing": "1-2 months",
-      "intro": "The Japan Highly Skilled Professional (HSP) Visa offers expedited immigration treatment for foreign executives, researchers, and technical specialists, granting a 5-year initial residence and Permanent Residency in as little as 1 to 3 years.",
-      "benefits": [
-          "Fast-track Japanese Permanent Residency in 1 year (for 80+ points) or 3 years (for 70+ points)",
-          "Automatic 5-year maximum legal residence period upon initial grant",
-          "Preferential immigration processing in just 10 to 30 days",
-          "Full permission for spouse to engage in professional employment in Japan",
-          "Right to bring parents and domestic helper under qualifying family conditions"
-      ],
-      "options": [
-          {
-              "t": "Advanced Business Management (Type 1-c)",
-              "price": "70+ Points",
-              "desc": "Calculated on executive career, academic degrees, annual salary (min. JPY 3M), and Japanese language level."
-          },
-          {
-              "t": "Advanced Specialized / Technical (Type 1-b)",
-              "price": "70+ Points",
-              "desc": "Calculated on technical expertise, university degrees, patents, and employer salary scale."
-          }
-      ],
-      "requirements": [
-          "Scoring 70 points or higher on the official Japanese Immigration Points Evaluation Matrix.",
-          "Valid employment contract or executive appointment with a Japanese entity.",
-          "Clean criminal and tax compliance record."
-      ],
-      "faqs": [
-          {
-              "q": "How quickly can an HSP visa holder obtain Japanese PR?",
-              "a": "Applicants with 80+ points can apply for Permanent Residency after just 1 year, and those with 70-79 points after 3 years."
-          },
-          {
-              "q": "Can my spouse work full-time on this visa?",
-              "a": "Yes, spouses of Highly Skilled Professionals can work full-time in Japan without meeting standard educational or career criteria."
-          }
-      ],
-      "lifestyleImage": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1200&q=85",
-      "propertyImage": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=1200&q=85"
+    {
+    "id": "japan-highly-skilled",
+    "title": "Japan Highly Skilled Professional & Business Investor Visa",
+    "type": "residency",
+    "region": "Asia-Pacific",
+    "country": "Japan",
+    "flag": "assets/imgs/flags/jp.svg",
+    "hero": "/assets/imgs/programs/japan-hero.png",
+    "minInvestment": "JPY 5 Million (USD 35,000)",
+    "processing": "1-3 months",
+    "intro": "Japan offers premier point-based and business investor residency pathways (Highly Skilled Professional HSP 1 & 2) providing preferential immigration treatment, spouse work permissions, parent sponsorship, and a fast-track pathway to Permanent Residency in as little as 1 to 3 years.",
+    "benefits": [
+      "Fast-track Permanent Residency (PR): 1 year with 80+ points, or 3 years with 70+ points",
+      "5-year maximum period of stay granted upon initial approval",
+      "Permission for spouse to engage in full-time professional employment without separate work permit",
+      "Permission to bring parents to Japan to assist with young children (under age 7) or pregnancy",
+      "Permission to sponsor domestic helpers under designated high-income conditions",
+      "Zero worldwide income tax on foreign-sourced income for non-permanent tax residents"
+    ],
+    "options": [
+      {
+        "t": "Advanced Business Management Track (HSP 1c)",
+        "price": "JPY 5,000,000+ Capital",
+        "desc": "Establish and operate an enterprise in Japan with dedicated commercial office and registered capital of at least JPY 5 Million."
+      },
+      {
+        "t": "Advanced Specialized / Technical Track (HSP 1b)",
+        "price": "JPY 3,000,000+ Annual Income",
+        "desc": "Point-based route for executives, engineers, researchers, and tech specialists based on academic background, professional career, and salary."
+      },
+      {
+        "t": "Business Manager Visa Standard Route",
+        "price": "JPY 5,000,000 Capital",
+        "desc": "Standard 1 to 5-year renewable commercial business residence permit for founders and entrepreneurs operating in Tokyo, Osaka, or Fukuoka."
+      }
+    ],
+    "requirements": [
+      "Passing the points assessment with at least 70 or 80 points, OR establishing an active Japanese business with JPY 5M+ capital.",
+      "Clear criminal record in home country and international jurisdictions.",
+      "Proof of lawful source of capital and registered physical commercial office in Japan.",
+      "Compliance with Japanese health insurance and pension obligations."
+    ],
+    "faqs": [
+      {
+        "q": "How fast can I get Permanent Residency (PR) in Japan under this visa?",
+        "a": "Applicants scoring 80 points or more on the Highly Skilled Professional grid qualify for Permanent Residency in just 1 year. Those scoring 70 points qualify in 3 years."
+      },
+      {
+        "q": "Can I bring my parents to live with me in Japan?",
+        "a": "Yes! HSP visa holders with an annual household income of JPY 8M or more who have a child under 7 years old can sponsor their parents (or spouse\'s parents) to live in Japan."
+      }
+    ],
+    "lifestyleImage": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1400&q=85",
+    "propertyImage": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1400&q=85"
   },
   {
       "id": "south-korea-investor-visa",
@@ -2476,7 +2439,7 @@ export const programs: Program[] = [
       "region": "Asia-Pacific",
       "country": "South Korea",
       "flag": "assets/imgs/flags/kr.svg",
-      "hero": "https://static.wixstatic.com/media/nsplsh_3eedd3ffea274621bd4736b023864875~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/Image%20by%20Hoyoung%20Choi.jpg",
+      "hero": "/assets/imgs/programs/korea-hero.jpg",
       "minInvestment": "KRW 1,000,000,000",
       "processing": "1-3 months",
       "intro": "South Korea's Immigrant Investor Scheme allows international investors and their families to obtain long-term F-2 resident status through designated real estate acquisition in special tourism zones (such as Jeju Island) or government-backed public funds. Converts to unconditional F-5 Permanent Residency after 5 years with full capital return flexibility.",
