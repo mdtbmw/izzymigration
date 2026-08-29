@@ -2521,9 +2521,183 @@ export const programs: Program[] = [
       ],
       "lifestyleImage": "https://static.wixstatic.com/media/nsplsh_90ca9ecae77c49acb35f4e3eef64e774~mv2.jpg/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/Image%20by%20JUNGIL%20PARK.jpg",
       "propertyImage": "https://static.wixstatic.com/media/f32770_ac933ab1424944f894335ebc1e8c7083~mv2.png/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/Jeju%20Shinhwa%20World%20Resorts.png"
+  },
+  {
+      "id": "uae-startup-visa",
+      "title": "UAE Start Up & Free Zone Business Visa (Dubai)",
+      "type": "residency",
+      "region": "Africa & Middle East",
+      "country": "United Arab Emirates",
+      "flag": "assets/imgs/flags/ae.svg",
+      "hero": "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=85",
+      "minInvestment": "USD 12,800+",
+      "processing": "1-1.5 months",
+      "intro": "The UAE Start Up Visa allows international entrepreneurs, tech founders, and business owners to secure 2 to 3-year renewable residency permits by incorporating a venture in Dubai or Northern Emirates Free Trade Zones with 100% foreign ownership and zero personal income tax.",
+      "benefits": [
+          "2 to 3-year renewable investor/partner residency visa with fast-track processing",
+          "100% foreign company ownership with zero local sponsor requirement",
+          "0% personal income tax, 0% capital gains tax, and 0% withholding tax",
+          "Full family sponsorship including spouse, children, and domestic employees",
+          "Fast corporate bank account opening with premier international banks in the UAE",
+          "Eligibility to upgrade to a 10-Year UAE Golden Visa as business scales"
+      ],
+      "options": [
+          {
+              "t": "Dubai Free Zone Start-Up Setup (Meydan / IFZA)",
+              "price": "USD 12,800+",
+              "desc": "Turnkey incorporation package including commercial trade license, flexi-desk lease, establishment card, and 2-year investor visa."
+          },
+          {
+              "t": "Dubai Multi Commodities Centre (DMCC) Tier",
+              "price": "USD 22,500+",
+              "desc": "Prime financial and commodities hub setup in Jumeirah Lakes Towers (JLT) with multi-visa quotas and prestige physical office options."
+          },
+          {
+              "t": "Abu Dhabi Global Market (ADGM) Tech Start-Up",
+              "price": "USD 18,000+",
+              "desc": "Institutional financial centre licensing under common law jurisdiction tailored for fintech, VC-backed startups, and asset management."
+          }
+      ],
+      "requirements": [
+          "Passport valid for at least 6 months with clean background check.",
+          "Brief business proposal or company activity description.",
+          "Passing mandatory UAE medical fitness screening and biometric Emirates ID registration.",
+          "Entry into the UAE at least once every 6 months to maintain visa validity."
+      ],
+      "faqs": [
+          {
+              "q": "How fast is the UAE Start Up Visa issued?",
+              "a": "Company licensing is typically completed in 5 to 10 business days, followed by entry permit and Emirates ID issuance within 3 to 4 weeks."
+          },
+          {
+              "q": "Do I need physical office space in Dubai?",
+              "a": "No, most Free Zones provide flexible virtual desk arrangements (flexi-desks) that fully qualify for investor residency visas."
+          },
+          {
+              "q": "Can my family relocate to Dubai with me on this visa?",
+              "a": "Yes! Once your investor visa and Emirates ID are issued, you can immediately sponsor your spouse, children, and dependent parents."
+          }
+      ],
+      "lifestyleImage": "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=85",
+      "propertyImage": "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+      "id": "portugal-d2-visa",
+      "title": "Portugal D2 Entrepreneurship & Business Visa",
+      "type": "residency",
+      "region": "Europe",
+      "country": "Portugal",
+      "flag": "assets/imgs/flags/pt.svg",
+      "hero": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1400&q=85",
+      "minInvestment": "\u20ac5,000+",
+      "processing": "4-6 months",
+      "intro": "The Portugal D2 Visa is designed for foreign entrepreneurs, freelancers, and independent professionals establishing a commercial business, branch, or service company in Portugal, offering a direct path to EU permanent residency and citizenship after 5 years.",
+      "benefits": [
+          "Full Schengen Zone visa-free mobility across 29 European countries",
+          "Low capital requirement \u2014 company formation with minimal share capital from \u20ac1",
+          "Right to live, work, and operate commercial enterprises across the European Union",
+          "Inclusion of spouse, dependent children under 26, and dependent parents",
+          "Eligibility for Portuguese Permanent Residency and EU Citizenship after 5 years",
+          "Access to Portugal's premier public healthcare (SNS) and European education institutions"
+      ],
+      "options": [
+          {
+              "t": "New Enterprise Incorporation Route",
+              "price": "\u20ac5,000 \u2013 \u20ac10,000 Capital",
+              "desc": "Establish a Portuguese LDA (Limited Liability Company) with a viable business plan demonstrating economic, social, or technological value."
+          },
+          {
+              "t": "Branch / Subsidiary Setup",
+              "price": "\u20ac10,000+ Capital",
+              "desc": "Expand an existing overseas operating business into Portugal by registering a local European branch office."
+          },
+          {
+              "t": "Independent Professional / Freelance Pathway",
+              "price": "Service Contracts",
+              "desc": "For highly qualified contractors and independent service providers holding client service agreements with Portuguese or European entities."
+          }
+      ],
+      "requirements": [
+          "Comprehensive business plan demonstrating economic viability in Portugal.",
+          "Proof of company incorporation or registered activity with Portuguese Tax Authorities (Finan\u00e7as).",
+          "Clean international police criminal record certificates.",
+          "Proof of adequate personal financial means and local residential accommodation.",
+          "Residency commitment of staying in Portugal (typically 4\u20136 months annually)."
+      ],
+      "faqs": [
+          {
+              "q": "How does the Portugal D2 Visa compare to the Golden Visa?",
+              "a": "While the Golden Visa requires \u20ac500,000 in qualifying investment funds, the D2 Visa allows entrepreneurs to obtain EU residency with minimal capital by actively running a Portuguese business."
+          },
+          {
+              "q": "Can I obtain Portuguese citizenship through the D2 Visa?",
+              "a": "Yes! After holding legal residency for 5 years and passing basic Portuguese language proficiency (A2 level), you and your family qualify for Portuguese citizenship."
+          }
+      ],
+      "lifestyleImage": "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?auto=format&fit=crop&w=1200&q=85",
+      "propertyImage": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+      "id": "portugal-d7-visa",
+      "title": "Portugal D7 Passive Income & Retirement Visa",
+      "type": "residency",
+      "region": "Europe",
+      "country": "Portugal",
+      "flag": "assets/imgs/flags/pt.svg",
+      "hero": "https://images.unsplash.com/photo-1513326738677-b964603b136d?auto=format&fit=crop&w=1400&q=85",
+      "minInvestment": "\u20ac10,440 / year (\u20ac870/month)",
+      "processing": "3-4 months",
+      "intro": "The Portugal D7 Visa (Passive Income Visa) allows retirees, remote investors, and individuals with stable passive revenue (pensions, real estate rentals, dividends, or intellectual property) to live in Portugal without making a major capital investment.",
+      "benefits": [
+          "Visa-free travel throughout the entire Schengen Area (29 countries)",
+          "Zero mandatory capital investment or real estate purchase requirement",
+          "Family reunification: include spouse, dependent minor children, adult dependent students, and parents",
+          "Access to Portuguese National Health Service (SNS) and top-tier European universities",
+          "Direct pathway to Portuguese EU Citizenship after 5 years of legal residency",
+          "Opportunity to benefit from favorable tax structures under the Portuguese fiscal regime"
+      ],
+      "options": [
+          {
+              "t": "Retirement Pension Stream",
+              "price": "\u20ac10,440+ / year",
+              "desc": "Proof of guaranteed monthly retirement pension meeting or exceeding the Portuguese statutory minimum wage (\u20ac870/mo)."
+          },
+          {
+              "t": "Real Estate Rental & Dividend Income",
+              "price": "\u20ac10,440+ / year",
+              "desc": "Proof of recurring income derived from leased properties, equity dividends, royalties, or fixed financial investments."
+          },
+          {
+              "t": "Family Passive Income Route",
+              "price": "\u20ac15,660+ / year (Couple)",
+              "desc": "Main applicant income requirement + 50% for spouse (\u20ac435/mo) and 30% for each dependent child (\u20ac261/mo)."
+          }
+      ],
+      "requirements": [
+          "Documented proof of regular passive income equal to at least \u20ac10,440 annually for the main applicant.",
+          "Portuguese NIF tax number and funded Portuguese bank account with 12 months living expenses.",
+          "Proof of long-term residential accommodation in Portugal (rental lease or property title).",
+          "Clean criminal record certificate with apostille/authentication.",
+          "Physical stay requirement: must spend at least 183 consecutive days or 8 non-consecutive months per year in Portugal."
+      ],
+      "faqs": [
+          {
+              "q": "What is the minimum passive income required for a family?",
+              "a": "For a couple, the requirement is 150% of the minimum wage (~\u20ac1,305/month or \u20ac15,660/year), plus 30% (~\u20ac261/month or \u20ac3,132/year) for each child."
+          },
+          {
+              "q": "Can I work in Portugal on a D7 Visa?",
+              "a": "Yes! Although initial eligibility requires passive income, once your residency card is issued, you are legally entitled to work or engage in professional activity in Portugal."
+          },
+          {
+              "q": "When do I qualify for Portuguese citizenship under D7?",
+              "a": "After 5 years of holding legal residency and demonstrating basic Portuguese language proficiency (A2 level), you and your family can apply for permanent residency or full citizenship."
+          }
+      ],
+      "lifestyleImage": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=85",
+      "propertyImage": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=85"
   }
 ];
-
 export function getProgramById(id: string): Program | undefined {
   return programs.find((p) => p.id === id);
 }
