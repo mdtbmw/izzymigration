@@ -1,0 +1,357 @@
+import React from "react";
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { Metadata } from "next";
+import {
+  DollarSign,
+  Clock,
+  Globe,
+  CheckCircle2,
+  ShieldCheck,
+  Building,
+  Umbrella,
+  Compass,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
+import { programs, getProgramById, getProgramsByRegion } from "@/data/programs";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { Badge } from "@/components/ui/Badge";
+import { ProcessRoadmap } from "@/components/programmes/ProcessRoadmap";
+import { Accordion } from "@/components/ui/Accordion";
+import { QuickInquiryForm } from "@/components/forms/QuickInquiryForm";
+import { ProgrammeCard } from "@/components/programmes/ProgrammeCard";
+import { ProgramActionButtons } from "@/components/programmes/ProgramActionButtons";
+import { CountryExperienceSlider } from "@/components/programmes/CountryExperienceSlider";
+import { assetPath } from "@/lib/brand";
+
+interface ProgramPageProps {
+  params: Promise<{ id: string }>;
+}
+
+export async function generateStaticParams() {
+  return programs.map((p) => ({
+    id: p.id,
+  }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProgramPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const program = getProgramById(id);
+
+  if (!program) {
+    return {
+      title: "Programme Not Found",
+    };
+  }
+
+  return {
+    title: `${program.title} | Izzy Migration Mentors`,
+    description: program.intro.slice(0, 160),
+    openGraph: {
+      title: `${program.title} | Sovereign Advisory`,
+      description: program.intro.slice(0, 160),
+      images: [
+        {
+          url: assetPath(program.hero || program.flag),
+          width: 1200,
+          height: 630,
+          alt: program.title,
+        },
+      ],
+    },
+  };
+}
+
+export default async function ProgramDetailPage({ params }: ProgramPageProps) {
+  const { id } = await params;
+  const program = getProgramById(id);
+
+  if (!program) {
+    notFound();
+  }
+
+  const isCitizenship = program.type === "citizenship";
+  const flagSrc = assetPath(program.flag);
+  const heroSrc = assetPath(program.hero);
+  const lifestyleSrc = assetPath(program.lifestyleImage || program.hero);
+  const propertySrc = assetPath(program.propertyImage || program.hero);
+
+  // Related programs in the same region
+  const relatedPrograms = getProgramsByRegion(program.region)
+    .filter((p) => p.id !== program.id)
+    .slice(0, 3);
+
+  const faqItems = (program.faqs || []).map((f) => ({
+    question: f.q,
+    answer: f.a,
+  }));
+
+  return (
+    <div className="bg-surface-100 min-h-screen pt-28 pb-16 md:pt-32 md:pb-24 w-full min-w-0 max-w-full overflow-x-clip">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Breadcrumb
+            items={[
+              { label: "Programmes", href: "/programmes" },
+              { label: program.region, href: `/programmes?region=${encodeURIComponent(program.region)}` },
+              { label: program.title },
+            ]}
+          />
+        </div>
+
+        {/* Hero Banner Card with Bright, Clear Real Country Background (No Dark Blue Veil) */}
+        <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] border border-white/15 bg-navy-950 p-5 sm:p-8 md:p-12 shadow-2xl text-white mb-8 sm:mb-12">
+          {/* Background Country Photo Overlay - Clear and Vibrant */}
+          <div className="absolute inset-0 z-0">
+            <img
+              src={heroSrc}
+              alt={program.country}
+              className="h-full w-full object-cover object-center"
+            />
+            {/* Natural transparent gradient for clean typography readability without dark blue haze */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+            <div className="lg:col-span-8 space-y-4 sm:space-y-5">
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <div className="relative h-6 w-9 sm:h-7 sm:w-10 overflow-hidden rounded-md border border-white/30 shadow bg-white">
+                  <img src={flagSrc} alt={program.country} className="h-full w-full object-cover" />
+                </div>
+                <Badge variant={isCitizenship ? "gold" : "navy"}>
+                  {isCitizenship ? "Sovereign Citizenship" : "Permanent Residency"}
+                </Badge>
+                <span className="text-[11px] sm:text-xs text-white/80 font-semibold">
+                  {program.region}
+                </span>
+              </div>
+
+              <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold font-heading text-white leading-tight drop-shadow-sm">
+                {program.title}
+              </h1>
+
+              <p className="text-[13px] sm:text-sm md:text-base text-white/90 leading-relaxed max-w-3xl font-normal drop-shadow-2xs">
+                {program.intro}
+              </p>
+
+              {/* Action Buttons */}
+              <ProgramActionButtons
+                programTitle={program.title}
+                country={program.country}
+                className="pt-1 sm:pt-2"
+              />
+            </div>
+
+            {/* Quick Metrics Column */}
+            <div className="lg:col-span-4 rounded-xl sm:rounded-2xl border border-white/20 bg-navy-950/80 p-4 sm:p-6 backdrop-blur-md space-y-3 sm:space-y-4 shadow-xl">
+              <div>
+                <span className="text-[11px] sm:text-xs text-white/70 font-medium block">Starting Investment:</span>
+                <span className="text-xl sm:text-2xl font-extrabold text-gold-400 font-heading">
+                  {program.minInvestment}
+                </span>
+              </div>
+
+              <div className="pt-2.5 sm:pt-3 border-t border-white/10">
+                <span className="text-[11px] sm:text-xs text-white/70 font-medium block">Processing Timeline:</span>
+                <span className="text-xs sm:text-sm font-bold text-white">
+                  {program.processing}
+                </span>
+              </div>
+
+              <div className="pt-2.5 sm:pt-3 border-t border-white/10">
+                <span className="text-[11px] sm:text-xs text-white/70 font-medium block">Due Diligence Authority:</span>
+                <span className="text-[11px] sm:text-xs font-semibold text-gold-400 flex items-center gap-1.5 mt-0.5">
+                  <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" /> Government Direct Statutory Channel
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2-Column Main Content & Sticky Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start relative">
+          {/* Left Column (8 cols): Structured Sections with Imagery */}
+          <div className="lg:col-span-8 space-y-12 min-w-0">
+            
+            {/* Section 1: Alternating Layout (Image Left + Key Strategic Benefits Right) */}
+            <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm">
+              <div className="grid gap-8 md:grid-cols-12 items-center">
+                {/* Left Photo */}
+                <div className="md:col-span-5 relative h-64 sm:h-72 w-full overflow-hidden rounded-2xl bg-navy-950 shadow-md">
+                  <img
+                    src={heroSrc}
+                    alt={`${program.country} Landscape`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-950/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-extrabold flex items-center gap-1.5">
+                    <Compass size={14} className="text-gold-400" />
+                    <span>{program.country} Sovereign Corridor</span>
+                  </div>
+                </div>
+
+                {/* Right Content */}
+                <div className="md:col-span-7 space-y-4">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Strategic Advantages
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading leading-snug">
+                    Key Programme Benefits
+                  </h2>
+                  <ul className="space-y-2.5 text-xs sm:text-sm text-ink-dark">
+                    {program.benefits.map((b, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 leading-relaxed">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-gold-100 text-gold-700 mt-0.5">
+                          <CheckCircle2 size={13} />
+                        </span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* Section 2: Country Experience Slider (Multi-Image Destination & Lifestyle Gallery) */}
+            <CountryExperienceSlider
+              country={program.country}
+              fallbackHero={heroSrc}
+              fallbackProperty={propertySrc}
+              fallbackLifestyle={lifestyleSrc}
+            />
+
+            {/* Section 3: Due Diligence & Statutory Criteria */}
+            {program.requirements && program.requirements.length > 0 && (
+              <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Due Diligence Checklist
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
+                    Applicant Eligibility &amp; Statutory Criteria
+                  </h2>
+                </div>
+
+                <div className="space-y-3">
+                  {program.requirements.map((req, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3.5 rounded-2xl border border-surface-200 bg-surface-50 p-4 text-xs sm:text-sm text-ink-dark"
+                    >
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy-950 text-[11px] font-extrabold text-gold-400 mt-0.5">
+                        0{idx + 1}
+                      </span>
+                      <span className="leading-relaxed">{req}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Section 4: Step-by-Step Application Roadmap */}
+            {program.process && program.process.length > 0 && (
+              <section className="space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    End-to-End Execution
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
+                    Step-by-Step Application Roadmap
+                  </h2>
+                  <p className="text-xs sm:text-sm text-ink-light">
+                    How Izzy Migration Mentors executes your sovereign application from preliminary pre-vetting to statutory naturalization certificate and passport delivery.
+                  </p>
+                </div>
+
+                <ProcessRoadmap steps={program.process} />
+              </section>
+            )}
+
+            {/* Section 5: Programme FAQs */}
+            {faqItems.length > 0 && (
+              <section className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                    Frequently Asked Questions
+                  </span>
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-navy-900 font-heading">
+                    {program.country} Programme FAQs
+                  </h2>
+                </div>
+
+                <Accordion items={faqItems} />
+              </section>
+            )}
+
+          </div>
+
+          {/* Right Column (4 cols): Sticky Private Client Inquiry Desk */}
+          <div className="lg:col-span-4 lg:sticky lg:top-28 self-start space-y-6 min-w-0">
+            {/* Form Card */}
+            <div className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-7 shadow-xl">
+              <div className="border-b border-surface-200 pb-4 mb-6">
+                <span className="chip chip--gold text-[10px] py-0.5 px-2.5 mb-2 inline-block">
+                  Confidential Assessment
+                </span>
+                <h3 className="text-lg font-extrabold text-navy-900 font-heading">
+                  Request Programme Dossier
+                </h3>
+                <p className="mt-1 text-xs text-ink-light leading-relaxed">
+                  Submit your details for a tailored eligibility evaluation and official statutory fee breakdown for {program.title}.
+                </p>
+              </div>
+
+              <QuickInquiryForm programTitle={program.title} />
+            </div>
+
+            {/* Verified License Guarantee */}
+            <div className="rounded-2xl border border-gold-400/40 bg-gold-500/10 p-5 text-navy-900">
+              <div className="flex items-center gap-2.5 font-extrabold text-xs text-navy-950 uppercase tracking-wider">
+                <ShieldCheck size={18} className="text-gold-600" />
+                Government Direct License
+              </div>
+              <p className="mt-2 text-xs text-ink-dark leading-relaxed">
+                All due diligence is processed directly through official government Citizenship by Investment Units (CIU) with strict legal privilege.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Related Programmes in Region */}
+        {relatedPrograms.length > 0 && (
+          <div className="mt-20 border-t border-surface-200 pt-14">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+              <div>
+                <span className="text-xs font-extrabold uppercase tracking-wider text-gold-600">
+                  Regional Comparison
+                </span>
+                <h3 className="text-2xl font-extrabold text-navy-900 font-heading mt-1">
+                  Other Programmes in {program.region}
+                </h3>
+              </div>
+              <Link
+                href={`/programmes?region=${encodeURIComponent(program.region)}`}
+                className="text-xs font-bold text-gold-600 hover:text-gold-700 inline-flex items-center gap-1"
+              >
+                View all {program.region} routes <ArrowRight size={13} />
+              </Link>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedPrograms.map((p, i) => (
+                <ProgrammeCard key={p.id} program={p} index={i} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
