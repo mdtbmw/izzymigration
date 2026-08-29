@@ -63,7 +63,7 @@ export default function CitizenshipbyAncestryPage() {
       <PageHero
         title="Citizenship by Descent & Ancestry"
         subtitle="Your family history may already hold the key to a tier-1 European passport. We trace qualifying lineage, retrieve municipal archives, and manage the entire statutory petition."
-        bgImage="/assets/imgs/breadcrumb/breadcrumb.png"
+        bgImage="https://images.unsplash.com/photo-1513584684374-8bab748fbf90?auto=format&fit=crop&w=1600&q=85"
         crumb={[{ label: "Citizenship by Descent" }]}
       />
 

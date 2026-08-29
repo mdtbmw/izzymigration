@@ -72,7 +72,7 @@ export default function GlobalRealEstatePage() {
       <PageHero
         title="Prime International Real Estate"
         subtitle="The foundation of many sovereign residency and citizenship programmes is qualifying prime property. We curate government-approved real estate assets with sound capital growth and bulletproof legal title."
-        bgImage="/assets/imgs/programs/portugal-golden-visa.webp"
+        bgImage="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=85"
         crumb={[{ label: "Global Real Estate" }]}
       />
 

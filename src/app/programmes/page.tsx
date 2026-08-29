@@ -23,7 +23,7 @@ export default function AllProgrammesPage() {
       <PageHero
         title="Global Residency & Citizenship Programmes"
         subtitle="Explore premier government-approved citizenship and residency by investment routes across 30+ jurisdictions worldwide. Compare investment thresholds, processing timelines, and strategic benefits in one place."
-        bgImage="/assets/imgs/programs/st-kitts-citizenship.webp"
+        bgImage="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=85"
         crumb={[{ label: "All Programmes" }]}
       />
 

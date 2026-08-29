@@ -23,7 +23,7 @@ export default function CitizenshipPage() {
       <PageHero
         title="Citizenship by Investment Programmes"
         subtitle="Secure a permanent sovereign second passport and lifelong constitutional citizenship for your family through government-approved contributions or luxury real estate."
-        bgImage="/assets/imgs/programs/st-kitts-citizenship.webp"
+        bgImage="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=1600&q=85"
         crumb={[{ label: "Citizenship by Investment" }]}
       />
 

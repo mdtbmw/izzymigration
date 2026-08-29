@@ -49,7 +49,7 @@ export default function CountriesJurisdictionsPage() {
       <PageHero
         title="Sovereign Jurisdictions & Countries"
         subtitle="Explore over 30 global jurisdictions offering government-approved citizenship, golden visas, and residency by investment programmes."
-        bgImage="/assets/imgs/breadcrumb/breadcrumb.png"
+        bgImage="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=85"
         crumb={[{ label: "Countries" }]}
       />
 

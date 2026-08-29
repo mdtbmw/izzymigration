@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { assetPath } from "@/lib/brand";
 
 interface Crumb {
   label: string;
@@ -25,7 +26,7 @@ export function PageHero({ title, crumb, subtitle, bgImage, className }: PageHer
           {bgImage && (
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <img
-                src={bgImage}
+                src={assetPath(bgImage)}
                 alt=""
                 className="h-full w-full object-cover object-center opacity-95"
               />
