@@ -8,54 +8,54 @@ export interface GalleryImage {
 export const countryGalleries: Record<string, GalleryImage[]> = {
   "South Korea": [
     {
-      "url": "https://images.unsplash.com/photo-1546874177-9e664107314e?auto=format&fit=crop&w=1400&q=85",
-      "title": "Seoul Namsan & Metropolitan Skyline",
+      "url": "https://static.wixstatic.com/media/nsplsh_3eedd3ffea274621bd4736b023864875~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/Image%20by%20Hoyoung%20Choi.jpg",
+      "title": "Seoul Namsan Skyline by Hoyoung Choi",
       "category": "Landmark",
-      "caption": "Dynamic global powerhouse blending hypermodern innovation with world-class infrastructure."
+      "caption": "Dynamic global metropolis blending hypermodern infrastructure with rich cultural heritage."
     },
     {
-      "url": "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=1400&q=85",
-      "title": "Gyeongbokgung Palace Heritage",
-      "category": "Culture",
-      "caption": "Centuries of Joseon dynasty imperial architecture and rich Korean cultural legacy."
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?auto=format&fit=crop&w=1400&q=85",
-      "title": "Jeju Island UNESCO Biosphere & Luxury Resorts",
-      "category": "Coast",
-      "caption": "Pristine volcanic coastline, world-class golf havens, and designated immigrant investor resort zones."
-    },
-    {
-      "url": "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=1400&q=85",
-      "title": "Gangnam & Songdo International City",
+      "url": "https://static.wixstatic.com/media/f32770_ac933ab1424944f894335ebc1e8c7083~mv2.png/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/Jeju%20Shinhwa%20World%20Resorts.png",
+      "title": "Jeju Shinhwa World Resorts",
       "category": "Real Estate",
-      "caption": "Smart-city developments, premier international schools, and prime luxury residential assets."
+      "caption": "Government-designated immigrant investor luxury resort complex in Jeju International City."
+    },
+    {
+      "url": "https://static.wixstatic.com/media/2df78b_7ccc87e009e944d0bc1695cb8bdd7705~mv2.png/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/image.png",
+      "title": "Kylin Resort Jeju Island",
+      "category": "Coast",
+      "caption": "Pristine coastal luxury resort villas eligible under the Tourism & Leisure Facility Investment System."
+    },
+    {
+      "url": "https://static.wixstatic.com/media/nsplsh_90ca9ecae77c49acb35f4e3eef64e774~mv2.jpg/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/Image%20by%20JUNGIL%20PARK.jpg",
+      "title": "South Korea Lifestyle by JUNGIL PARK",
+      "category": "Culture",
+      "caption": "Leading educational academies, top-tier healthcare, and premier global living standards."
     }
   ],
   "Japan": [
     {
-      "url": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1400&q=85",
-      "title": "Mount Fuji & Chureito Pagoda",
-      "category": "Landmark",
-      "caption": "Iconic panoramic views of sacred Mount Fuji framed by seasonal cherry blossoms and historic pagodas."
-    },
-    {
       "url": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1400&q=85",
       "title": "Tokyo Tower & Metropolitan Skyline",
-      "category": "Architecture",
-      "caption": "The vibrant capital of global innovation, culinary prestige, and cutting-edge business commerce."
+      "category": "Landmark",
+      "caption": "World-class financial and technological capital offering unparalleled safety and enterprise opportunities."
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1400&q=85",
+      "title": "Kyoto Heritage & Imperial Architecture",
+      "category": "Culture",
+      "caption": "Centuries of preserved cultural heritage, tranquil Zen gardens, and traditional architecture."
     },
     {
       "url": "https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=1400&q=85",
-      "title": "Kyoto Arashiyama & Historic Temples",
-      "category": "Culture",
-      "caption": "Centuries of imperial Japanese heritage, tranquil bamboo groves, and timeless Zen architecture."
+      "title": "Osaka Commercial & Culinary Center",
+      "category": "Landmark",
+      "caption": "Dynamic commercial gateway known for business innovation, enterprise growth, and vibrant urban living."
     },
     {
       "url": "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=1400&q=85",
-      "title": "Shibuya & Ginza Luxury Districts",
-      "category": "Lifestyle",
-      "caption": "World-leading retail, Michelin-starred dining, and unparalleled urban safety and convenience."
+      "title": "Shinjuku & Shibuya Modern Districts",
+      "category": "Architecture",
+      "caption": "High-density transit networks, international corporate headquarters, and premier residential neighborhoods."
     }
   ],
   "St. Kitts & Nevis": [

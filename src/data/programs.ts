@@ -2476,7 +2476,7 @@ export const programs: Program[] = [
       "region": "Asia-Pacific",
       "country": "South Korea",
       "flag": "assets/imgs/flags/kr.svg",
-      "hero": "https://images.unsplash.com/photo-1546874177-9e664107314e?auto=format&fit=crop&w=1400&q=85",
+      "hero": "https://static.wixstatic.com/media/nsplsh_3eedd3ffea274621bd4736b023864875~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_85,enc_avif,quality_auto/Image%20by%20Hoyoung%20Choi.jpg",
       "minInvestment": "KRW 1,000,000,000",
       "processing": "1-3 months",
       "intro": "South Korea's Immigrant Investor Scheme allows international investors and their families to obtain long-term F-2 resident status through designated real estate acquisition in special tourism zones (such as Jeju Island) or government-backed public funds. Converts to unconditional F-5 Permanent Residency after 5 years with full capital return flexibility.",
@@ -2519,8 +2519,8 @@ export const programs: Program[] = [
               "a": "Yes. F-2 visa holders and their children have full rights to enroll in Korea's top international schools, including the renowned British and American academies in Jeju Global Education City."
           }
       ],
-      "lifestyleImage": "https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=1200&q=85",
-      "propertyImage": "https://images.unsplash.com/photo-1583037189850-1921ae7c6c22?auto=format&fit=crop&w=1200&q=85"
+      "lifestyleImage": "https://static.wixstatic.com/media/nsplsh_90ca9ecae77c49acb35f4e3eef64e774~mv2.jpg/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/Image%20by%20JUNGIL%20PARK.jpg",
+      "propertyImage": "https://static.wixstatic.com/media/f32770_ac933ab1424944f894335ebc1e8c7083~mv2.png/v1/fill/w_1000,h_650,al_c,q_85,enc_avif,quality_auto/Jeju%20Shinhwa%20World%20Resorts.png"
   }
 ];
 
