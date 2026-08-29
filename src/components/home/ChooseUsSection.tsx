@@ -8,7 +8,7 @@ import { advisoryYears } from "@/data/siteConfig";
 const POINTS = [
   {
     icon: ShieldCheck,
-    title: "We partner with practicing lawyers",
+    title: "We Partner With:",
     text: "Practising lawyers and licensed immigration advisers — not agents or middlemen.",
   },
   {

@@ -73,8 +73,8 @@ const PILLARS = [
   },
   {
     icon: Award,
-    title: "Practicing Partner Lawyers",
-    desc: "We collaborate with licensed immigration barristers and accredited statutory developers worldwide.",
+    title: "We Partner With:",
+    desc: "Practicing lawyers and licensed immigration advisers — not agents or middlemen.",
   },
   {
     icon: Globe,

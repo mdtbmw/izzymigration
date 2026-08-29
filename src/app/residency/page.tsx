@@ -23,7 +23,7 @@ export default function ResidencyPage() {
       <PageHero
         title="Residency by Investment & Golden Visas"
         subtitle="Secure legal residency, borderless travel, and family settlement across Europe, North America, and Asia-Pacific through qualifying investments in real estate and regulated funds."
-        bgImage="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1600&q=85"
+        bgImage="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1800&q=85"
         crumb={[{ label: "Residency Programmes" }]}
       />
 
