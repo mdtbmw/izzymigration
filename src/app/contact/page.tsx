@@ -1,534 +1,262 @@
+import type { Metadata } from "next";
+import { PageHero } from "@/components/ui/PageHero";
+import { ContactForm } from "@/components/forms/ContactForm";
+import { CtaBand } from "@/components/home/CtaBand";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Clock,
+  ShieldCheck,
+  MessageSquare,
+  ArrowRight,
+  ExternalLink,
+  Award,
+  Globe,
+} from "lucide-react";
+import { assetPath } from "@/lib/brand";
+import { siteConfig } from "@/data/siteConfig";
 
-"use client";
+export const metadata: Metadata = {
+  title: "Contact Our Senior Sovereign Advisors | Izzy Migration Mentors",
+  description:
+    "Schedule a confidential consultation with Izzy Migration Mentors. Direct advisory for Citizenship by Investment, European Golden Visas, Ancestry, and International Real Estate.",
+};
 
-import React from "react";
-import Link from "next/link";
+const CONTACT_METHODS = [
+  {
+    icon: Phone,
+    title: "Direct Advisory Desk",
+    value: "0706 720 3694",
+    sub: "+234 706 720 3694",
+    href: "tel:+2347067203694",
+    actionLabel: "Call Advisor",
+  },
+  {
+    icon: MessageSquare,
+    title: "Official WhatsApp Desk",
+    value: "0706 720 3694",
+    sub: "Instant Senior Mentor Reply",
+    href: "https://wa.me/2347067203694?text=Hello%20Izzy%20Migration%20Mentors%2C%20I%20would%20like%20a%20confidential%20sovereign%20advisory%20consultation.",
+    actionLabel: "Chat on WhatsApp",
+    isWhatsApp: true,
+  },
+  {
+    icon: Mail,
+    title: "Confidential Email",
+    value: "info@izzymigration.com",
+    sub: "Direct Document & Dossier Intake",
+    href: "mailto:info@izzymigration.com",
+    actionLabel: "Send Email",
+  },
+  {
+    icon: MapPin,
+    title: "Headquarters",
+    value: "Victoria Island, Lagos",
+    sub: "6th Floor, Number One Building, Akin Adesola Street",
+    href: "https://maps.app.goo.gl/R8Y6ZY6s1KrcGWc67",
+    actionLabel: "Open Google Maps",
+  },
+];
 
-export default function ContactUsPage() {
+const SCHEDULES = [
+  { days: "Monday – Friday", hours: "9:00 AM – 8:00 PM WAT" },
+  { days: "Saturday", hours: "10:00 AM – 4:00 PM WAT" },
+  { days: "Sunday", hours: "Priority Emergency Advisory Only" },
+];
+
+const PILLARS = [
+  {
+    icon: ShieldCheck,
+    title: "Strict Attorney-Client Discretion",
+    desc: "Every discussion and document shared is protected under strict confidentiality protocols.",
+  },
+  {
+    icon: Award,
+    title: "Practicing Partner Lawyers",
+    desc: "We collaborate with licensed immigration barristers and accredited statutory developers worldwide.",
+  },
+  {
+    icon: Globe,
+    title: "46+ Sovereign Corridors",
+    desc: "Direct access to government Citizenship by Investment Units and residency ministries.",
+  },
+];
+
+export default function ContactPage() {
   return (
-    <main>
+    <>
+      {/* Hero Banner with Bright Sovereign Horizon Photography */}
+      <PageHero
+        title="Contact Our Senior Sovereign Advisors"
+        subtitle="Begin your family's global mobility and wealth preservation journey with confidential, institutional-grade counsel."
+        bgImage="/assets/imgs/globevisa/globevisa_hero_skyline.jpg"
+        crumb={[{ label: "Contact Us" }]}
+      />
 
-
-    <div className="breadcrumb__area dark-green breadcrumb-space overflow-hidden custom-width position-relative z-1" data-background="/assets/imgs/breadcrumb/breadcrumb.png">
-        <div className="container">
-            <div className="row align-items-center justify-content-between">
-                <div className="col-12">
-                    <div className="breadcrumb__content">
-                        <div className="breadcrumb__title-wrapper mb-15 mb-sm-10 mb-xs-5">
-                            <h1 className="breadcrumb__title color-white wow fadeInLeft animated" data-wow-delay=".2s">Contact</h1>
-                        </div>
-                        <div className="breadcrumb__menu wow fadeInLeft animated" data-wow-delay=".3s">
-                            <nav>
-                                <ul>
-                                    <li><span><a href="/">Home</a></span></li>
-                                    <li className="active"><span>Contact</span></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+      {/* Main Content Space */}
+      <section className="section-space bg-surface-50">
+        <div className="container-izzy">
+          
+          {/* Top 4 Contact Method Cards */}
+          <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-10 sm:mb-14">
+            {CONTACT_METHODS.map((m) => (
+              <a
+                key={m.title}
+                href={m.href}
+                target={m.href.startsWith("http") ? "_blank" : undefined}
+                rel={m.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="group flex flex-col justify-between rounded-2xl sm:rounded-3xl border border-surface-200 bg-white p-5 sm:p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold-400 hover:shadow-lg"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-colors ${
+                      m.isWhatsApp 
+                        ? "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white" 
+                        : "bg-navy-950 text-gold-400 group-hover:bg-gold-500 group-hover:text-navy-950"
+                    }`}>
+                      <m.icon size={22} />
+                    </span>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface-100 text-ink-light transition-colors group-hover:bg-gold-500 group-hover:text-navy-950">
+                      <ArrowRight size={13} />
+                    </span>
+                  </div>
+                  <p className="text-[11px] font-extrabold uppercase tracking-wider text-gold-600">
+                    {m.title}
+                  </p>
+                  <h3 className="mt-1 text-base sm:text-lg font-extrabold text-navy-900 leading-snug break-words">
+                    {m.value}
+                  </h3>
+                  <p className="mt-1 text-[12px] font-medium text-ink-light leading-relaxed">
+                    {m.sub}
+                  </p>
                 </div>
+                <div className="mt-4 pt-3.5 border-t border-surface-200/80 text-[12px] font-extrabold text-navy-900 group-hover:text-gold-600 transition-colors inline-flex items-center gap-1">
+                  <span>{m.actionLabel}</span>
+                  {m.href.startsWith("http") && <ExternalLink size={12} />}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* 2-Column Grid: Left Contact Form + Right Office & Advisory Info */}
+          <div className="grid gap-10 lg:grid-cols-12 items-start">
+            
+            {/* Left Column: Form (7 cols) */}
+            <div className="lg:col-span-7">
+              <ContactForm />
             </div>
+
+            {/* Right Column: Office Card, Advisory Hours, and Assurance (5 cols) */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              {/* Office Location Card */}
+              <div className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm">
+                <div className="flex items-center gap-3 pb-4 border-b border-surface-200">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy-950 text-gold-400">
+                    <MapPin size={20} />
+                  </span>
+                  <div>
+                    <p className="text-[11px] font-extrabold uppercase tracking-wider text-gold-600">
+                      Sovereign Advisory Office
+                    </p>
+                    <h3 className="text-base font-extrabold text-navy-900">
+                      Izzy Migration Mentors Limited
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="mt-4 space-y-3 text-xs sm:text-[13px] text-ink-dark leading-relaxed">
+                  <p className="font-semibold text-navy-900">
+                    6th Floor, Number One Building, Akin Adesola Street, Victoria Island, Lagos, Nigeria.
+                  </p>
+                  <p className="text-ink-light">
+                    Private consultations are hosted by appointment in our executive suites or securely via encrypted video conference for international clients.
+                  </p>
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-surface-200 flex items-center justify-between">
+                  <a
+                    href="https://maps.app.goo.gl/R8Y6ZY6s1KrcGWc67"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-extrabold text-navy-900 hover:text-gold-600 transition-colors"
+                  >
+                    <span>Get Office Directions</span>
+                    <ExternalLink size={13} />
+                  </a>
+                  <a
+                    href="https://wa.me/2347067203694?text=Hello%20Izzy%20Migration%20Mentors%2C%20I%20would%20like%20to%20book%20an%20in-person%20consultation."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-extrabold transition-all"
+                  >
+                    <MessageSquare size={12} />
+                    <span>Book In-Person</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Operating & Advisory Hours */}
+              <div className="rounded-3xl border border-surface-200 bg-white p-6 sm:p-8 shadow-sm">
+                <div className="flex items-center gap-3 pb-4 border-b border-surface-200">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold-500/15 text-gold-600">
+                    <Clock size={20} />
+                  </span>
+                  <div>
+                    <p className="text-[11px] font-extrabold uppercase tracking-wider text-gold-600">
+                      Advisory Desk Hours
+                    </p>
+                    <h3 className="text-base font-extrabold text-navy-900">
+                      West Africa Time (WAT / UTC+1)
+                    </h3>
+                  </div>
+                </div>
+
+                <ul className="mt-4 space-y-3 text-xs sm:text-[13px]">
+                  {SCHEDULES.map((s) => (
+                    <li key={s.days} className="flex items-center justify-between pb-2.5 border-b border-surface-100 last:border-0 last:pb-0">
+                      <span className="font-bold text-navy-900">{s.days}</span>
+                      <span className="font-semibold text-ink-light">{s.hours}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Institutional Assurance Pillars */}
+              <div className="rounded-3xl border border-gold-400/30 bg-navy-950 p-6 sm:p-8 text-white shadow-md relative overflow-hidden">
+                <div className="glow-orb -right-10 -bottom-10 h-40 w-40 bg-gold-500/10 pointer-events-none" />
+                <h4 className="text-sm font-extrabold uppercase tracking-wider text-gold-400 font-heading">
+                  Statutory Guarantee &amp; Discretion
+                </h4>
+                <div className="mt-4 space-y-3.5">
+                  {PILLARS.map((p) => (
+                    <div key={p.title} className="flex items-start gap-3">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 text-gold-400 mt-0.5">
+                        <p.icon size={15} />
+                      </span>
+                      <div>
+                        <p className="text-[13px] font-extrabold text-white leading-tight">
+                          {p.title}
+                        </p>
+                        <p className="text-[11.5px] text-white/75 leading-relaxed mt-0.5">
+                          {p.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
-    </div>
-    
-    {/* contact-us-start */}
-    <section className="contact-us__area section pt-100 section-space-bottom overflow-hidden">
-        <div className="container">
-            <div className="row align-items-center">
-                <div className="col-lg-6">
-                    <div className="contact-us__widget mb-30" data-tilt>
-                        <img src="/assets/imgs/concact/contact-left-img.png" alt="" />
-                    </div>
-                </div>
-                <div className="col-lg-6">
-                    <div className="contact-us__title-wrapper">
-                        <div className="section__title-wrapper mb-40">
-                            <h6 className="section__title-wrapper-black-subtitle mb-10 wow fadeInLeft animated" data-wow-delay=".2s">Contact Information
-                                <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g clipPath="url(#clip0_3843_1169)">
-                                <path d="M4.92578 10.3748L6.49623 9.68052L5.62583 9.07031L4.92578 10.3748Z" fill="#83CD20"/>
-                                <path d="M4.92578 10.3743L5.00073 8L13.9088 0L5.66505 9.1113L4.92578 10.3743Z" fill="#83CD20"/>
-                                <path d="M5 8L13.908 0L0 6.22704L5 8Z" fill="#83CD20"/>
-                                <path d="M5.66406 9.1113L9.95686 12L13.9078 0L5.66406 9.1113Z" fill="#b8860b"/>
-                                </g>
-                                <defs>
-                                <clipPath id="clip0_3843_1169">
-                                <rect width="13.908" height="12" fill="white"/>
-                                </clipPath>
-                                </defs>
-                                </svg></h6>
-                            <h2 className="section__title-wrapper-title wow fadeInLeft animated" data-wow-delay=".3s">Ready to Start Your Application?</h2>
-                        </div>
+      </section>
 
-                        <div className="contact-us__form-wrapper">
-                            <form className="contact-us__form" id="contact-us__form" method="POST" action="/api/lead">
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <div className="contact-us__input wow fadeInLeft animated" data-wow-delay=".4s">
-                                            <span>Your Name</span>
-                                            <input name="name" id="name" type="text" placeholder="Your Name" required />
-                                            <div className="icon">
-                                                <i className="fa-solid fa-user"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="contact-us__input wow fadeInLeft animated" data-wow-delay=".5s">
-                                            <span>Your Email</span>
-                                            <input name="email" id="email" type="email" placeholder="Your Email" required />
-                                            <div className="icon icon-2">
-                                                <i className="fa-solid fa-paper-plane"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="contact-us__input wow fadeInLeft animated" data-wow-delay=".6s">
-                                            <span>Your Phone</span>
-                                            <input name="phone" id="phone" type="tel" placeholder="Your Phone" />
-                                            <div className="icon">
-                                                <i className="fa-solid fa-phone"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="contact-us__input wow fadeInLeft animated" data-wow-delay=".7s">
-                                            <span>Subject</span>
-                                            <input name="subject" id="subject" type="text" placeholder="I need help with..." />
-                                            <div className="icon icon-2">
-                                                <i className="fa-solid fa-tag"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12">
-                                        <div className="contact-us__textarea wow fadeInLeft animated" data-wow-delay=".8s">
-                                            <span>Message</span>
-                                            <textarea name="message" id="message" cols={30} rows={6} placeholder="Tell us about your visa or residency goal..." required></textarea>
-                                            <div className="icon">
-                                                <i className="fa-solid fa-envelope"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-12">
-                                        <input type="text" name="website" className="d-none" tabIndex={-1} autoComplete="off" aria-hidden="true" />
-                                        <button type="submit" className="contact-btn mt-30 wow fadeInLeft animated" data-wow-delay=".9s">Send Message</button>
-                                        <div className="ajax-response mt-15"></div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    {/* contact-us-end */}
-
-    <section className="product-filter-area section pb-190 overflow-hidden">
-        <div className="container">
-            <div className="row">
-                <div className="col-12">
-                    <div className="section__title-wrapper text-center mb-30">
-                        <h6 className="section__title-wrapper-subtitle mb-10 wow fadeInLeft animated" data-wow-delay=".2s">Contact Information</h6>
-                        <h2 className="section__title-wrapper-title wow fadeInLeft animated" data-wow-delay=".3s">Let's Plan <br /> Your Application</h2>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-xl-12">
-                    <div className="rr-fea-product__tab rr-fea-product__tab-3 product-filter-area-review mb-60">
-                        <nav>
-                            <div className="nav nav-tab nav-inner nav-inner-3 align-items-center justify-content-center" id="nav-tab" role="tablist">
-                                <div className="all-button d-flex">
-                                    <button className="nav-link nav-link-3 rr-el-rep-filterBtn active wow fadeInLeft animated" data-wow-delay=".4s" id="nav-0-tab" data-bs-toggle="tab" data-bs-target="#nav-0" type="button" role="tab" aria-controls="nav-0" aria-selected="true">
-                                        <span className="button button-3">
-                                            <span>Asia</span>
-                                        </span>
-                                    </button>
-                                    <button className="nav-link nav-link-3 rr-el-rep-filterBtn wow fadeInLeft animated" data-wow-delay=".5s" id="nav-1-tab" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="nav-1" aria-selected="false">
-                                        <span className="button text-center">
-                                            <span>Europe</span>
-                                        </span>
-                                    </button>
-                                    <button className="nav-link nav-link-3 rr-el-rep-filterBtn wow fadeInLeft animated" data-wow-delay=".6s" id="nav-2-tab" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="nav-1" aria-selected="false">
-                                        <span className="button text-center">
-                                            <span>North America</span>
-                                        </span>
-                                    </button>
-                                    <button className="nav-link nav-link-3 rr-el-rep-filterBtn wow fadeInLeft animated" data-wow-delay=".7s" id="nav-3-tab" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="nav-1" aria-selected="false">
-                                        <span className="button text-center">
-                                            <span>Australia</span>
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="tab-content" id="nav-tabContent">
-                    <div className="tab-pane active fade show" id="nav-0" role="tabpanel" aria-labelledby="nav-0-tab" tabIndex={0}>
-                        <div className="rr-fea-product d-flex justify-content-between">
-                            <div className="media-content has--line wow fadeInLeft animated" data-wow-delay=".2s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M24.9512 19.0215L23.7793 23.9531C23.6328 24.6855 23.0469 25.1738 22.3145 25.1738C10.0098 25.125 0 15.1152 0 2.81055C0 2.07812 0.439453 1.49219 1.17188 1.3457L6.10352 0.173828C6.78711 0.0273438 7.51953 0.417969 7.8125 1.05273L10.1074 6.375C10.3516 7.00977 10.2051 7.74219 9.66797 8.13281L7.03125 10.2812C8.69141 13.6504 11.4258 16.3848 14.8438 18.0449L16.9922 15.4082C17.3828 14.9199 18.1152 14.7246 18.75 14.9688L24.0723 17.2637C24.707 17.6055 25.0977 18.3379 24.9512 19.0215Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Requesting A Call:</span>
-                                        <a href="https://wa.me/2347067203694?text=Hello%20Izzy%20Migration%20Mentors%2C%20I%20would%20like%20a%20confidential%20consultation." target="_blank" rel="noopener noreferrer">
-                                            <h6>0706 720 3694</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M22.6562 0.25C23.9258 0.25 25 1.32422 25 2.59375C25 3.375 24.6094 4.05859 24.0234 4.49805L13.4277 12.457C12.8418 12.8965 12.1094 12.8965 11.5234 12.457L0.927734 4.49805C0.341797 4.05859 0 3.375 0 2.59375C0 1.32422 1.02539 0.25 2.34375 0.25H22.6562ZM10.5957 13.7266C11.7188 14.5566 13.2324 14.5566 14.3555 13.7266L25 5.71875V15.875C25 17.6328 23.584 19 21.875 19H3.125C1.36719 19 0 17.6328 0 15.875V5.71875L10.5957 13.7266Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>E-mail</span>
-                                        <a href="mailto:info@izzymigration.com">
-                                            <h6>info@izzymigration.com</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.20312 24.5391C5.66406 21.3652 0 13.7969 0 9.5C0 4.32422 4.15039 0.125 9.375 0.125C14.5508 0.125 18.75 4.32422 18.75 9.5C18.75 13.7969 13.0371 21.3652 10.498 24.5391C9.91211 25.2715 8.78906 25.2715 8.20312 24.5391ZM9.375 12.625C11.084 12.625 12.5 11.2578 12.5 9.5C12.5 7.79102 11.084 6.375 9.375 6.375C7.61719 6.375 6.25 7.79102 6.25 9.5C6.25 11.2578 7.61719 12.625 9.375 12.625Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Location</span>
-                                        <a href="https://maps.app.goo.gl/R8Y6ZY6s1KrcGWc67">
-                                            <h6>6th Floor, Number One Building, <br /> Akin Adesola Street, Victoria Island, Lagos, Nigeria</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="media-content wow fadeInLeft animated" data-wow-delay=".3s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Monday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Tuesday-Friday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Saturday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="tab-content" data-tilt>
-                                <img src="/assets/imgs/concact/contact-tap-img.png" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="tab-pane second-pane fade " id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab" tabIndex={0}>
-                        <div className="rr-fea-product d-flex justify-content-between">
-                            <div className="media-content has--line wow fadeInLeft animated" data-wow-delay=".2s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M24.9512 19.0215L23.7793 23.9531C23.6328 24.6855 23.0469 25.1738 22.3145 25.1738C10.0098 25.125 0 15.1152 0 2.81055C0 2.07812 0.439453 1.49219 1.17188 1.3457L6.10352 0.173828C6.78711 0.0273438 7.51953 0.417969 7.8125 1.05273L10.1074 6.375C10.3516 7.00977 10.2051 7.74219 9.66797 8.13281L7.03125 10.2812C8.69141 13.6504 11.4258 16.3848 14.8438 18.0449L16.9922 15.4082C17.3828 14.9199 18.1152 14.7246 18.75 14.9688L24.0723 17.2637C24.707 17.6055 25.0977 18.3379 24.9512 19.0215Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Requesting A Call:</span>
-                                        <a href="https://wa.me/2347067203694?text=Hello%20Izzy%20Migration%20Mentors%2C%20I%20would%20like%20a%20confidential%20consultation." target="_blank" rel="noopener noreferrer">
-                                            <h6>0706 720 3694</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M22.6562 0.25C23.9258 0.25 25 1.32422 25 2.59375C25 3.375 24.6094 4.05859 24.0234 4.49805L13.4277 12.457C12.8418 12.8965 12.1094 12.8965 11.5234 12.457L0.927734 4.49805C0.341797 4.05859 0 3.375 0 2.59375C0 1.32422 1.02539 0.25 2.34375 0.25H22.6562ZM10.5957 13.7266C11.7188 14.5566 13.2324 14.5566 14.3555 13.7266L25 5.71875V15.875C25 17.6328 23.584 19 21.875 19H3.125C1.36719 19 0 17.6328 0 15.875V5.71875L10.5957 13.7266Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>E-mail</span>
-                                        <a href="mailto:info@izzymigration.com">
-                                            <h6>info@izzymigration.com</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.20312 24.5391C5.66406 21.3652 0 13.7969 0 9.5C0 4.32422 4.15039 0.125 9.375 0.125C14.5508 0.125 18.75 4.32422 18.75 9.5C18.75 13.7969 13.0371 21.3652 10.498 24.5391C9.91211 25.2715 8.78906 25.2715 8.20312 24.5391ZM9.375 12.625C11.084 12.625 12.5 11.2578 12.5 9.5C12.5 7.79102 11.084 6.375 9.375 6.375C7.61719 6.375 6.25 7.79102 6.25 9.5C6.25 11.2578 7.61719 12.625 9.375 12.625Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Location</span>
-                                        <a href="https://maps.app.goo.gl/R8Y6ZY6s1KrcGWc67">
-                                            <h6>6th Floor, Number One Building, <br /> Akin Adesola Street, Victoria Island, Lagos, Nigeria</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="media-content wow fadeInLeft animated" data-wow-delay=".3s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Monday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Tuesday-Friday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Saturday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="tab-content" data-tilt>
-                                <img src="/assets/imgs/concact/contact-tap-img2.png" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="tab-pane second-pane fade " id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab" tabIndex={0}>
-                        <div className="rr-fea-product d-flex justify-content-between">
-                            <div className="media-content has--line wow fadeInLeft animated" data-wow-delay=".4zs">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M24.9512 19.0215L23.7793 23.9531C23.6328 24.6855 23.0469 25.1738 22.3145 25.1738C10.0098 25.125 0 15.1152 0 2.81055C0 2.07812 0.439453 1.49219 1.17188 1.3457L6.10352 0.173828C6.78711 0.0273438 7.51953 0.417969 7.8125 1.05273L10.1074 6.375C10.3516 7.00977 10.2051 7.74219 9.66797 8.13281L7.03125 10.2812C8.69141 13.6504 11.4258 16.3848 14.8438 18.0449L16.9922 15.4082C17.3828 14.9199 18.1152 14.7246 18.75 14.9688L24.0723 17.2637C24.707 17.6055 25.0977 18.3379 24.9512 19.0215Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Requesting A Call:</span>
-                                        <a href="https://wa.me/2347067203694?text=Hello%20Izzy%20Migration%20Mentors%2C%20I%20would%20like%20a%20confidential%20consultation." target="_blank" rel="noopener noreferrer">
-                                            <h6>0706 720 3694</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M22.6562 0.25C23.9258 0.25 25 1.32422 25 2.59375C25 3.375 24.6094 4.05859 24.0234 4.49805L13.4277 12.457C12.8418 12.8965 12.1094 12.8965 11.5234 12.457L0.927734 4.49805C0.341797 4.05859 0 3.375 0 2.59375C0 1.32422 1.02539 0.25 2.34375 0.25H22.6562ZM10.5957 13.7266C11.7188 14.5566 13.2324 14.5566 14.3555 13.7266L25 5.71875V15.875C25 17.6328 23.584 19 21.875 19H3.125C1.36719 19 0 17.6328 0 15.875V5.71875L10.5957 13.7266Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>E-mail</span>
-                                        <a href="mailto:info@izzymigration.com">
-                                            <h6>info@izzymigration.com</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.20312 24.5391C5.66406 21.3652 0 13.7969 0 9.5C0 4.32422 4.15039 0.125 9.375 0.125C14.5508 0.125 18.75 4.32422 18.75 9.5C18.75 13.7969 13.0371 21.3652 10.498 24.5391C9.91211 25.2715 8.78906 25.2715 8.20312 24.5391ZM9.375 12.625C11.084 12.625 12.5 11.2578 12.5 9.5C12.5 7.79102 11.084 6.375 9.375 6.375C7.61719 6.375 6.25 7.79102 6.25 9.5C6.25 11.2578 7.61719 12.625 9.375 12.625Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Location</span>
-                                        <a href="https://maps.app.goo.gl/R8Y6ZY6s1KrcGWc67">
-                                            <h6>6th Floor, Number One Building, <br /> Akin Adesola Street, Victoria Island, Lagos, Nigeria</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="media-content wow fadeInLeft animated" data-wow-delay=".6s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Monday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Tuesday-Friday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Saturday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="tab-content" data-tilt>
-                                <img src="/assets/imgs/concact/contact-tap-img3.png" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="tab-pane second-pane fade " id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab" tabIndex={0}>
-                        <div className="rr-fea-product d-flex justify-content-between">
-                            <div className="media-content has--line wow fadeInLeft animated" data-wow-delay=".4s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M24.9512 19.0215L23.7793 23.9531C23.6328 24.6855 23.0469 25.1738 22.3145 25.1738C10.0098 25.125 0 15.1152 0 2.81055C0 2.07812 0.439453 1.49219 1.17188 1.3457L6.10352 0.173828C6.78711 0.0273438 7.51953 0.417969 7.8125 1.05273L10.1074 6.375C10.3516 7.00977 10.2051 7.74219 9.66797 8.13281L7.03125 10.2812C8.69141 13.6504 11.4258 16.3848 14.8438 18.0449L16.9922 15.4082C17.3828 14.9199 18.1152 14.7246 18.75 14.9688L24.0723 17.2637C24.707 17.6055 25.0977 18.3379 24.9512 19.0215Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Requesting A Call:</span>
-                                        <a href="https://wa.me/2347067203694?text=Hello%20Izzy%20Migration%20Mentors%2C%20I%20would%20like%20a%20confidential%20consultation." target="_blank" rel="noopener noreferrer">
-                                            <h6>0706 720 3694</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="25" height="19" viewBox="0 0 25 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M22.6562 0.25C23.9258 0.25 25 1.32422 25 2.59375C25 3.375 24.6094 4.05859 24.0234 4.49805L13.4277 12.457C12.8418 12.8965 12.1094 12.8965 11.5234 12.457L0.927734 4.49805C0.341797 4.05859 0 3.375 0 2.59375C0 1.32422 1.02539 0.25 2.34375 0.25H22.6562ZM10.5957 13.7266C11.7188 14.5566 13.2324 14.5566 14.3555 13.7266L25 5.71875V15.875C25 17.6328 23.584 19 21.875 19H3.125C1.36719 19 0 17.6328 0 15.875V5.71875L10.5957 13.7266Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>E-mail</span>
-                                        <a href="mailto:info@izzymigration.com">
-                                            <h6>info@izzymigration.com</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-icon">
-                                        <a href="/contact">
-                                            <svg width="19" height="26" viewBox="0 0 19 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M8.20312 24.5391C5.66406 21.3652 0 13.7969 0 9.5C0 4.32422 4.15039 0.125 9.375 0.125C14.5508 0.125 18.75 4.32422 18.75 9.5C18.75 13.7969 13.0371 21.3652 10.498 24.5391C9.91211 25.2715 8.78906 25.2715 8.20312 24.5391ZM9.375 12.625C11.084 12.625 12.5 11.2578 12.5 9.5C12.5 7.79102 11.084 6.375 9.375 6.375C7.61719 6.375 6.25 7.79102 6.25 9.5C6.25 11.2578 7.61719 12.625 9.375 12.625Z" fill="#83CD20"/>
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Location</span>
-                                        <a href="https://maps.app.goo.gl/R8Y6ZY6s1KrcGWc67">
-                                            <h6>6th Floor, Number One Building, <br /> Akin Adesola Street, Victoria Island, Lagos, Nigeria</h6>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="media-content wow fadeInLeft animated" data-wow-delay=".6s">
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Monday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Tuesday-Friday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div className="latest-contact-us-2-media-content-contact">
-                                    <div className="latest-contact-us-2-media-content-contact-text">
-                                        <span>Saturday</span>
-                                        <h5>
-                                            <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 20.5C4.45312 20.5 0 16.0469 0 10.5C0 4.99219 4.45312 0.5 10 0.5C15.5078 0.5 20 4.99219 20 10.5C20 16.0469 15.5078 20.5 10 20.5ZM9.0625 10.5C9.0625 10.8125 9.21875 11.125 9.45312 11.2812L13.2031 13.7812C13.6328 14.0938 14.2188 13.9766 14.4922 13.5469C14.8047 13.1172 14.6875 12.5312 14.2578 12.2188L10.9375 10.0312V5.1875C10.9375 4.67969 10.5078 4.25 9.96094 4.25C9.45312 4.25 9.02344 4.67969 9.02344 5.1875L9.0625 10.5Z" fill="#83CD20"/>
-                                            </svg>
-                                            9 am - 8 pm
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="tab-content" data-tilt>
-                                <img src="/assets/imgs/concact/contact-tap-img4.png" alt="" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    </main>
+      {/* Global Call to Action */}
+      <CtaBand />
+    </>
   );
 }
