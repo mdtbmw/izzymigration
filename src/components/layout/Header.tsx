@@ -9,8 +9,8 @@ import { siteConfig } from "@/data/siteConfig";
 import { SearchModal } from "./SearchModal";
 import { cn } from "@/lib/utils";
 
-const citizenship = programs.filter((p) => p.type === "citizenship" && p.id !== "vanuatu-ciip");
-const residency = programs.filter((p) => p.type === "residency");
+const citizenship = programs.filter((p) => p.type === "citizenship" && p.id !== "vanuatu-ciip").sort((a, b) => a.country.localeCompare(b.country) || a.title.localeCompare(b.title));
+const residency = programs.filter((p) => p.type === "residency").sort((a, b) => a.country.localeCompare(b.country) || a.title.localeCompare(b.title));
 
 interface MenuItem {
   label: string;

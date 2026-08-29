@@ -51,8 +51,13 @@ export function ProgrammeCatalogue({ fixedType, max }: ProgrammeCatalogueProps) 
           p.region.toLowerCase().includes(q)
       );
     }
-    if (sort === "low-to-high") list = [...list].sort((a, b) => parseInvestmentAmount(a.minInvestment) - parseInvestmentAmount(b.minInvestment));
-    if (sort === "high-to-low") list = [...list].sort((a, b) => parseInvestmentAmount(b.minInvestment) - parseInvestmentAmount(a.minInvestment));
+    if (sort === "default") {
+      list = [...list].sort((a, b) => a.country.localeCompare(b.country) || a.title.localeCompare(b.title));
+    } else if (sort === "low-to-high") {
+      list = [...list].sort((a, b) => parseInvestmentAmount(a.minInvestment) - parseInvestmentAmount(b.minInvestment));
+    } else if (sort === "high-to-low") {
+      list = [...list].sort((a, b) => parseInvestmentAmount(b.minInvestment) - parseInvestmentAmount(a.minInvestment));
+    }
     if (max && list.length > max) list = list.slice(0, max);
     return list;
   }, [type, region, search, sort, max]);
