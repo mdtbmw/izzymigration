@@ -32,11 +32,12 @@ const NAV: MenuItem[] = [
   },
   { label: "Citizenship", href: "/citizenship", mega: "citizenship" },
   { label: "Residency", href: "/residency", mega: "residency" },
+  { label: "Real Estate", href: "/real-estate" },
   {
     label: "Other",
-    href: "/real-estate",
+    href: "/retirement",
     children: [
-      { label: "Real Estate", href: "/real-estate" },
+      { label: "Retirement Visas", href: "/retirement" },
       { label: "Ancestry", href: "/ancestry" },
       { label: "Cruise & Travel", href: "/cruise-travel" },
     ],

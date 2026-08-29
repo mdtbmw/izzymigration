@@ -2659,8 +2659,103 @@ export const programs: Program[] = [
       ],
       "lifestyleImage": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=85",
       "propertyImage": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+      "id": "spain-non-lucrative",
+      "title": "Spain Non-Lucrative & Retirement Visa",
+      "type": "residency",
+      "region": "Europe",
+      "country": "Spain",
+      "flag": "assets/imgs/flags/es.svg",
+      "hero": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1400&q=85",
+      "minInvestment": "\u20ac28,800 / year (\u20ac2,400/month)",
+      "processing": "2-3 months",
+      "intro": "The Spain Non-Lucrative Visa (Visado de Residencia No Lucrativa) allows retirees and financially self-sufficient individuals to reside in Spain based on guaranteed recurring passive income or substantial savings, with full access to the Schengen Area.",
+      "benefits": [
+          "Full visa-free mobility across all 29 European Schengen Area countries",
+          "Zero mandatory investment or property purchase requirements",
+          "Right to include spouse and dependent children under a unified family petition",
+          "Eligibility for Spanish Permanent Residency after 5 years and Citizenship after 10 years (or 2 years for Ibero-American nationals)",
+          "World-renowned Mediterranean climate, lifestyle, and healthcare infrastructure"
+      ],
+      "options": [
+          {
+              "t": "Individual Retiree Passive Income",
+              "price": "\u20ac28,800 / year (\u20ac2,400/mo)",
+              "desc": "Proof of monthly pension, dividends, or rental income equal to 400% of the Spanish IPREM index."
+          },
+          {
+              "t": "Family Passive Income Route",
+              "price": "\u20ac36,000+ / year",
+              "desc": "Primary applicant threshold + \u20ac7,200/year (100% IPREM) for each included dependent."
+          }
+      ],
+      "requirements": [
+          "Proof of regular passive income or bank balance meeting statutory IPREM requirements for 12 months.",
+          "Comprehensive private health insurance with an authorized Spanish insurance provider.",
+          "Clean criminal record certificates from all countries of residence during past 5 years.",
+          "Medical certificate confirming absence of public health risk diseases."
+      ],
+      "faqs": [
+          {
+              "q": "Can I work in Spain on a Non-Lucrative Visa?",
+              "a": "The visa is designed for non-working residents; however, foreign passive income, investments, and remote businesses outside Spain are fully permitted."
+          },
+          {
+              "q": "What is the stay requirement to maintain the visa?",
+              "a": "To maintain and renew the visa, residents typically spend at least 183 days per year in Spain, which also establishes tax residency."
+          }
+      ],
+      "lifestyleImage": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=85",
+      "propertyImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85"
+  },
+  {
+      "id": "greece-fip",
+      "title": "Greece Financially Independent Person (FIP) & Retirement Visa",
+      "type": "residency",
+      "region": "Europe",
+      "country": "Greece",
+      "flag": "assets/imgs/flags/gr.svg",
+      "hero": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1400&q=85",
+      "minInvestment": "\u20ac2,000 / month (\u20ac24,000/year)",
+      "processing": "2-3 months",
+      "intro": "The Greece Financially Independent Person (FIP) Visa grants a 2-year renewable residence permit to non-EU retirees and private clients with stable recurring passive income, paired with a favorable 7% flat pensioner tax regime in Greece.",
+      "benefits": [
+          "Full visa-free access throughout the 29 Schengen Area countries",
+          "Attractive 7% flat income tax rate on foreign pension income for 15 years",
+          "Zero real estate investment required to qualify",
+          "Inclusion of spouse and dependent children under 18",
+          "Pathway to EU Permanent Residency after 5 years of legal residence"
+      ],
+      "options": [
+          {
+              "t": "Individual FIP Route",
+              "price": "\u20ac2,000 / month (\u20ac24,000/year)",
+              "desc": "Proof of monthly pension, rental income, or dividend distributions deposited into a Greek bank account."
+          },
+          {
+              "t": "Family FIP Package",
+              "price": "\u20ac2,400+ / month",
+              "desc": "Base threshold + 20% for spouse (\u20ac400/mo) and 15% for each child (\u20ac300/mo)."
+          }
+      ],
+      "requirements": [
+          "Proof of steady monthly passive income of at least \u20ac2,000.",
+          "Funded Greek bank account covering initial stay expenses.",
+          "Clean international criminal background check.",
+          "Comprehensive health insurance policy covering medical care in Greece."
+      ],
+      "faqs": [
+          {
+              "q": "How does the Greece 7% flat pensioner tax work?",
+              "a": "Foreign retirees who transfer their tax residency to Greece can qualify for a 7% flat tax rate on all foreign-sourced pension income for a period of up to 15 years."
+          }
+      ],
+      "lifestyleImage": "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=85",
+      "propertyImage": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=85"
   }
 ];
+
 export function getProgramById(id: string): Program | undefined {
   return programs.find((p) => p.id === id);
 }
