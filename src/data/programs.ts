@@ -2658,7 +2658,7 @@ export const programs: Program[] = [
           }
       ],
       "lifestyleImage": "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=85",
-      "propertyImage": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=85"
+      "propertyImage": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=85"
   },
   {
       "id": "spain-non-lucrative",
@@ -2706,7 +2706,7 @@ export const programs: Program[] = [
               "a": "To maintain and renew the visa, residents typically spend at least 183 days per year in Spain, which also establishes tax residency."
           }
       ],
-      "lifestyleImage": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1200&q=85",
+      "lifestyleImage": "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1200&q=85",
       "propertyImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=85"
   },
   {

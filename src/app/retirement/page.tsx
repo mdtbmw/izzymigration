@@ -56,7 +56,7 @@ const RETIREMENT_PROGRAMS = [
     processing: "3-4 months",
     tag: "Schengen & EU Passport Path",
     desc: "Live in Europe's sunniest haven with access to top-tier public healthcare (SNS), full Schengen mobility across 29 countries, and a direct statutory pathway to European Union citizenship after 5 years.",
-    img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=85",
+    img: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=85",
     highlights: ["Schengen visa-free travel", "0 mandatory real estate purchase", "Access to national healthcare", "EU citizenship eligibility in 5 years"],
   },
   {
@@ -152,7 +152,7 @@ const RETIREMENT_PROGRAMS = [
     processing: "2-3 months",
     tag: "Lifetime EU Island PR",
     desc: "Lifelong European permanent residence permit for pensioners with verified overseas income, enjoying 340 days of sunshine, English common law jurisdiction, and non-dom tax exemptions.",
-    img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=85",
+    img: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&w=1000&q=85",
     highlights: ["Lifetime permanent residency", "0% tax on dividends & interest for non-doms", "English-speaking legal & banking system", "Path to Cyprus EU citizenship"],
   },
 ];
@@ -192,7 +192,7 @@ export default function RetirementVisasPage() {
       <PageHero
         title="Global Sovereign Retirement &amp; Pension Visas"
         subtitle="Secure permanent residency in the world's premier retirement havens with verified healthcare, zero tax on foreign pensions, and full legal certainty for your family."
-        bgImage="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1800&q=85"
+        bgImage="/assets/imgs/projact/projact-img4.jpg"
         crumb={[{ label: "Retirement Visas" }]}
       />
 
